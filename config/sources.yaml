@@ -1,0 +1,32 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Long videos to clip. Add one, commit, and the clip workflow runs by itself.
+# (Or use Actions → "Clip" → Run workflow and paste a URL, even from your phone.)
+#
+#   url          YouTube / Twitch / Kick VOD, most video sites, or a direct .mp4 link
+#                (Dropbox: change ?dl=0 to ?dl=1). Use your OWN footage or footage
+#                you have permission to use.
+#   brands       which brands get clips from it (default: all)
+#   distribute   split = each clip goes to ONE brand (spread evenly)  ← safest
+#                all   = every brand gets every clip, each a slightly altered copy
+#   start / end  only use part of a long stream, e.g. "00:30:00" to "02:10:00"
+#   credit       e.g. "@streamer on Twitch" — added to every caption
+#   game         topic for titles/hashtags (default: the brand's first niche)
+#   title_hint   short label used in built-in titles
+#   max_clips    cap for this source (default: settings.clipping.max_clips_per_source)
+#   layout       override: blur | crop | split (split = facecam on top, gameplay below)
+#   enabled      false to skip
+# ─────────────────────────────────────────────────────────────────────────────
+
+sources: []
+#  - url: "https://www.twitch.tv/videos/1234567890"
+#    brands: [gta_chaos, gta_funny, naija_gamer]
+#    distribute: split
+#    start: "00:15:00"
+#    end: "03:00:00"
+#    credit: "@mystreamer on Twitch"
+#    game: "GTA 6"
+#
+#  - url: "https://www.youtube.com/watch?v=XXXXXXXXXXX"
+#    brands: [vice_city_daily, clip_vault]
+#    distribute: all
+#    max_clips: 6

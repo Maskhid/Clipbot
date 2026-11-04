@@ -1,0 +1,62 @@
+# Everything here is optional; anything you delete falls back to a sensible default.
+
+timezone: Africa/Lagos          # used for `status` output and accounts without a timezone
+
+clipping:
+  whisper_model: base           # tiny (fastest) | base | small (better words, ~3x slower)
+  language: null                # null = auto-detect, or "en"
+  min_clip_seconds: 15
+  max_clip_seconds: 58          # keep under 60 for Shorts/Reels/FB Reels (FB max is 90)
+  clips_per_hour: 8             # how many clips per hour of source video
+  max_clips_per_source: 12
+  layout: blur                  # blur  = blurred background + zoomed gameplay (no info lost)
+                                # crop  = fill the screen (center crop), crop_x 0..1 moves it
+                                # split = facecam on top, gameplay below (set split.facecam)
+  fg_zoom: 1.25
+  crop_x: 0.5
+  split:
+    facecam: [0.0, 0.0, 0.25, 0.25]   # x, y, width, height as fractions of the source frame
+    top_height: 640
+  fps: 30
+  hook_seconds: 3.0             # how long the hook banner shows at the top
+  caption:
+    enabled: true
+    size: 112
+    color: "#FFFFFF"
+    highlight: "#FFE600"
+    words_per_line: 3
+    uppercase: true
+    position: 0.70              # 0 = top, 1 = bottom
+
+llm:
+  # Optional AI that picks the best moments and writes titles/captions. Free options:
+  #   gemini            → key from https://aistudio.google.com/apikey , model e.g. gemini-2.5-flash
+  #   openai_compatible → Groq (https://console.groq.com/keys) base_url https://api.groq.com/openai/v1,
+  #                       model e.g. llama-3.3-70b-versatile ; or OpenRouter free models
+  # Put the key in the LLM_API_KEY GitHub secret. With provider: none a built-in writer is used.
+  provider: none
+  model: gemini-2.5-flash
+  base_url: https://api.groq.com/openai/v1
+  language: English
+
+posting:
+  min_gap_minutes: 90           # minimum time between two posts on the same account
+  jitter_minutes: 20            # random shift so times aren't robotic
+  same_clip_spread_minutes: 150 # same clip on two different brands: at least this far apart
+  max_posts_per_run: 12
+  retry_attempts: 3
+  retry_backoff_minutes: 45
+  dry_run: false                # true = do everything except actually upload
+
+variants:                       # only used for clips shared across brands (distribute: all)
+  zoom: [1.0, 1.06]
+  speed: [1.0, 1.03]
+  saturation: [0.94, 1.08]
+  brightness: [-0.03, 0.03]
+
+meta:
+  graph_version: v25.0
+
+storage:
+  backend: github               # rendered clips wait in this repo's Releases until posted
+  keep_days: 21

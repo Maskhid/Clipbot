@@ -1,0 +1,101 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Your accounts, grouped into BRANDS.
+#
+# A brand is one "page identity" that exists on several platforms, e.g. "gta_chaos" =
+# the YouTube channel + TikTok + Instagram + Facebook Page that share a name.
+# The same clip going to one brand's 4 platforms is normal cross-posting.
+# Different brands get DIFFERENT clips (distribute: split) unless a source says
+# distribute: all, in which case each brand gets its own lightly-altered copy.
+#
+# 5 brands x 4 platforms = 20 accounts. Rename everything to match yours, delete
+# platforms a brand doesn't have, and set enabled: false to pause an account.
+#
+# Account fields
+#   id            unique name you choose (used by the auth commands)
+#   platform      youtube | tiktok | instagram | facebook
+#   handle        @username (TikTok/IG: used for links and to match the IG account)
+#   page          Facebook Page name, exactly as on Facebook (facebook + instagram)
+#   posts_per_day how many posts per day
+#   windows       local times to post in, in `timezone` (your audience's time zone)
+#   timezone      e.g. America/New_York, Europe/London, Africa/Lagos
+#   privacy       public | private  (YouTube also: unlisted)
+#   tiktok_mode   inbox (works before TikTok audits your app) | direct (after audit)
+#   daily_cap     hard max per 24h (defaults: YT 15, TikTok 5, IG 25, FB 25)
+#   mode: manual  don't upload; send me the clip link + text to post myself
+#                 (handy for YouTube while your API audit is pending)
+# ─────────────────────────────────────────────────────────────────────────────
+
+brands:
+
+  gta_chaos:
+    niches: [GTA 6]
+    caption_style: hype          # hype | funny | chill | news
+    hashtags: ["#gta6", "#gta", "#gtavi", "#gaming"]
+    watermark: "@gtachaos"       # small text burned into the clip; remove the line for none
+    accounts:
+      - id: gta_chaos_yt
+        platform: youtube
+        posts_per_day: 3
+        windows: ["12:00-14:00", "17:00-23:00"]
+        timezone: America/New_York
+      - id: gta_chaos_tt
+        platform: tiktok
+        handle: "@gtachaos"
+        tiktok_mode: inbox
+        posts_per_day: 3
+        windows: ["12:00-14:00", "18:00-23:30"]
+        timezone: America/New_York
+      - id: gta_chaos_ig
+        platform: instagram
+        handle: "@gtachaos"
+        page: "GTA Chaos"
+        posts_per_day: 2
+        windows: ["11:00-13:00", "19:00-22:00"]
+        timezone: America/New_York
+      - id: gta_chaos_fb
+        platform: facebook
+        page: "GTA Chaos"
+        posts_per_day: 2
+        windows: ["12:00-15:00", "19:00-22:00"]
+        timezone: America/New_York
+
+  gta_funny:
+    niches: [GTA 6]
+    caption_style: funny
+    hashtags: ["#gta6", "#gtafunny", "#funnymoments", "#gaming"]
+    watermark: "@gtafunny"
+    accounts:
+      - {id: gta_funny_yt, platform: youtube,  posts_per_day: 3, windows: ["13:00-15:00", "18:00-23:00"], timezone: America/Chicago}
+      - {id: gta_funny_tt, platform: tiktok,   handle: "@gtafunny", posts_per_day: 3, windows: ["13:00-15:00", "19:00-23:30"], timezone: America/Chicago}
+      - {id: gta_funny_ig, platform: instagram, handle: "@gtafunny", page: "GTA Funny", posts_per_day: 2, windows: ["12:00-14:00", "19:00-22:00"], timezone: America/Chicago}
+      - {id: gta_funny_fb, platform: facebook, page: "GTA Funny", posts_per_day: 2, windows: ["12:00-15:00", "19:00-22:00"], timezone: America/Chicago}
+
+  vice_city_daily:
+    niches: [GTA 6]
+    caption_style: news
+    hashtags: ["#gta6", "#vicecity", "#gtavi"]
+    accounts:
+      - {id: vice_daily_yt, platform: youtube,  posts_per_day: 2, windows: ["10:00-12:00", "17:00-21:00"], timezone: Europe/London}
+      - {id: vice_daily_tt, platform: tiktok,   handle: "@vicecitydaily", posts_per_day: 2, windows: ["11:00-13:00", "18:00-22:00"], timezone: Europe/London}
+      - {id: vice_daily_ig, platform: instagram, handle: "@vicecitydaily", page: "Vice City Daily", posts_per_day: 2, windows: ["11:00-13:00", "18:00-21:00"], timezone: Europe/London}
+      - {id: vice_daily_fb, platform: facebook, page: "Vice City Daily", posts_per_day: 2, windows: ["12:00-14:00", "18:00-21:00"], timezone: Europe/London}
+
+  naija_gamer:
+    niches: [GTA 6]
+    caption_style: hype
+    hashtags: ["#gta6", "#naijagamer", "#gaming"]
+    accounts:
+      - {id: naija_gamer_yt, platform: youtube,  posts_per_day: 2, windows: ["12:00-14:00", "18:00-22:00"], timezone: Africa/Lagos}
+      - {id: naija_gamer_tt, platform: tiktok,   handle: "@naijagamer", posts_per_day: 3, windows: ["12:00-14:00", "18:00-23:00"], timezone: Africa/Lagos}
+      - {id: naija_gamer_ig, platform: instagram, handle: "@naijagamer", page: "Naija Gamer", posts_per_day: 2, windows: ["12:00-14:00", "19:00-22:00"], timezone: Africa/Lagos}
+      - {id: naija_gamer_fb, platform: facebook, page: "Naija Gamer", posts_per_day: 2, windows: ["12:00-15:00", "19:00-22:00"], timezone: Africa/Lagos}
+
+  clip_vault:
+    niches: [GTA 6]
+    caption_style: chill
+    hashtags: ["#gta6", "#gamingclips", "#ps5"]
+    accounts:
+      - {id: clip_vault_yt, platform: youtube,  posts_per_day: 2, windows: ["14:00-16:00", "19:00-23:00"], timezone: America/Los_Angeles}
+      - {id: clip_vault_tt, platform: tiktok,   handle: "@clipvault", posts_per_day: 2, windows: ["15:00-17:00", "19:00-23:00"], timezone: America/Los_Angeles}
+      - {id: clip_vault_ig, platform: instagram, handle: "@clipvault", page: "Clip Vault", posts_per_day: 2, windows: ["12:00-14:00", "19:00-22:00"], timezone: America/Los_Angeles}
+      - {id: clip_vault_fb, platform: facebook, page: "Clip Vault", posts_per_day: 2, windows: ["12:00-15:00", "19:00-22:00"], timezone: America/Los_Angeles}

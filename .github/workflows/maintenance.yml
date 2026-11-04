@@ -1,0 +1,44 @@
+name: Maintenance
+
+on:
+  schedule:
+    - cron: "23 3 * * 1"   # Mondays 03:23 UTC
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "What to do"
+        type: choice
+        options: [cleanup, reschedule, retry-failed]
+        default: cleanup
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clipbot-post   # never at the same time as a post run
+  cancel-in-progress: false
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests PyYAML cryptography
+      - name: Run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ACTION: ${{ inputs.action || 'cleanup' }}
+        run: |
+          case "$ACTION" in
+            cleanup) python -m clipbot cleanup ;;
+            reschedule) python -m clipbot reschedule ;;
+            retry-failed) python -m clipbot retry ;;
+          esac
+          python -m clipbot status
+      - name: Save state
+        if: always()
+        run: 'bash scripts/commit_state.sh "clipbot: maintenance"'

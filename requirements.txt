@@ -1,0 +1,8 @@
+# Posting only needs these three
+requests>=2.31
+PyYAML>=6.0
+cryptography>=42.0
+# Clipping also needs these
+yt-dlp>=2025.1.1
+faster-whisper>=1.0.3
+numpy>=1.26

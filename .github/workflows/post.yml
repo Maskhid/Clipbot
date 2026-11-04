@@ -1,0 +1,56 @@
+name: Post
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # every hour at :17 (GitHub may start it a few minutes late)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (do everything except upload)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clipbot-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install (light)
+        run: pip install -q requests PyYAML cryptography
+
+      - name: Anything due?
+        id: check
+        run: python -m clipbot post --check
+
+      - name: Install ffmpeg
+        if: steps.check.outputs.has_due == 'true'
+        run: which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg)
+
+      - name: Post
+        if: steps.check.outputs.has_due == 'true'
+        env:
+          VAULT_KEY: ${{ secrets.VAULT_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then python -m clipbot post --dry-run; else python -m clipbot post; fi
+
+      - name: Save state
+        if: always() && steps.check.outputs.has_due == 'true'
+        run: 'bash scripts/commit_state.sh "clipbot: post run"'

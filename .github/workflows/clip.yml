@@ -1,0 +1,97 @@
+name: Clip
+
+on:
+  push:
+    paths:
+      - config/sources.yaml
+  schedule:
+    - cron: "40 */6 * * *"   # picks up anything that failed earlier
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Video / stream URL to clip (leave blank to just process sources.yaml)"
+        required: false
+      brands:
+        description: "Brands, comma separated (blank = all brands)"
+        required: false
+      distribute:
+        description: "split = each clip to one brand, all = every brand gets every clip"
+        type: choice
+        options: [split, all]
+        default: split
+      start:
+        description: "Start time, e.g. 00:20:00 (optional)"
+        required: false
+      end:
+        description: "End time, e.g. 02:00:00 (optional)"
+        required: false
+      credit:
+        description: "Credit line, e.g. @streamer on Twitch (optional)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clipbot-clip
+  cancel-in-progress: false
+
+jobs:
+  clip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install (light)
+        run: pip install -q requests PyYAML cryptography
+
+      - name: Add source from the form
+        if: inputs.url != ''
+        env:
+          URL: ${{ inputs.url }}
+          BRANDS: ${{ inputs.brands }}
+          DIST: ${{ inputs.distribute }}
+          START: ${{ inputs.start }}
+          END: ${{ inputs.end }}
+          CREDIT: ${{ inputs.credit }}
+        run: |
+          args=("$URL" --distribute "$DIST")
+          [ -n "$BRANDS" ] && args+=(--brands "$BRANDS")
+          [ -n "$START" ] && args+=(--start "$START")
+          [ -n "$END" ] && args+=(--end "$END")
+          [ -n "$CREDIT" ] && args+=(--credit "$CREDIT")
+          python -m clipbot add-source "${args[@]}"
+
+      - name: Anything to clip?
+        id: check
+        run: python -m clipbot clip --check
+
+      - name: Install ffmpeg + clipping tools
+        if: steps.check.outputs.has_work == 'true'
+        run: |
+          which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg)
+          pip install -q -r requirements.txt
+
+      - name: Cache speech model
+        if: steps.check.outputs.has_work == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-models-v1
+
+      - name: Clip
+        if: steps.check.outputs.has_work == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          YTDLP_COOKIES: ${{ secrets.YTDLP_COOKIES }}
+        run: python -m clipbot clip
+
+      - name: Save state
+        if: always()
+        run: 'bash scripts/commit_state.sh "clipbot: clip run"'
