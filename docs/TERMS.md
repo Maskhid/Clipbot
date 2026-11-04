@@ -1,8 +1,8 @@
 # Terms of Service — ClipBot
 
-_Last updated: [11/4/2026]_
+_Last updated: 4 November 2026_
 
-ClipBot is a private, internal tool operated by [Abdulhameed Abdulmalik] to schedule and publish video clips to social media accounts owned by its operator. It is not a public service and has no other users.
+ClipBot is a private, internal tool operated by Abdulhameed Abdulmalik to schedule and publish video clips to social media accounts owned by its operator. It is not a public service and has no other users.
 
 1. **YouTube.** ClipBot uses the YouTube API Services. By using ClipBot's YouTube features you agree to be bound by the **YouTube Terms of Service**: https://www.youtube.com/t/terms. Use of YouTube data is also subject to the **Google Privacy Policy**: https://policies.google.com/privacy
 2. **Privacy.** How ClipBot handles data is described in the [ClipBot Privacy Policy](PRIVACY.md).
@@ -12,4 +12,4 @@ ClipBot is a private, internal tool operated by [Abdulhameed Abdulmalik] to sche
 6. **No warranty.** ClipBot is provided as-is, without warranty of any kind.
 7. **Changes.** These terms may be updated at any time. The date above shows the latest version.
 
-**Contact:** [peaktheclipper@gmail.com]
+**Contact:** peaktheclipper@gmail.com

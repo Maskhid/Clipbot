@@ -1,8 +1,8 @@
 # Privacy Policy — ClipBot
 
-_Last updated: [11/4/2026]_
+_Last updated: 4 November 2026_
 
-ClipBot is a private tool operated by [Abdulhameed Abdulmalik] ("I") to publish my own video clips to social media accounts that I own, and to measure how those videos perform. It is not offered to the public and has no other users.
+ClipBot is a private tool operated by Abdulhameed Abdulmalik ("I") to publish my own video clips to social media accounts that I own, and to measure how those videos perform. It is not offered to the public and has no other users.
 
 ## YouTube API Services
 
@@ -37,7 +37,7 @@ ClipBot does **not** access other users' data, private messages, comments' autho
 - Video statistics are kept for at most **90 days** and are then deleted automatically.
 - Stored YouTube API data is refreshed or deleted at least every 30 days, as the YouTube API Services Developer Policies require.
 - Access can be revoked at any time through the **Google security settings page**: https://security.google.com/settings/security/permissions. Revoking access makes the stored token useless, and its data is deleted at the next update.
-- To request deletion of any stored data, email [YOUR EMAIL]. It will be deleted within 7 days.
+- To request deletion of any stored data, email peaktheclipper@gmail.com. It will be deleted within 7 days.
 
 ## Cookies
 
@@ -45,4 +45,4 @@ ClipBot does not use cookies and does not place any information on users' device
 
 ## Contact
 
-[Abdulhameed Abdulmalik] — [peaktheclipper@gmail.com]
+Abdulhameed Abdulmalik — peaktheclipper@gmail.com
