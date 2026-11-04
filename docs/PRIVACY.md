@@ -2,7 +2,7 @@
 
 _Last updated: [11/4/2026]_
 
-ClipBot is a private tool operated by [YOUR NAME] ("I") to publish my own video clips to social media accounts that I own, and to measure how those videos perform. It is not offered to the public and has no other users.
+ClipBot is a private tool operated by [Abdulhameed Abdulmalik] ("I") to publish my own video clips to social media accounts that I own, and to measure how those videos perform. It is not offered to the public and has no other users.
 
 ## YouTube API Services
 

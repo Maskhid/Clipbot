@@ -2,7 +2,7 @@
 
 _Last updated: [11/4/2026]_
 
-ClipBot is a private, internal tool operated by [YOUR NAME] to schedule and publish video clips to social media accounts owned by its operator. It is not a public service and has no other users.
+ClipBot is a private, internal tool operated by [Abdulhameed Abdulmalik] to schedule and publish video clips to social media accounts owned by its operator. It is not a public service and has no other users.
 
 1. **YouTube.** ClipBot uses the YouTube API Services. By using ClipBot's YouTube features you agree to be bound by the **YouTube Terms of Service**: https://www.youtube.com/t/terms. Use of YouTube data is also subject to the **Google Privacy Policy**: https://policies.google.com/privacy
 2. **Privacy.** How ClipBot handles data is described in the [ClipBot Privacy Policy](PRIVACY.md).
