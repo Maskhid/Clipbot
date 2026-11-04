@@ -1,0 +1,2 @@
+# Clipbot
+clip
