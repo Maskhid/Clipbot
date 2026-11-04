@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Your accounts, grouped into BRANDS.
 #
-# A brand is one "page identity" that exists on several platforms, e.g. "gta_chaos" =
+# A brand is one "page identity" that exists on several platforms, e.g. "peakgaminggt" =
 # the YouTube channel + TikTok + Instagram + Facebook Page that share a name.
 # The same clip going to one brand's 4 platforms is normal cross-posting.
 # Different brands get DIFFERENT clips (distribute: split) unless a source says
@@ -27,32 +27,32 @@
 
 brands:
 
-  gta_chaos:
+  peakgaminggt:
     niches: [GTA 6]
     caption_style: hype          # hype | funny | chill | news
     hashtags: ["#gta6", "#gta", "#gtavi", "#gaming"]
-    watermark: "@gtachaos"       # small text burned into the clip; remove the line for none
+    watermark: "@peakgamingGT"       # small text burned into the clip; remove the line for none
     accounts:
-      - id: gta_chaos_yt
+      - id: peakgaminggt_yt
         platform: youtube
         posts_per_day: 3
         windows: ["12:00-14:00", "17:00-23:00"]
         timezone: America/New_York
-      - id: gta_chaos_tt
+      - id: peakgaminggt_tt
         platform: tiktok
-        handle: "@gtachaos"
+        handle: "@peakgamingGT"
         tiktok_mode: inbox
         posts_per_day: 3
         windows: ["12:00-14:00", "18:00-23:30"]
         timezone: America/New_York
-      - id: gta_chaos_ig
+      - id: peakgaminggt_ig
         platform: instagram
-        handle: "@gtachaos"
+        handle: "@peakgamingGT"
         page: "GTA Chaos"
         posts_per_day: 2
         windows: ["11:00-13:00", "19:00-22:00"]
         timezone: America/New_York
-      - id: gta_chaos_fb
+      - id: peakgaminggt_fb
         platform: facebook
         page: "GTA Chaos"
         posts_per_day: 2
