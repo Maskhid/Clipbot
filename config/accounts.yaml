@@ -40,7 +40,7 @@ brands:
         timezone: America/New_York
       - id: peakgaminggt_tt
         platform: tiktok
-        handle: "@peakgamingGT"
+        handle: "@peak.gaminggt"
         tiktok_mode: inbox
         posts_per_day: 3
         windows: ["12:00-14:00", "18:00-23:30"]
