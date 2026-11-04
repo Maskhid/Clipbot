@@ -114,7 +114,7 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 else:
                     log.info("Posting %s -> %s (%s)", clip["id"], acc.id, acc.platform)
                     res = get_uploader(acc.platform).post(acc, vault, video, meta, cfg.settings)
-                rec = {**base, "status": "posted", "posted_at": iso(utcnow()), "remote_id": res.get("id"),
+                rec = {**base, "status": "posted", "posted_at": iso(utcnow()), "remote_id": res.get("id"), "post_id": res.get("post_id"),
                        "url": res.get("url", ""), "dry_run": dry, "attempts": prev.get("attempts", 0) + 1}
                 state.save_result(job["id"], rec)
                 counts[acc.id] = counts.get(acc.id, 0) + 1

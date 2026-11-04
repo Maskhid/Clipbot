@@ -73,7 +73,8 @@ At this stage every account shows ✗, because nothing is connected yet.
 1. Open https://developers.facebook.com/tools/explorer.
 2. On the right, set **Meta App** to your app and **User or Page** to **User Token**.
 3. Under **Permissions**, add:
-   `pages_show_list, pages_read_engagement, pages_manage_posts, publish_video, instagram_basic, instagram_content_publish, business_management`
+   `pages_show_list, pages_read_engagement, pages_manage_posts, publish_video, read_insights, instagram_basic, instagram_content_publish, instagram_manage_insights, business_management`
+   The two `insights` permissions let the weekly performance report read view counts.
 4. Click **Generate Access Token**. In the popup, **select every Page and every Instagram account** you want ClipBot to manage, and approve.
 5. Copy the token. Then, in the Codespace:
    ```bash
@@ -95,7 +96,7 @@ At this stage every account shows ✗, because nothing is connected yet.
 3. **Add products:**
    - **Login Kit:** set the **Redirect URI** to your repo URL, for example `https://github.com/YOU/clipbot`.
    - **Content Posting API:** enable it. **Direct Post** is optional, for later.
-4. **Scopes:** `user.info.basic`, `video.upload` (and `video.publish` if you'll use direct posting later).
+4. **Scopes:** `user.info.basic`, `user.info.stats`, `video.list` (these three are for the performance report), `video.upload` (and `video.publish` if you'll use direct posting later).
 5. **Submit the app for review.** While you wait (usually a few days), use **Sandbox** mode:
    - Create a sandbox.
    - Under **Target users**, add your TikTok accounts.
@@ -163,6 +164,7 @@ Add these under **Settings → Secrets and variables → Actions → New reposit
 3. Dry-run posting: run **Post → Run workflow** with **Dry run** ticked. The log shows what would be posted where.
 4. Go live. The Post workflow now runs every hour by itself. Open **Maintenance → Run workflow** at any time to see the schedule.
 5. Check your phone (Discord or Telegram) for the TikTok inbox reminders.
+6. Track performance. The **Stats** workflow takes a snapshot of every account daily, and on Mondays it sends you a summary ranking platforms and brands. The full report is in `reports/latest.md`, and every video is in `reports/videos.csv`. You can also run **Actions → Stats → Run workflow** any time.
 
 Whenever you change posting times in `accounts.yaml`, run **Maintenance → reschedule**.
 

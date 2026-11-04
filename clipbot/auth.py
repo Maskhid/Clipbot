@@ -90,7 +90,7 @@ def tiktok_app(vault: Vault, client_key: str, client_secret: str, redirect_uri: 
 def tiktok_account(cfg: Config, vault: Vault, account_id: str):
     acc = _accounts_for(cfg, "tiktok", account_id)[0]
     app = vault.app("tiktok")
-    scopes = "user.info.basic,video.upload" + (",video.publish" if acc.get("tiktok_mode") == "direct" else "")
+    scopes = "user.info.basic,user.info.stats,video.list,video.upload" + (",video.publish" if acc.get("tiktok_mode") == "direct" else "")
     url = "https://www.tiktok.com/v2/auth/authorize/?" + urlencode({
         "client_key": app["client_key"], "scope": scopes, "response_type": "code",
         "redirect_uri": app["redirect_uri"], "state": secrets.token_urlsafe(8)})

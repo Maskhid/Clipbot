@@ -1,0 +1,52 @@
+name: Stats
+
+on:
+  schedule:
+    - cron: "41 6 * * *"   # daily snapshot ~07:41 Lagos; the weekly summary is sent on Mondays
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Report window in days"
+        default: "7"
+      notify:
+        description: "Send the summary to Discord/Telegram"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clipbot-post   # shares the vault with posting, so never runs at the same time
+  cancel-in-progress: false
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests PyYAML cryptography
+      - name: Collect + report
+        env:
+          VAULT_KEY: ${{ secrets.VAULT_KEY }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DAYS: ${{ inputs.days || '7' }}
+          MANUAL: ${{ github.event_name == 'workflow_dispatch' }}
+          WANT_NOTIFY: ${{ inputs.notify }}
+        run: |
+          args=(--days "$DAYS")
+          if [ "$MANUAL" = "true" ]; then
+            [ "$WANT_NOTIFY" = "true" ] && args+=(--notify)
+          elif [ "$(date -u +%u)" = "1" ]; then
+            args+=(--notify)
+          fi
+          python -m clipbot stats "${args[@]}" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save state
+        if: always()
+        run: 'bash scripts/commit_state.sh "clipbot: stats"'

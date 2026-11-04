@@ -137,4 +137,4 @@ def post(acc, vault, video: Path, meta: dict, settings: dict) -> dict:
     note = None
     if mode != "direct":
         note = "In your TikTok inbox: open TikTok → notifications → tap to finish posting. Caption to paste:\n" + meta["text"]
-    return {"id": publish_id, "url": url, "status": status, "note": note}
+    return {"id": publish_id, "post_id": str(post_ids[0]) if post_ids else None, "url": url, "status": status, "note": note}
