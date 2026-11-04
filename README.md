@@ -1,5 +1,7 @@
 # ClipBot
 
+**[Privacy Policy](docs/PRIVACY.md)** · **[Terms of Service](docs/TERMS.md)** · Uses the **YouTube API Services** ([YouTube Terms of Service](https://www.youtube.com/t/terms) · [Google Privacy Policy](https://policies.google.com/privacy))
+
 A free agent that turns long gameplay videos and streams into vertical clips and posts them to **YouTube Shorts, TikTok, Instagram Reels and Facebook Reels** across many accounts. It runs on GitHub Actions, so it keeps working when your computer is off.
 
 ```
@@ -37,6 +39,7 @@ A free agent that turns long gameplay videos and streams into vertical clips and
   - `split`: every clip goes to one brand, and the brands get different clips. This is the safest option.
   - `all`: every brand gets every clip, but each brand receives its own slightly altered copy (zoom, speed, colour, fresh encode, stripped metadata), its own caption style, and a posting time at least 2.5 h away from the other brands.
 - **Human-like scheduling.** Each account has posts per day, time windows in the audience's time zone, random jitter, a minimum gap between posts, and a 24 h cap.
+- **Performance tracking.** Every day it snapshots views, likes, comments, shares and followers for every account. Each week you get a ranking by platform, brand and account, a head-to-head of the same clip across platforms (the fairest comparison), top posts, and a suggestion of which platforms to cut. A platform is only suggested once it trails on both views and follower growth over 10+ posts.
 - **Safe failure handling.** Failed posts retry with back-off, and errors that need you (such as an expired login) are reported instead of retried forever.
 - **Official APIs only.** There's no browser automation and no password sharing. Tokens are kept in an encrypted vault in the repo, and only your `VAULT_KEY` secret can open it.
 
@@ -50,6 +53,7 @@ A free agent that turns long gameplay videos and streams into vertical clips and
 | Pause an account | `enabled: false` on that account. |
 | Retry failed posts | **Maintenance → retry-failed**. |
 | Test without posting | **Actions → Post → Run workflow** with *Dry run* ticked, or set `posting.dry_run: true`. |
+| See what's working | **Actions → Stats** (also runs daily, with a summary every Monday) → open `reports/latest.md`. |
 | Post an account yourself | Give it `mode: manual`. You'll get the clip's download link and caption in Discord/Telegram. |
 
 ## Platform limits you should know
@@ -83,12 +87,14 @@ A free agent that turns long gameplay videos and streams into vertical clips and
 config/          accounts.yaml (brands + accounts), sources.yaml, settings.yaml
 clipbot/         the agent (python -m clipbot --help)
   pipeline.py    clip job        poster.py   post job        scheduler.py  timing
+  analytics.py   stats + weekly report
   highlights.py  moment finder   writer.py   titles/captions (AI optional)
   render.py      ffmpeg 9:16     captions.py word-by-word subtitles
   platforms/     youtube.py, tiktok.py, meta.py (Instagram + Facebook)
   auth.py        one-time account connection
-state/           queue + history + encrypted vault (committed by the workflows)
-.github/workflows/  clip.yml, post.yml, maintenance.yml
+state/           queue + history + metrics + encrypted vault (committed by the workflows)
+reports/         latest.md performance report + videos.csv
+.github/workflows/  clip.yml, post.yml, stats.yml, maintenance.yml
 tests/           python -m pytest
 ```
 
@@ -103,4 +109,5 @@ tests/           python -m pytest
 | Instagram/Facebook: code 190 | Re-run `python -m clipbot auth meta` with a fresh token (you changed your password or removed the app). |
 | Clip job: *"Sign in to confirm you're not a bot"* | YouTube is blocking GitHub's servers. Add a `YTDLP_COOKIES` secret (SETUP.md, optional step), or use a Twitch/Kick/direct link. |
 | Clip job times out | Long VOD: use `start`/`end`, or `whisper_model: tiny`. |
+| Report says "no view counts" or "no follower count" | Reconnect that platform after adding the stats permissions (SETUP.md Part 3c / Part 4 scopes). |
 | Push conflicts in Actions | Rare. The next run fixes itself. Avoid connecting accounts at the exact minute a Post run is going. |
