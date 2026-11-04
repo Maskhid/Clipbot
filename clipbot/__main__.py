@@ -153,6 +153,51 @@ def cmd_status(args):
             print(f"  {r['account']}: {r.get('error', '')[:160]}")
 
 
+def cmd_stats(args):
+    from . import analytics
+    from .notify import notify
+    from .vault import Vault
+
+    cfg = load_config()
+    if not args.report_only:
+        res = analytics.collect(cfg, Vault())
+        print(f"Collected stats for {len(res['ok'])} account(s); {len(res['errors'])} error(s).")
+        for e in res["errors"]:
+            print("  !", e)
+    path, summary = analytics.write_report(cfg, days=args.days)
+    print(f"Report written to {path.relative_to(path.parent.parent)}\n")
+    print(summary)
+    if args.notify:
+        repo = os.environ.get("GITHUB_REPOSITORY")
+        link = f"\nFull report: https://github.com/{repo}/blob/HEAD/reports/latest.md" if repo else ""
+        notify(cfg.settings, summary + link)
+
+
+def cmd_upload_test(args):
+    """Upload one video file straight to one account (for testing / the YouTube audit demo)."""
+    from pathlib import Path
+
+    from .platforms import get_uploader
+    from .vault import Vault
+
+    cfg = load_config()
+    acc = cfg.accounts.get(args.account)
+    if not acc:
+        sys.exit(f"No account '{args.account}' in config/accounts.yaml")
+    video = Path(args.file)
+    if not video.exists():
+        sys.exit(f"File not found: {video}")
+    title = args.title or "ClipBot test upload"
+    meta = {"title": title, "description": args.text or "Test upload from ClipBot.", "tags": ["test"], "text": args.text or title}
+    v = Vault()
+    print(f"Uploading {video.name} to {acc.id} ({acc.platform})...")
+    res = get_uploader(acc.platform).post(acc, v, video, meta, cfg.settings)
+    v.save()
+    print("Done:", res.get("url") or res.get("id"))
+    if res.get("note"):
+        print(res["note"])
+
+
 def cmd_reschedule(args):
     from .pipeline import reschedule_all
 
@@ -250,6 +295,19 @@ def main(argv=None):
     p = sub.add_parser("status", help="show the queue")
     p.add_argument("-n", type=int, default=25)
     p.set_defaults(fn=cmd_status)
+
+    p = sub.add_parser("stats", help="collect performance stats and write reports/latest.md")
+    p.add_argument("--days", type=int, default=7, help="report window (default 7)")
+    p.add_argument("--notify", action="store_true", help="send the summary to Discord/Telegram")
+    p.add_argument("--report-only", action="store_true", help="don't fetch, just rebuild the report")
+    p.set_defaults(fn=cmd_stats)
+
+    p = sub.add_parser("upload-test", help="upload one video file to one account right now")
+    p.add_argument("file")
+    p.add_argument("--account", required=True)
+    p.add_argument("--title")
+    p.add_argument("--text")
+    p.set_defaults(fn=cmd_upload_test)
 
     p = sub.add_parser("reschedule", help="re-plan unposted jobs after changing posting times")
     p.set_defaults(fn=cmd_reschedule)
