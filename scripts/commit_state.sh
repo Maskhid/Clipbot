@@ -7,7 +7,7 @@ set -uo pipefail
 msg="${1:-clipbot: update state}"
 git config user.name "clipbot[bot]"
 git config user.email "clipbot@users.noreply.github.com"
-git add -A state config/sources.yaml reports 2>/dev/null
+git add -A state config/sources.yaml; [ -d reports ] && git add -A reports
 if git diff --cached --quiet; then
   echo "No state changes to commit."
   exit 0
