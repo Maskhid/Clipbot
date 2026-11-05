@@ -126,7 +126,8 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     return made
 
 
-def run_clip(cfg: Config, state: State | None = None, only_url: str | None = None, keep_work: bool = False) -> list[dict]:
+def run_clip(cfg: Config, state: State | None = None, only_url: str | None = None, keep_work: bool = False,
+             errors: list | None = None) -> list[dict]:
     state = state or State()
     storage = get_storage(cfg.settings)
     now = utcnow()
@@ -148,6 +149,8 @@ def run_clip(cfg: Config, state: State | None = None, only_url: str | None = Non
             all_made += made
         except Exception as e:  # noqa: BLE001
             log.exception("Source failed: %s", src["url"])
+            if errors is not None:
+                errors.append(f"{src['url']}: {str(e)[:500]}")
             state.mark_source(src, {"status": "error", "error": str(e)[:1000],
                                     "attempts": done.get("attempts", 0) + 1, "at": iso(utcnow())})
         finally:

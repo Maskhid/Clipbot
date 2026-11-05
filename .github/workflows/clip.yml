@@ -75,7 +75,13 @@ jobs:
         if: steps.check.outputs.has_work == 'true'
         run: |
           which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg)
-          pip install -q -r requirements.txt
+          pip install -q -U -r requirements.txt
+
+      - name: Install Deno (yt-dlp needs it for YouTube)
+        if: steps.check.outputs.has_work == 'true'
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
 
       - name: Cache speech model
         if: steps.check.outputs.has_work == 'true'

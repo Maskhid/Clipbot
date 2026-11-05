@@ -78,8 +78,14 @@ def cmd_clip(args):
         return
     from .pipeline import run_clip
 
-    made = run_clip(cfg, only_url=args.url, keep_work=args.keep_work)
+    errors: list = []
+    made = run_clip(cfg, only_url=args.url, keep_work=args.keep_work, errors=errors)
     print(f"Made {len(made)} clip(s).")
+    if errors:
+        print("\nFAILED SOURCES:")
+        for e in errors:
+            print("  ✗", e)
+        sys.exit(1)  # makes the GitHub run show a red X instead of a misleading green tick
 
 
 def cmd_post(args):
