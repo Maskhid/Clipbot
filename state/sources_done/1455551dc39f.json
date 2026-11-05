@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-05T18:58:05Z",
+  "attempts": 1,
+  "error": "ERROR: Cookies file must be Netscape formatted, not JSON. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp",
+  "status": "error",
+  "url": "https://www.youtube.com/live/GjRUi4Q1YlI"
+}
