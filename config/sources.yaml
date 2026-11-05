@@ -17,7 +17,7 @@
 #   enabled      false to skip
 # ─────────────────────────────────────────────────────────────────────────────
 
-sources: []
+sources:
 #  - url: "https://www.twitch.tv/videos/1234567890"
 #    brands: [gta_chaos, gta_funny, naija_gamer]
 #    distribute: split
@@ -30,3 +30,9 @@ sources: []
 #    brands: [vice_city_daily, clip_vault]
 #    distribute: all
 #    max_clips: 6
+  - url: "https://www.youtube.com/live/GjRUi4Q1YlI"
+    brands: [peakgaminggt]
+    distribute: split
+    start: "00:10:00"
+    end: "01:00:00"
+    credit: "@moistcr1tikal"
