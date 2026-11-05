@@ -23,15 +23,48 @@ def _hms(t) -> float | None:
     return sec
 
 
+def clean_cookies(txt: str) -> tuple[str, int]:
+    """Repairs a pasted cookies.txt: copy/paste through a browser or text box often turns
+    tabs into spaces, adds Windows line endings or drops the header line, and yt-dlp then
+    says 'failed to load cookies'. Returns (clean Netscape text, number of cookies)."""
+    out, n = ["# Netscape HTTP Cookie File"], 0
+    for raw in txt.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        line = raw.strip().lstrip("\ufeff")
+        if not line:
+            continue
+        if line.startswith("#") and not line.startswith("#HttpOnly_"):
+            continue  # comments / old header
+        parts = line.split("\t") if "\t" in line else line.split()
+        parts = [p for p in parts if p != ""] if "\t" not in line else parts
+        if len(parts) < 7:
+            continue
+        if len(parts) > 7:  # a value that contained spaces
+            parts = parts[:6] + [" ".join(parts[6:])]
+        domain, sub, path, secure, expiry = parts[:5]
+        if sub.upper() not in ("TRUE", "FALSE") or secure.upper() not in ("TRUE", "FALSE"):
+            continue
+        if not expiry.split(".")[0].lstrip("-").isdigit():
+            continue
+        out.append("\t".join([domain, sub.upper(), path, secure.upper(), expiry.split(".")[0], parts[5], parts[6]]))
+        n += 1
+    return "\n".join(out) + "\n", n
+
+
 def _cookie_file() -> str | None:
     """YTDLP_COOKIES secret: the text of a Netscape cookies.txt (helps when YouTube says
     'Sign in to confirm you're not a bot' on GitHub's servers)."""
     txt = os.environ.get("YTDLP_COOKIES")
     if not txt:
         return None
+    clean, n = clean_cookies(txt)
+    if n == 0:
+        log.warning("YTDLP_COOKIES is set but no valid cookie lines were found in it; ignoring it. "
+                    "Re-export with 'Get cookies.txt LOCALLY' (Export, Netscape format) and paste the whole file.")
+        return None
+    log.info("Using %d YouTube cookies from YTDLP_COOKIES", n)
     fd, path = tempfile.mkstemp(suffix=".txt")
     with os.fdopen(fd, "w") as f:
-        f.write(txt)
+        f.write(clean)
     return path
 
 
