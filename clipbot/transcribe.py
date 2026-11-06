@@ -46,8 +46,14 @@ def transcribe(wav_path: Path, model_name: str = "base", language: str | None = 
         return []
     log.info("Transcribing with whisper '%s' (CPU)...", model_name)
     model = WhisperModel(model_name, device="cpu", compute_type="int8")
+    # Pass the audio as numbers, not a file path: newer PyAV versions dropped an argument that
+    # faster-whisper uses when it opens files itself ("unexpected keyword 'metadata_errors'").
+    import numpy as np  # noqa: PLC0415
+
+    with wave.open(str(wav_path), "rb") as w:
+        audio = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).astype(np.float32) / 32768.0
     segs, info = model.transcribe(
-        str(wav_path), language=language or None, word_timestamps=True, vad_filter=True,
+        audio, language=language or None, word_timestamps=True, vad_filter=True,
         vad_parameters={"min_silence_duration_ms": 400}, beam_size=1, condition_on_previous_text=False,
     )
     out = []
