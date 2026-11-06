@@ -33,8 +33,8 @@ llm:
   #   gemini            → key from https://aistudio.google.com/apikey , model e.g. gemini-2.5-flash
   #   openai_compatible → Groq (https://console.groq.com/keys) base_url https://api.groq.com/openai/v1,
   #                       model e.g. llama-3.3-70b-versatile ; or OpenRouter free models
-  # Put the key in the LLM_API_KEY GitHub secret. With provider: none a built-in writer is used.
-  provider: none
+  # Put the key in the LLM_API_KEY GitHub secret. With provider: gemini a built-in writer is used.
+  provider: gemini
   model: gemini-2.5-flash
   base_url: https://api.groq.com/openai/v1
   language: English
