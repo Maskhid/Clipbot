@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-06T09:40:58Z",
+  "attempts": 1,
+  "error": "open() got an unexpected keyword argument 'metadata_errors'",
+  "status": "error",
+  "url": "https://www.twitch.tv/videos/2920505943"
+}
