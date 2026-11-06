@@ -4,5 +4,6 @@ PyYAML>=6.0
 cryptography>=42.0
 # Clipping also needs these
 yt-dlp[default]>=2025.11.12   # [default] includes yt-dlp-ejs, needed for YouTube
+bgutil-ytdlp-pot-provider>=1.0   # YouTube 'not a bot' tokens (talks to the provider started in clip.yml)
 faster-whisper>=1.0.3
 numpy>=1.26

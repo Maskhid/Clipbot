@@ -36,3 +36,9 @@ sources:
     start: "00:10:00"
     end: "01:00:00"
     credit: "@moistcr1tikal"
+  - url: "https://www.twitch.tv/videos/2920505943"
+    brands: [peakgaminggt]
+    distribute: split
+    start: "00:10:00"
+    end: "01:00:00"
+    credit: "@KaiCenat on Twitch"

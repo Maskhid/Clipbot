@@ -83,6 +83,14 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Start YouTube token provider (helps with "not a bot" blocks)
+        if: steps.check.outputs.has_work == 'true'
+        continue-on-error: true
+        run: |
+          docker run --name bgutil-provider -d --init -p 127.0.0.1:4416:4416 brainicism/bgutil-ytdlp-pot-provider
+          sleep 5
+          curl -s -o /dev/null -w "token provider: HTTP %{http_code}\n" http://127.0.0.1:4416/ping || true
+
       - name: Cache speech model
         if: steps.check.outputs.has_work == 'true'
         uses: actions/cache@v4
