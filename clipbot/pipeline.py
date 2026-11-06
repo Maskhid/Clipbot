@@ -106,7 +106,9 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
 
         dur = p["end"] - p["start"]
         ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur, p.get("hook"),
-                                 cc["caption"], float(cc.get("hook_seconds", 3)), work / f"{cid}.ass")
+                                 cc["caption"], float(cc.get("hook_seconds", 3)), work / f"{cid}.ass",
+                                 hook_y=(int((cc.get("split") or {}).get("top_height", 640)) - 50)
+                                 if cc.get("layout") == "split" else None)
         wm = cfg.brands[clip_brands[0]].get("watermark") if len(clip_brands) == 1 else None
         out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm)
         asset = storage.put(out, tag)

@@ -38,6 +38,8 @@ sources:
     end: "01:00:00"
     credit: "@moistcr1tikal"
   - url: "https://www.twitch.tv/videos/2920505943"
+    layout: split
+    split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
     brands: [peakgaminggt]
     distribute: split
     start: "00:10:00"

@@ -56,7 +56,7 @@ def group_words(words: list[dict], per_line: int, max_chars: int = 16) -> list[l
 
 
 def build_ass(words: list[dict], duration: float, hook: str | None, cap: dict, hook_seconds: float,
-              out: Path, font: str | None = None) -> Path:
+              out: Path, font: str | None = None, hook_y: int | None = None) -> Path:
     font = font or cap.get("font", "Poppins")
     size = int(cap.get("size", 112))
     margin_v = int((1 - float(cap.get("position", 0.7))) * H)
@@ -75,7 +75,7 @@ ScaledBorderAndShadow: yes
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Cap,{font},{size},{white},{white},&H00000000,&H96000000,-1,0,0,0,100,100,1,0,1,{outline},3,2,60,60,{margin_v},1
-Style: Hook,{font},70,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,80,80,250,1
+Style: Hook,{font},70,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,-1,0,0,0,100,100,0,0,3,18,0,8,80,80,{250 if hook_y is None else hook_y},1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
