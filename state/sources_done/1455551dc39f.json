@@ -1,7 +1,0 @@
-{
-  "at": "2026-11-05T22:07:04Z",
-  "attempts": 3,
-  "error": "open() got an unexpected keyword argument 'metadata_errors'",
-  "status": "error",
-  "url": "https://www.youtube.com/live/GjRUi4Q1YlI"
-}
