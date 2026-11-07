@@ -66,7 +66,8 @@ def heuristic_text(clip: dict, segments: list[dict], src: dict, styles: list[str
     for st in styles:
         tpl = rnd.choice(STYLE_TEMPLATES.get(st, STYLE_TEMPLATES["hype"]))
         captions.append(tpl.format(hook=hook.lower() if st != "news" else hook, quote=quote_short or hook, game=game or "this game"))
-    return {"title": title[:95], "hook": hook.upper()[:40], "captions": captions, "hashtags": []}
+    # without the AI writer we don't guess a hook: a vague banner hurts more than none
+    return {"title": title[:95], "hook": "", "captions": captions, "hashtags": []}
 
 
 # ---------------------------------------------------------------- LLM -----
@@ -85,25 +86,53 @@ but keep start/end inside the candidate's range and the length between {mn} and 
 Return ONLY JSON like:
 {{"clips":[{{"idx":0,"start":12.3,"end":41.0,
   "title":"YouTube Shorts title, max 70 chars, no hashtags, curiosity-driven",
-  "hook":"on-screen hook text, max 5 words, e.g. HE DIDN'T SEE IT COMING",
+  "hook":"on-screen hook, max 6 words, that says PRECISELY what happens in THIS clip (use the frames and transcript), e.g. COPS BOX HIM IN AT THE DOCKS. Empty string if you can't be precise",
   "captions":[{caption_spec}],
   "hashtags":["#gta6","#..."]}}]}}
 
-Rules: no clickbait lies, no slurs, don't claim to be the streamer, max 6 hashtags.
+Rules for the hook: it must be specific to what is seen or said in that clip (who/what/where), never generic
+filler like "WATCH THIS", "YO BRO", "NO WAY" or a quote of the first words. If nothing precise can be said, use "".
+Titles must be specific too. No clickbait lies, no slurs, don't claim to be the streamer, max 6 hashtags.
+Streamer: {streamer}
+Each candidate may come with 3 frames (start, peak, end) so you can see what happens.
 
 Candidates:
 {cands}
 """
 
 
-def _call_gemini(model: str, key: str, prompt: str) -> str:
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
-    r = requests.post(url, params={"key": key}, timeout=120, json={
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"temperature": 0.8, "responseMimeType": "application/json"},
-    })
-    r.raise_for_status()
-    return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+def _call_gemini(model: str, key: str, prompt: str, images: list[tuple[str, bytes]] | None = None) -> str:
+    import base64  # noqa: PLC0415
+
+    parts: list[dict] = [{"text": prompt}]
+    for label, jpg in images or []:
+        parts.append({"text": label})
+        parts.append({"inline_data": {"mime_type": "image/jpeg", "data": base64.b64encode(jpg).decode()}})
+    last = None
+    for m in dict.fromkeys([model, "gemini-flash-latest", "gemini-2.5-flash"]):
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent"
+        r = requests.post(url, params={"key": key}, timeout=180, json={
+            "contents": [{"parts": parts}],
+            "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json"},
+        })
+        if r.status_code == 404:  # model name retired -> try the next alias
+            last = f"model {m} not found"
+            continue
+        if r.status_code != 200:
+            raise RuntimeError(f"Gemini HTTP {r.status_code}: {r.text[:300]}")
+        log.info("AI writer: Gemini model %s answered", m)
+        return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+    raise RuntimeError(last or "no Gemini model available")
+
+
+GENERIC = {"WATCH THIS", "WAIT FOR IT", "NO WAY", "YO", "BRO", "OMG", "WHAT", "THIS IS INSANE", "INSANE"}
+
+
+def _precise_hook(h) -> str:
+    h = re.sub(r"\s+", " ", str(h or "")).strip().upper()[:48]
+    if not h or h.strip(".!? ") in GENERIC or len(h.split()) < 2:
+        return ""
+    return h
 
 
 def _call_openai_compat(base_url: str, model: str, key: str, prompt: str) -> str:
@@ -122,15 +151,31 @@ def _parse_json(text: str) -> dict:
     return json.loads(m.group(0) if m else text)
 
 
+def _providers(lc: dict) -> list[tuple[str, str, str, str]]:
+    """(name, model, base_url, key) in the order to try: the configured one, then Groq as backup."""
+    out = []
+    prov = (lc.get("provider") or "none").lower()
+    key = os.environ.get(lc.get("api_key_env") or "LLM_API_KEY", "").strip()
+    if prov != "none" and key:
+        out.append((prov, os.environ.get("LLM_MODEL") or lc.get("model") or "gemini-2.5-flash",
+                    lc.get("base_url") or "", key))
+    groq = os.environ.get("GROQ_API_KEY", "").strip()
+    if groq:
+        out.append(("openai_compatible", lc.get("backup_model") or "llama-3.3-70b-versatile",
+                    "https://api.groq.com/openai/v1", groq))
+    return out
+
+
 def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles: list[str],
-             settings: dict, game: str) -> list[dict] | None:
+             settings: dict, game: str, frames: dict[int, list[bytes]] | None = None) -> list[dict] | None:
     lc = settings["llm"]
-    provider = (lc.get("provider") or "none").lower()
-    if provider == "none":
-        return None
-    key = os.environ.get(lc.get("api_key_env") or "LLM_API_KEY", "")
-    if not key:
-        log.warning("llm.provider=%s but %s is empty; using built-in writer", provider, lc.get("api_key_env"))
+    providers = _providers(lc)
+    if not providers:
+        if (lc.get("provider") or "none").lower() != "none":
+            log.warning("AI writer: provider=%s but the %s secret is empty -> no AI hooks",
+                        lc.get("provider"), lc.get("api_key_env") or "LLM_API_KEY")
+        else:
+            log.info("AI writer: off (llm.provider: none)")
         return None
     cc = settings["clipping"]
     lines = []
@@ -138,17 +183,30 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
         txt = transcript_slice(segments, c["start"], c["end"])[:700] or "(no speech: gameplay/sound only)"
         lines.append(f"[{i}] {c['start']:.1f}-{c['end']:.1f}s (score {c['score']:.2f}): {txt}")
     caption_spec = ", ".join(f'"caption in a {s} style, max 150 chars, 1-3 emojis"' for s in styles)
+    streamer = (src.get("credit") or src.get("_uploader") or "the streamer").replace("on Twitch", "").strip()
     prompt = PROMPT.format(game=game or "gaming", vtitle=src.get("_title") or src.get("title_hint") or "",
                            language=lc.get("language") or "English", n=n, mn=cc["min_clip_seconds"],
-                           mx=cc["max_clip_seconds"], caption_spec=caption_spec, cands="\n".join(lines))
-    try:
-        if provider == "gemini":
-            raw = _call_gemini(lc["model"], key, prompt)
-        else:
-            raw = _call_openai_compat(lc["base_url"], lc["model"], key, prompt)
-        data = _parse_json(raw)
-    except Exception as e:  # noqa: BLE001
-        log.warning("LLM call failed (%s); using built-in writer", str(e)[:300])
+                           mx=cc["max_clip_seconds"], caption_spec=caption_spec, cands="\n".join(lines),
+                           streamer=streamer)
+    images = []
+    for i, shots in (frames or {}).items():
+        for j, jpg in enumerate(shots):
+            images.append((f"[{i}] frame {('start', 'peak', 'end')[j] if j < 3 else j}", jpg))
+
+    data = None
+    for name, model, base, key in providers:
+        try:
+            if name == "gemini":
+                raw = _call_gemini(model, key, prompt, images)
+            else:
+                raw = _call_openai_compat(base, model, key, prompt)
+                log.info("AI writer: %s answered via %s", model, base)
+            data = _parse_json(raw)
+            break
+        except Exception as e:  # noqa: BLE001
+            log.warning("AI writer: %s failed (%s)", name, str(e)[:300])
+    if data is None:
+        log.warning("AI writer: all providers failed -> clips get no hook banner")
         return None
 
     picks = []
@@ -172,7 +230,7 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
         tags = [t if t.startswith("#") else f"#{t}" for t in (item.get("hashtags") or [])][:6]
         tags = [re.sub(r"[^\w#]", "", t) for t in tags if len(t) > 1]
         picks.append({**c, "start": round(s, 2), "end": round(e, 2),
-                      "title": str(item.get("title") or "")[:95], "hook": str(item.get("hook") or "").upper()[:40],
+                      "title": str(item.get("title") or "")[:95], "hook": _precise_hook(item.get("hook")),
                       "captions": caps, "hashtags": tags})
         if len(picks) >= n:
             break

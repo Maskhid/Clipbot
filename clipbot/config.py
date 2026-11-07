@@ -24,7 +24,7 @@ DEFAULT_SETTINGS: dict[str, Any] = {
         "whisper_model": "base",
         "language": None,
         "min_clip_seconds": 15,
-        "max_clip_seconds": 58,
+        "max_clip_seconds": 60,
         "clips_per_hour": 8,
         "max_clips_per_source": 12,
         "lead_in_seconds": 9,
@@ -33,8 +33,14 @@ DEFAULT_SETTINGS: dict[str, Any] = {
         "fg_zoom": 1.25,  # blur layout: how much to zoom the gameplay strip
         "crop_x": 0.5,  # crop layout: horizontal focus 0..1
         "split": {"facecam": [0.0, 0.0, 0.25, 0.25], "top_height": 640},
-        "fps": 30,
-        "crf": 21,
+        "fps": "auto",  # keep the stream's frame rate (max 60)
+        "crf": 18,
+        "render_preset": "fast",
+        "graphics": {
+            "hook_style": "pill",  # pill (gradient banner) | text (plain box)
+            "progress_bar": True,
+            "colors": ["#00F0FF", "#8A5CFF", "#FF2E93"],
+        },
         "hook_seconds": 3.0,
         "loudnorm": True,
         "hype_words": [

@@ -46,8 +46,17 @@ def ffprobe(path: Path) -> dict:
         "width": int(v["width"]) if v else 0,
         "height": int(v["height"]) if v else 0,
         "has_audio": a is not None,
+        "fps": _fps((v or {}).get("avg_frame_rate") or (v or {}).get("r_frame_rate")),
         "size": int(data.get("format", {}).get("size") or Path(path).stat().st_size),
     }
+
+
+def _fps(rate) -> float:
+    try:
+        n, d = str(rate).split("/")
+        return float(n) / float(d) if float(d) else 30.0
+    except (ValueError, ZeroDivisionError):
+        return 30.0
 
 
 def retry(fn, attempts: int = 3, delay: float = 3.0, what: str = "request"):

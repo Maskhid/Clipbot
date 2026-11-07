@@ -5,7 +5,9 @@ import shutil
 from datetime import datetime, timedelta
 
 from . import captions, highlights, render, sources, transcribe, writer
-from .config import WORK_DIR, Config
+from pathlib import Path
+
+from .config import ROOT, WORK_DIR, Config
 from .scheduler import Scheduler
 from .state import State, iso, parse_iso, short_hash, utcnow
 from .storage import get_storage
@@ -32,6 +34,28 @@ def busy_times(state: State, now: datetime) -> tuple[dict, dict, dict]:
         if res.get("status") != "posted":
             brand_load[job["brand"]] = brand_load.get(job["brand"], 0) + 1
     return busy, clip_times, brand_load
+
+
+def grab_frames(video: Path, cands: list[dict], out_dir: Path) -> dict[int, list[bytes]]:
+    """3 small JPEG frames (start, peak, end) per candidate so the AI can SEE the moment."""
+    from .util import run  # noqa: PLC0415
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    frames: dict[int, list[bytes]] = {}
+    for i, c in enumerate(cands):
+        shots = []
+        for j, t in enumerate((c["start"] + 1.0, c.get("peak", (c["start"] + c["end"]) / 2), c["end"] - 1.0)):
+            f = out_dir / f"{i}_{j}.jpg"
+            try:
+                run(["ffmpeg", "-y", "-v", "error", "-ss", f"{max(0.0, t):.2f}", "-i", str(video), "-frames:v", "1",
+                     "-vf", "scale=448:-2", "-q:v", "6", str(f)])
+                shots.append(f.read_bytes())
+            except Exception:  # noqa: BLE001
+                continue
+        if shots:
+            frames[i] = shots
+    log.info("AI writer: sending %d frames for %d moments", sum(len(v) for v in frames.values()), len(frames))
+    return frames
 
 
 def schedule_clip(cfg: Config, state: State, sched: Scheduler, clip: dict) -> list[dict]:
@@ -84,7 +108,9 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     styles = sorted({b.get("caption_style", "hype") for b in brands}) or ["hype"]
     game = src.get("game") or next((b.get("niches")[0] for b in brands if b.get("niches")), "") or ""
 
-    picks = writer.llm_pick(cands[: target * 3], segs, src, target, styles, cfg.settings, game)
+    pool = cands[: min(len(cands), max(target * 2, 6), 12)]
+    frames = grab_frames(video, pool, work / "frames") if writer._providers(cfg.settings["llm"]) else None
+    picks = writer.llm_pick(pool, segs, src, target, styles, cfg.settings, game, frames)
     if not picks:
         picks = []
         for c in cands[:target]:
@@ -105,12 +131,17 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
             brand_load[b.name] = brand_load.get(b.name, 0) + len(b.accounts)
 
         dur = p["end"] - p["start"]
-        ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur, p.get("hook"),
-                                 cc["caption"], float(cc.get("hook_seconds", 3)), work / f"{cid}.ass",
-                                 hook_y=(int((cc.get("split") or {}).get("top_height", 640)) - 50)
-                                 if cc.get("layout") == "split" else None)
+        pill = (cc.get("graphics") or {}).get("hook_style", "pill") == "pill"
+        ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur,
+                                 None if pill else p.get("hook"), cc["caption"],
+                                 float(cc.get("hook_seconds", 3)), work / f"{cid}.ass")
         wm = cfg.brands[clip_brands[0]].get("watermark") if len(clip_brands) == 1 else None
-        out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm)
+        brand0 = cfg.brands[clip_brands[0]]
+        logo = brand0.get("logo") or "assets/logo.png"
+        logo_path = Path(logo) if Path(logo).is_absolute() else (ROOT / logo)
+        out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm,
+                                 hook=p.get("hook") if pill else None, colors=brand0.get("colors"),
+                                 logo=logo_path if (len(clip_brands) == 1 and logo_path.exists()) else None)
         asset = storage.put(out, tag)
 
         caps = p.get("captions") or []

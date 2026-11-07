@@ -6,7 +6,7 @@ clipping:
   whisper_model: base           # tiny (fastest) | base | small (better words, ~3x slower)
   language: null                # null = auto-detect, or "en"
   min_clip_seconds: 15
-  max_clip_seconds: 58          # keep under 60 for Shorts/Reels/FB Reels (FB max is 90)
+  max_clip_seconds: 60
   clips_per_hour: 8             # how many clips per hour of source video
   max_clips_per_source: 12
   layout: blur                  # blur  = blurred background + zoomed gameplay (no info lost)
@@ -17,7 +17,7 @@ clipping:
   split:
     facecam: [0.0, 0.0, 0.25, 0.25]   # x, y, width, height as fractions of the source frame
     top_height: 640
-  fps: 30
+  fps: auto
   hook_seconds: 3.0             # how long the hook banner shows at the top
   caption:
     enabled: true

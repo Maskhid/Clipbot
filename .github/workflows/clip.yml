@@ -103,6 +103,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           YTDLP_COOKIES: ${{ secrets.YTDLP_COOKIES }}
         run: python -m clipbot clip
 

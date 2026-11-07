@@ -34,58 +34,125 @@ def font_file() -> Path | None:
     return None
 
 
-def layout_filter(layout: str, src_w: int, src_h: int, cfg: dict) -> str:
+SCALE = "flags=lanczos"
+
+
+def layout_filter(layout: str, src_w: int, src_h: int, cfg: dict) -> tuple[str, dict]:
+    """Returns (filtergraph producing [v0], geometry used to place the graphics)."""
     aspect = src_w / max(1, src_h)
     vertical = aspect <= (W / H) * 1.05
     if layout == "crop" or vertical:
         cx = float(cfg.get("crop_x", 0.5))
-        return (f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase,"
-                f"crop={W}:{H}:(iw-{W})*{cx}:(ih-{H})/2,setsar=1[v0]")
+        return (f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase:{SCALE},"
+                f"crop={W}:{H}:(iw-{W})*{cx}:(ih-{H})/2,unsharp=5:5:0.4,setsar=1[v0]",
+                {"seam": int(H * 0.80), "hook_center": int(H * 0.16)})
     if layout == "split":
         sp = cfg.get("split") or {}
         fx, fy, fw, fh = (sp.get("facecam") or [0, 0, 0.25, 0.25])
         top = _even(sp.get("top_height", 640))
         bot = H - top
         return (f"[0:v]split=2[a][b];"
-                f"[a]crop=iw*{fw}:ih*{fh}:iw*{fx}:ih*{fy},scale={W}:{top}:force_original_aspect_ratio=increase,crop={W}:{top}[top];"
-                f"[b]scale=-2:{bot},crop={W}:{bot}[bot];"
-                f"[top][bot]vstack=inputs=2,setsar=1[v0]")
+                f"[a]crop=iw*{fw}:ih*{fh}:iw*{fx}:ih*{fy},scale={W}:{top}:force_original_aspect_ratio=increase:{SCALE},"
+                f"crop={W}:{top},unsharp=5:5:0.9:3:3:0[top];"
+                f"[b]scale=-2:{bot}:{SCALE},crop={W}:{bot},unsharp=5:5:0.5[bot];"
+                f"[top][bot]vstack=inputs=2,setsar=1[v0]",
+                {"seam": top, "hook_center": top})
     # blur (default): blurred full-screen background + zoomed gameplay strip in the middle
     zoom = float(cfg.get("fg_zoom", 1.25))
     fg_h = min(H, _even(W / aspect * zoom))
+    fg_top = (H - fg_h) // 2 - 60
     return (f"[0:v]split=2[bgs][fgs];"
             f"[bgs]scale=270:480:force_original_aspect_ratio=increase,crop=270:480,boxblur=10:2,"
             f"scale={W}:{H},eq=brightness=-0.07:saturation=1.1[bg];"
-            f"[fgs]scale=-2:{fg_h},crop='min(iw,{W})':{fg_h}[fg];"
-            f"[bg][fg]overlay=(W-w)/2:(H-h)/2-60,setsar=1[v0]")
+            f"[fgs]scale=-2:{fg_h}:{SCALE},crop='min(iw,{W})':{fg_h},unsharp=5:5:0.5[fg];"
+            f"[bg][fg]overlay=(W-w)/2:{fg_top},setsar=1[v0]",
+            {"seam": fg_top + fg_h, "hook_center": max(200, fg_top - 120)})
 
 
 def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | None, out: Path,
-                cfg: dict, watermark: str | None = None) -> Path:
+                cfg: dict, watermark: str | None = None, hook: str | None = None,
+                colors: list[str] | None = None, logo: Path | None = None) -> Path:
+    """Vertical clip with: layout, burned captions, gradient hook pill (first seconds),
+    progress bar along the seam, logo + handle badge, loudness normalisation."""
+    from . import graphics  # noqa: PLC0415
+
     need("ffmpeg")
     dur = max(0.5, end - start)
-    vf = layout_filter(cfg.get("layout", "blur"), info["width"], info["height"], cfg)
-    chain = f"[v0]fps={int(cfg.get('fps', 30))}"
+    gcfg = cfg.get("graphics") or {}
+    colors = colors or gcfg.get("colors") or graphics.DEFAULT_COLORS
+    vf, geo = layout_filter(cfg.get("layout", "blur"), info["width"], info["height"], cfg)
+    fps = cfg.get("fps", "auto")
+    fps = min(60, round(info.get("fps") or 30)) if fps in ("auto", None) else int(fps)
+    work = out.parent
+
+    steps: list[str] = []
+    cur = "v0"
+
+    images: list[Path] = []
+
+    chain = f"[{cur}]fps={fps}"
     if ass is not None:
         chain += f",ass='{_fesc(ass)}':fontsdir='{_fesc(FONTS_DIR)}'"
-    if watermark:
-        ff = font_file()
-        fpart = f"fontfile='{_fesc(ff)}':" if ff else ""
-        chain += (f",drawtext={fpart}text='{_dtext(watermark)}':fontsize=38:fontcolor=white@0.55:"
-                  f"borderw=2:bordercolor=black@0.4:x=(w-tw)/2:y=h*0.905")
-    chain += "[vout]"
-    fc = vf + ";" + chain
+    chain += "[vc]"
+    steps.append(chain)
+    cur = "vc"
+
+    if gcfg.get("progress_bar", True):
+        bh = 10
+        tp, bp = work / f"{out.stem}_track.png", work / f"{out.stem}_bar.png"
+        graphics.track(tp, W, bh)
+        graphics.bar(bp, W, bh, colors)
+        images += [tp, bp]
+        y = max(0, geo["seam"] - bh // 2)
+        steps.append(f"[{cur}][IMG{len(images) - 2}]overlay=0:{y}[vt]")
+        steps.append(f"[vt][IMG{len(images) - 1}]overlay=x='-w+w*t/{dur:.3f}':y={y}[vp]")
+        cur = "vp"
+
+    hook_s = float(cfg.get("hook_seconds", 3.0))
+    if hook and hook_s > 0 and gcfg.get("hook_style", "pill") == "pill":
+        hp = work / f"{out.stem}_hook.png"
+        size = graphics.hook_banner(hook, hp, colors)
+        if size:
+            images.append(hp)
+            hw, hh = size
+            hy = max(0, min(H - hh, geo["hook_center"] - hh // 2))
+            idx = len(images) - 1
+            fade_out = max(0.2, min(hook_s, dur) - 0.3)
+            steps.append(f"[IMG{idx}]format=rgba,fade=t=in:st=0:d=0.25:alpha=1,"
+                         f"fade=t=out:st={fade_out:.2f}:d=0.3:alpha=1[hk]")
+            steps.append(f"[{cur}][hk]overlay=(W-w)/2:{hy}:enable='lt(t,{min(hook_s, dur):.2f})'[vh]")
+            cur = "vh"
+
+    if watermark or (logo and Path(logo).exists()):
+        wp = work / f"{out.stem}_wm.png"
+        size = graphics.watermark_badge(watermark or "", wp, logo)
+        if size:
+            images.append(wp)
+            ww, wh = size
+            wy = 150  # below the platforms' top bar, clear of the caption area
+            steps.append(f"[{cur}][IMG{len(images) - 1}]overlay=W-w-28:{wy}[vw]")
+            cur = "vw"
+
+    steps.append(f"[{cur}]null[vout]")
+    fc = vf + ";" + ";".join(steps)
 
     cmd = ["ffmpeg", "-y", "-v", "error", "-ss", f"{start:.3f}", "-t", f"{dur:.3f}", "-i", str(src)]
+    first_img = 1
     if not info.get("has_audio"):
         cmd += ["-f", "lavfi", "-t", f"{dur:.3f}", "-i", "anullsrc=r=48000:cl=stereo"]
+        first_img = 2
+    for p in images:
+        cmd += ["-loop", "1", "-t", f"{dur:.3f}", "-i", str(p)]
+    for i in range(len(images)):
+        fc = fc.replace(f"[IMG{i}]", f"[{first_img + i}:v]")
     cmd += ["-filter_complex", fc, "-map", "[vout]", "-map", "0:a:0" if info.get("has_audio") else "1:a:0"]
     if info.get("has_audio") and cfg.get("loudnorm", True):
         cmd += ["-af", "loudnorm=I=-14:TP=-1.5:LRA=11"]
-    cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", str(cfg.get("crf", 21)), "-profile:v", "high",
-            "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2",
-            "-movflags", "+faststart", "-map_metadata", "-1", "-shortest", str(out)]
-    log.info("Rendering %s (%.1fs)", out.name, dur)
+    cmd += ["-c:v", "libx264", "-preset", str(cfg.get("render_preset", "medium")), "-crf", str(cfg.get("crf", 18)),
+            "-profile:v", "high", "-pix_fmt", "yuv420p", "-r", str(fps),
+            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+            "-movflags", "+faststart", "-map_metadata", "-1", "-t", f"{dur:.3f}", str(out)]
+    log.info("Rendering %s (%.1fs, %dfps)", out.name, dur, fps)
     run(cmd)
     return out
 
