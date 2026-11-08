@@ -78,6 +78,7 @@ jobs:
           pip install -q -U -r requirements.txt
 
       - name: Install Deno (yt-dlp needs it for YouTube)
+        continue-on-error: true
         if: steps.check.outputs.has_work == 'true'
         uses: denoland/setup-deno@v2
         with:
