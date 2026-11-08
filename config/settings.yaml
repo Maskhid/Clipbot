@@ -46,7 +46,7 @@ posting:
   max_posts_per_run: 12
   retry_attempts: 3
   retry_backoff_minutes: 45
-  dry_run: true                # true = do everything except actually upload
+  dry_run: false                # true = do everything except actually upload
 
 variants:                       # only used for clips shared across brands (distribute: all)
   zoom: [1.0, 1.06]
