@@ -5,7 +5,7 @@ on:
     paths:
       - config/sources.yaml
   schedule:
-    - cron: "40 */6 * * *"   # picks up anything that failed earlier
+    - cron: "40 */4 * * *"   # every 4h: new streams from watched channels + retries
   workflow_dispatch:
     inputs:
       url:
@@ -67,6 +67,12 @@ jobs:
           [ -n "$CREDIT" ] && args+=(--credit "$CREDIT")
           python -m clipbot add-source "${args[@]}"
 
+      - name: Check watched channels for new streams
+        continue-on-error: true
+        run: |
+          pip install -q -U "yt-dlp[default]"
+          python -m clipbot watch
+
       - name: Anything to clip?
         id: check
         run: python -m clipbot clip --check
@@ -78,7 +84,6 @@ jobs:
           pip install -q -U -r requirements.txt
 
       - name: Install Deno (yt-dlp needs it for YouTube)
-        continue-on-error: true
         if: steps.check.outputs.has_work == 'true'
         uses: denoland/setup-deno@v2
         with:

@@ -45,3 +45,15 @@ sources:
     start: "00:10:00"
     end: "01:00:00"
     credit: "@KaiCenat on Twitch"
+
+channels:
+  - url: "https://www.twitch.tv/kaicenat"
+    only_gaming: true
+    brands: [peakgaminggt]
+    credit: "@KaiCenat on Twitch"
+    layout: split
+    split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
+    start_minute: 30
+    window_minutes: 120
+    max_clips: 5
+    max_age_hours: 48

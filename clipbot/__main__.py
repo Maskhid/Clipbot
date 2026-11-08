@@ -204,6 +204,19 @@ def cmd_upload_test(args):
         print(res["note"])
 
 
+def cmd_watch(args):
+    from .watch import run_watch
+
+    cfg = load_config()
+    if not cfg.channels:
+        print("No channels in config/sources.yaml (channels: section).")
+        return
+    added = run_watch(cfg)
+    print(f"New broadcasts queued: {len(added)}")
+    for u in added:
+        print("  +", u)
+
+
 def cmd_reschedule(args):
     from .pipeline import reschedule_all
 
@@ -314,6 +327,9 @@ def main(argv=None):
     p.add_argument("--title")
     p.add_argument("--text")
     p.set_defaults(fn=cmd_upload_test)
+
+    p = sub.add_parser("watch", help="check watched channels for new streams")
+    p.set_defaults(fn=cmd_watch)
 
     p = sub.add_parser("reschedule", help="re-plan unposted jobs after changing posting times")
     p.set_defaults(fn=cmd_reschedule)

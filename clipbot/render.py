@@ -129,7 +129,7 @@ def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | Non
         if size:
             images.append(wp)
             ww, wh = size
-            wy = 150  # below the platforms' top bar, clear of the caption area
+            wy = 230  # below TikTok/Reels top bar (Following | For You, search)
             steps.append(f"[{cur}][IMG{len(images) - 1}]overlay=W-w-28:{wy}[vw]")
             cur = "vw"
 

@@ -16,6 +16,10 @@ from .util import ffprobe, log
 MAX_SOURCE_ATTEMPTS = 3
 
 
+class SkipSource(Exception):
+    """The source was checked and deliberately skipped (e.g. not a gaming stream)."""
+
+
 def busy_times(state: State, now: datetime) -> tuple[dict, dict, dict]:
     """Taken posting times per account, planned times per clip, pending jobs per brand."""
     results = state.results()
@@ -93,6 +97,20 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     video = sources.fetch(src, work / "dl")
     info = ffprobe(video)
     log.info("Source: %.0fs, %dx%d", info["duration"], info["width"], info["height"])
+
+    if src.get("only_gaming"):
+        games = src.get("games") or []
+        if isinstance(games, str):
+            games = [games]
+        dur = info["duration"]
+        probes = [{"start": dur * k / 9, "end": dur * k / 9 + 2, "peak": dur * k / 9 + 1} for k in range(1, 9)]
+        shots = grab_frames(video, probes, work / "gamecheck")
+        frames = [v[1] for _, v in sorted(shots.items()) if len(v) > 1]
+        ok, game = writer.ai_is_gaming(frames, src.get("_title") or "", games, cfg.settings)
+        if ok is False:
+            raise SkipSource(f"not a gaming stream{(' (' + game + ')') if game else ''}")
+        if game and not src.get("game"):
+            src["game"] = game
 
     wav = transcribe.extract_audio(video, work / "audio.wav") if info["has_audio"] else None
     loud = transcribe.loudness_curve(wav) if wav else []
@@ -188,6 +206,9 @@ def run_clip(cfg: Config, state: State | None = None, only_url: str | None = Non
             made = process_source(cfg, state, storage, src, sched, brand_load)
             state.mark_source(src, {"status": "done", "clips": [c["id"] for c in made], "at": iso(utcnow())})
             all_made += made
+        except SkipSource as e:
+            log.info("Skipped %s: %s", src["url"], e)
+            state.mark_source(src, {"status": "done", "skipped": str(e), "clips": [], "at": iso(utcnow())})
         except Exception as e:  # noqa: BLE001
             log.exception("Source failed: %s", src["url"])
             if errors is not None:

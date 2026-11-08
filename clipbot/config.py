@@ -168,6 +168,7 @@ class Config:
     brands: dict[str, Brand]
     accounts: dict[str, Account]
     sources: list[dict]
+    channels: list[dict] = field(default_factory=list)
 
     @property
     def tz(self) -> str:
@@ -238,4 +239,19 @@ def load_config(config_dir: Path | None = None) -> Config:
         s["brands"] = bl
         sources.append(s)
 
-    return Config(settings=settings, brands=brands, accounts=accounts, sources=sources)
+    channels = []
+    for c in src_yaml.get("channels") or []:
+        if not c or not c.get("url"):
+            continue
+        c = dict(c)
+        bl = c.get("brands") or list(brands)
+        if isinstance(bl, str):
+            bl = [x.strip() for x in bl.split(",") if x.strip()]
+        for bn in bl:
+            if bn not in brands:
+                raise ConfigError(f"Channel {c['url']}: unknown brand '{bn}'")
+        c["brands"] = bl
+        c.setdefault("distribute", "split")
+        channels.append(c)
+
+    return Config(settings=settings, brands=brands, accounts=accounts, sources=sources, channels=channels)

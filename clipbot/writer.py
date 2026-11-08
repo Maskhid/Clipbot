@@ -95,6 +95,7 @@ filler like "WATCH THIS", "YO BRO", "NO WAY" or a quote of the first words. If n
 Titles must be specific too. No clickbait lies, no slurs, don't claim to be the streamer, max 6 hashtags.
 Streamer: {streamer}
 Each candidate may come with 3 frames (start, peak, end) so you can see what happens.
+{gameplay_rule}
 
 Candidates:
 {cands}
@@ -199,7 +200,10 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
     prompt = PROMPT.format(game=game or "gaming", vtitle=src.get("_title") or src.get("title_hint") or "",
                            language=lc.get("language") or "English", n=n, mn=cc["min_clip_seconds"],
                            mx=cc["max_clip_seconds"], caption_spec=caption_spec, cands="\n".join(lines),
-                           streamer=streamer)
+                           streamer=streamer,
+                           gameplay_rule=("ONLY pick moments where actual gameplay is on screen; skip chatting, "
+                                          "menus, loading screens and reacting to other videos."
+                                          if src.get("only_gaming") else ""))
     images = []
     for i, shots in (frames or {}).items():
         for j, jpg in enumerate(shots):
@@ -247,3 +251,38 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
         if len(picks) >= n:
             break
     return picks or None
+
+
+GAMING_PROMPT = """These {n} frames are spread across a livestream titled: "{title}".
+Decide if this stream is mainly the streamer PLAYING a video game (gameplay visible on screen most of the time),
+as opposed to just chatting, reacting to videos, IRL, music, or sitting in a menu.
+{games_rule}
+Return ONLY JSON: {{"gameplay_frames": <how many frames show actual gameplay>, "game": "<game name or empty>"}}"""
+
+
+def ai_is_gaming(frames: list[bytes], title: str, games: list[str], settings: dict) -> tuple[bool | None, str]:
+    """Looks at frames from the stream. Returns (is_gaming, game). None = couldn't decide."""
+    lc = settings["llm"]
+    prov = [p for p in _providers(lc) if p[0] == "gemini"]  # needs a model that can see images
+    games_rule = (f"The stream only counts if the game is one of: {', '.join(games)}." if games else "")
+    if prov and frames:
+        name, model, _, key = prov[0]
+        prompt = GAMING_PROMPT.format(n=len(frames), title=title or "", games_rule=games_rule)
+        try:
+            data = _parse_json(_call_gemini(model, key, prompt, [(f"frame {i + 1}", f) for i, f in enumerate(frames)]))
+            hits = int(data.get("gameplay_frames") or 0)
+            game = str(data.get("game") or "")
+            ok = hits >= max(2, round(len(frames) * 0.5))
+            if ok and games:
+                ok = any(g.lower() in game.lower() or game.lower() in g.lower() for g in games if game)
+            log.info("Gameplay check: %d/%d frames show gameplay, game=%r -> %s", hits, len(frames), game,
+                     "GAMING" if ok else "NOT GAMING")
+            return ok, game
+        except Exception as e:  # noqa: BLE001
+            log.warning("Gameplay check failed (%s); falling back to the title", str(e)[:200])
+    if games:
+        t = (title or "").lower()
+        hit = any(g.lower() in t for g in games)
+        log.info("Gameplay check by title: %r -> %s", title, "GAMING" if hit else "UNSURE")
+        return (True if hit else None), ""
+    return None, ""
