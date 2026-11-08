@@ -119,43 +119,51 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
 
     tag = cfg.settings["storage"]["release_prefix"] + utcnow().strftime("%Y-%m-%d")
     made = []
+    clip_errors: list[str] = []
     for i, p in enumerate(picks):
-        cid = f"{skey}-{i:02d}-" + short_hash(f"{p['start']}-{p['end']}", 4)
-        if state.clip(cid):
-            continue
-        if src["distribute"] == "all":
-            clip_brands = [b.name for b in brands]
-        else:  # split: least-loaded brand gets the next clip
-            b = min(brands, key=lambda x: (brand_load.get(x.name, 0), src["brands"].index(x.name)))
-            clip_brands = [b.name]
-            brand_load[b.name] = brand_load.get(b.name, 0) + len(b.accounts)
+        try:
+            cid = f"{skey}-{i:02d}-" + short_hash(f"{p['start']}-{p['end']}", 4)
+            if state.clip(cid):
+                continue
+            if src["distribute"] == "all":
+                clip_brands = [b.name for b in brands]
+            else:  # split: least-loaded brand gets the next clip
+                b = min(brands, key=lambda x: (brand_load.get(x.name, 0), src["brands"].index(x.name)))
+                clip_brands = [b.name]
+                brand_load[b.name] = brand_load.get(b.name, 0) + len(b.accounts)
 
-        dur = p["end"] - p["start"]
-        pill = (cc.get("graphics") or {}).get("hook_style", "pill") == "pill"
-        ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur,
-                                 None if pill else p.get("hook"), cc["caption"],
-                                 float(cc.get("hook_seconds", 3)), work / f"{cid}.ass")
-        wm = cfg.brands[clip_brands[0]].get("watermark") if len(clip_brands) == 1 else None
-        brand0 = cfg.brands[clip_brands[0]]
-        logo = brand0.get("logo") or "assets/logo.png"
-        logo_path = Path(logo) if Path(logo).is_absolute() else (ROOT / logo)
-        out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm,
-                                 hook=p.get("hook") if pill else None, colors=brand0.get("colors"),
-                                 logo=logo_path if (len(clip_brands) == 1 and logo_path.exists()) else None)
-        asset = storage.put(out, tag)
+            dur = p["end"] - p["start"]
+            pill = (cc.get("graphics") or {}).get("hook_style", "pill") == "pill"
+            ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur,
+                                     None if pill else p.get("hook"), cc["caption"],
+                                     float(cc.get("hook_seconds", 3)), work / f"{cid}.ass")
+            wm = cfg.brands[clip_brands[0]].get("watermark") if len(clip_brands) == 1 else None
+            brand0 = cfg.brands[clip_brands[0]]
+            logo = brand0.get("logo") or "assets/logo.png"
+            logo_path = Path(logo) if Path(logo).is_absolute() else (ROOT / logo)
+            out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm,
+                                     hook=p.get("hook") if pill else None, colors=brand0.get("colors"),
+                                     logo=logo_path if (len(clip_brands) == 1 and logo_path.exists()) else None)
+            asset = storage.put(out, tag)
 
-        caps = p.get("captions") or []
-        cap_map = {st: (caps[j] if j < len(caps) else (caps[0] if caps else p.get("title", ""))) for j, st in enumerate(styles)}
-        clip = {"id": cid, "source": src["url"], "source_key": skey, "start": p["start"], "end": p["end"],
-                "duration": round(dur, 2), "score": p.get("score"), "title": p.get("title"), "hook": p.get("hook"),
-                "captions": cap_map, "hashtags": p.get("hashtags", []), "credit": src.get("credit"),
-                "brands": clip_brands, "shared": len(clip_brands) > 1, "watermarked": bool(wm),
-                "asset": asset, "tag": tag, "created_at": iso(utcnow())}
-        state.save_clip(clip)
-        jobs = schedule_clip(cfg, state, sched, clip)
-        log.info("Clip %s (%.0fs, score %.2f) -> %s, %d posts scheduled", cid, dur, p.get("score") or 0,
-                 ",".join(clip_brands), len(jobs))
-        made.append(clip)
+            caps = p.get("captions") or []
+            cap_map = {st: (caps[j] if j < len(caps) else (caps[0] if caps else p.get("title", ""))) for j, st in enumerate(styles)}
+            clip = {"id": cid, "source": src["url"], "source_key": skey, "start": p["start"], "end": p["end"],
+                    "duration": round(dur, 2), "score": p.get("score"), "title": p.get("title"), "hook": p.get("hook"),
+                    "captions": cap_map, "hashtags": p.get("hashtags", []), "credit": src.get("credit"),
+                    "brands": clip_brands, "shared": len(clip_brands) > 1, "watermarked": bool(wm),
+                    "asset": asset, "tag": tag, "created_at": iso(utcnow())}
+            state.save_clip(clip)
+            jobs = schedule_clip(cfg, state, sched, clip)
+            log.info("Clip %s (%.0fs, score %.2f) -> %s, %d posts scheduled", cid, dur, p.get("score") or 0,
+                     ",".join(clip_brands), len(jobs))
+            made.append(clip)
+
+        except Exception as e:  # noqa: BLE001  one bad clip shouldn't sink the whole stream
+            log.exception("Clip %d failed", i)
+            clip_errors.append(str(e)[:300])
+    if clip_errors and not made:
+        raise RuntimeError("all clips failed: " + clip_errors[0])
     return made
 
 

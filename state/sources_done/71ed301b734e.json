@@ -1,7 +1,0 @@
-{
-  "at": "2026-11-08T08:10:07Z",
-  "attempts": 2,
-  "error": "No module named 'PIL'",
-  "status": "error",
-  "url": "https://www.twitch.tv/videos/2920505943"
-}

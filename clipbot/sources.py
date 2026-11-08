@@ -111,7 +111,8 @@ def fetch(src: dict, work: Path) -> Path:
     if start is not None or end is not None:
         from yt_dlp.utils import download_range_func  # noqa: PLC0415
         opts["download_ranges"] = download_range_func(None, [(start or 0, end or float("inf"))])
-        opts["force_keyframes_at_cuts"] = True
+        # no force_keyframes_at_cuts: it re-encodes the whole section and made downloads take ~50 min.
+        # Cuts land on the nearest keyframe (a few seconds early), which is fine because clips are cut precisely later.
 
     log.info("Downloading %s", url)
     with yt_dlp.YoutubeDL(opts) as ydl:

@@ -108,20 +108,32 @@ def _call_gemini(model: str, key: str, prompt: str, images: list[tuple[str, byte
     for label, jpg in images or []:
         parts.append({"text": label})
         parts.append({"inline_data": {"mime_type": "image/jpeg", "data": base64.b64encode(jpg).decode()}})
+    import time  # noqa: PLC0415
+
     last = None
-    for m in dict.fromkeys([model, "gemini-flash-latest", "gemini-2.5-flash"]):
+    for m in dict.fromkeys([model, "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"]):
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent"
-        r = requests.post(url, params={"key": key}, timeout=180, json={
-            "contents": [{"parts": parts}],
-            "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json"},
-        })
-        if r.status_code == 404:  # model name retired -> try the next alias
-            last = f"model {m} not found"
-            continue
-        if r.status_code != 200:
+        for attempt in range(3):
+            try:
+                r = requests.post(url, params={"key": key}, timeout=180, json={
+                    "contents": [{"parts": parts}],
+                    "generationConfig": {"temperature": 0.7, "responseMimeType": "application/json"},
+                })
+            except requests.RequestException as e:
+                last = f"{m}: {e}"
+                time.sleep(10 * (attempt + 1))
+                continue
+            if r.status_code == 200:
+                log.info("AI writer: Gemini model %s answered", m)
+                return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+            last = f"{m}: HTTP {r.status_code} {r.text[:200]}"
+            if r.status_code == 404:  # model name retired -> next model
+                break
+            if r.status_code in (429, 500, 502, 503, 504):  # busy -> wait, retry, then next model
+                log.info("AI writer: %s busy (HTTP %s), retrying", m, r.status_code)
+                time.sleep(15 * (attempt + 1))
+                continue
             raise RuntimeError(f"Gemini HTTP {r.status_code}: {r.text[:300]}")
-        log.info("AI writer: Gemini model %s answered", m)
-        return r.json()["candidates"][0]["content"]["parts"][0]["text"]
     raise RuntimeError(last or "no Gemini model available")
 
 
