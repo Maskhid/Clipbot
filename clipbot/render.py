@@ -150,7 +150,7 @@ def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | Non
         cmd += ["-af", "loudnorm=I=-14:TP=-1.5:LRA=11"]
     cmd += ["-c:v", "libx264", "-preset", str(cfg.get("render_preset", "medium")), "-crf", str(cfg.get("crf", 18)),
             "-profile:v", "high", "-pix_fmt", "yuv420p", "-r", str(fps),
-            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+            "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2",
             "-movflags", "+faststart", "-map_metadata", "-1", "-t", f"{dur:.3f}", str(out)]
     log.info("Rendering %s (%.1fs, %dfps)", out.name, dur, fps)
     run(cmd)
@@ -177,6 +177,14 @@ def make_variant(master: Path, out: Path, seed: str, vcfg: dict, watermark: str 
                f"borderw=2:bordercolor=black@0.4:x=(w-tw)/2:y=h*0.905")
     cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(master), "-vf", vf, "-af", f"atempo={sp:.4f}",
            "-c:v", "libx264", "-preset", "veryfast", "-crf", "21", "-pix_fmt", "yuv420p",
-           "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", "-map_metadata", "-1", str(out)]
+           "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-movflags", "+faststart", "-map_metadata", "-1", str(out)]
     run(cmd)
+    return out
+
+
+def make_ig_safe(src: Path, out: Path) -> Path:
+    """Instagram Reels wants AAC audio at <=128 kbps / 48 kHz; video is copied untouched (fast)."""
+    need("ffmpeg")
+    run(["ffmpeg", "-y", "-v", "error", "-i", str(src), "-map", "0:v:0", "-map", "0:a:0?", "-c:v", "copy",
+         "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-ac", "2", "-movflags", "+faststart", str(out)])
     return out

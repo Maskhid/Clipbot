@@ -113,6 +113,10 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                                    + (f"Title: {meta['title']}\n" if meta.get("title") else "") + f"Text:\n{text}"}
                 else:
                     log.info("Posting %s -> %s (%s)", clip["id"], acc.id, acc.platform)
+                    if acc.platform == "instagram":
+                        video = render.make_ig_safe(Path(video), work / f"{Path(video).stem}_ig.mp4")
+                        storage.put(Path(video), clip["tag"])  # so Instagram can fetch it if direct upload fails
+                        meta["public_url"] = storage.public_url(Path(video).name, clip["tag"])
                     res = get_uploader(acc.platform).post(acc, vault, video, meta, cfg.settings)
                 rec = {**base, "status": "posted", "posted_at": iso(utcnow()), "remote_id": res.get("id"), "post_id": res.get("post_id"),
                        "url": res.get("url", ""), "dry_run": dry, "attempts": prev.get("attempts", 0) + 1}

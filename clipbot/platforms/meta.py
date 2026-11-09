@@ -49,29 +49,18 @@ def _rupload(url: str, token: str, video: Path):
     _check(r, "video upload")
 
 
-def post_instagram(acc, vault, video: Path, meta: dict, settings: dict) -> dict:
-    creds = vault.account(acc.id)
-    token, ig = creds["access_token"], creds["ig_user_id"]
-    G = _g(settings)
-    j = _check(requests.post(f"{G}/{ig}/media", timeout=60, data={
-        "media_type": "REELS", "upload_type": "resumable", "caption": meta["text"],
-        "share_to_feed": "true", "access_token": token}), "IG container")
-    cid = j["id"]
-    uri = j.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{settings['meta']['graph_version']}/{cid}"
-    _rupload(uri, token, video)
-
+def _ig_wait_and_publish(G: str, ig: str, cid: str, token: str) -> dict:
     status = ""
     for _ in range(60):  # up to ~10 min of processing
         time.sleep(10)
-        s = _check(requests.get(f"{G}/{cid}", timeout=30, params={"fields": "status_code,status", "access_token": token}), "IG status")
-        status = s.get("status_code", "")
+        st = _check(requests.get(f"{G}/{cid}", timeout=30, params={"fields": "status_code,status", "access_token": token}), "IG status")
+        status = st.get("status_code", "")
         if status == "FINISHED":
             break
         if status in ("ERROR", "EXPIRED"):
-            raise PostError(f"Instagram rejected the video: {s.get('status')}", retryable=False)
+            raise PostError(f"Instagram rejected the video: {st.get('status')}", retryable=False)
     else:
         raise PostError("Instagram processing timed out")
-
     pub = _check(requests.post(f"{G}/{ig}/media_publish", timeout=60,
                                data={"creation_id": cid, "access_token": token}), "IG publish")
     mid = pub["id"]
@@ -81,6 +70,32 @@ def post_instagram(acc, vault, video: Path, meta: dict, settings: dict) -> dict:
     except (requests.RequestException, ValueError):
         pass
     return {"id": mid, "url": url}
+
+
+def post_instagram(acc, vault, video: Path, meta: dict, settings: dict) -> dict:
+    """Uploads the file directly (resumable). If Instagram refuses the direct upload, falls back to
+    letting Instagram fetch the clip from its public download link."""
+    creds = vault.account(acc.id)
+    token, ig = creds["access_token"], creds["ig_user_id"]
+    G = _g(settings)
+    first_err = None
+    try:
+        j = _check(requests.post(f"{G}/{ig}/media", timeout=60, data={
+            "media_type": "REELS", "upload_type": "resumable", "caption": meta["text"],
+            "share_to_feed": "true", "access_token": token}), "IG container")
+        cid = j["id"]
+        uri = j.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{settings['meta']['graph_version']}/{cid}"
+        _rupload(uri, token, video)
+        return _ig_wait_and_publish(G, ig, cid, token)
+    except PostError as e:
+        first_err = e
+        if not meta.get("public_url"):
+            raise
+    # fallback: hosted URL (the clip's GitHub release link)
+    j = _check(requests.post(f"{G}/{ig}/media", timeout=60, data={
+        "media_type": "REELS", "video_url": meta["public_url"], "caption": meta["text"],
+        "share_to_feed": "true", "access_token": token}), f"IG container via URL (direct upload failed: {str(first_err)[:120]})")
+    return _ig_wait_and_publish(G, ig, j["id"], token)
 
 
 def post_facebook(acc, vault, video: Path, meta: dict, settings: dict) -> dict:

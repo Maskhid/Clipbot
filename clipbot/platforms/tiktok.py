@@ -136,5 +136,8 @@ def post(acc, vault, video: Path, meta: dict, settings: dict) -> dict:
         f"https://www.tiktok.com/@{handle}" if handle else "")
     note = None
     if mode != "direct":
-        note = "In your TikTok inbox: open TikTok → notifications → tap to finish posting. Caption to paste:\n" + meta["text"]
+        where = ("It's in your TikTok inbox" if status == "SEND_TO_USER_INBOX"
+                 else f"TikTok is still processing it (status {status}); it will appear in your inbox shortly")
+        note = (where + ": open the TikTok app → Inbox → System notifications (or your Drafts) → tap it to finish."
+                "\nCaption to paste:\n" + meta["text"])
     return {"id": publish_id, "post_id": str(post_ids[0]) if post_ids else None, "url": url, "status": status, "note": note}
