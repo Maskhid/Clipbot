@@ -1,0 +1,10 @@
+{
+  "account": "peakgaminggt_ig",
+  "at": "2026-11-09T12:31:53Z",
+  "attempts": 1,
+  "clip_id": "71ed301b734e-00-1d38",
+  "error": "Meta video upload failed (code None): {\"debug_info\":{\"retriable\":false,\"type\":\"ProcessingFailedError\",\"message\":\"Request processing failed\"}}",
+  "job_id": "71ed301b734e-00-1d38__peakgaminggt_ig",
+  "platform": "instagram",
+  "status": "failed"
+}
