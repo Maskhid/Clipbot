@@ -11,25 +11,25 @@ brands:
         platform: youtube
         mode: manual             # until Google approves the audit; then delete this line
         posts_per_day: 4
-        windows: ["10:00-13:00", "16:00-23:00"]
+        windows: ["10:15-13:00", "16:00-23:00"]
         timezone: Africa/Lagos
       - id: peakgaminggt_tt
         platform: tiktok
         handle: "@peak.gaminggt"
         tiktok_mode: inbox
         posts_per_day: 4
-        windows: ["10:00-13:00", "16:00-23:00"]
+        windows: ["10:15-13:00", "16:00-23:00"]
         timezone: Africa/Lagos
       - id: peakgaminggt_ig
         platform: instagram
         handle: "@peak.gaminggt"
         page: "Peak Gaming"
         posts_per_day: 4
-        windows: ["10:00-13:00", "16:00-23:00"]
+        windows: ["10:15-13:00", "16:00-23:00"]
         timezone: Africa/Lagos
       - id: peakgaminggt_fb
         platform: facebook
         page: "Peak Gaming"
         posts_per_day: 4
-        windows: ["10:00-13:00", "16:00-23:00"]
+        windows: ["10:15-13:00", "16:00-23:00"]
         timezone: Africa/Lagos
