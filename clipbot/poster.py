@@ -126,6 +126,7 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 summary["posted"].append(f"✅ {acc.id}: {res.get('url') or res.get('id')}")
                 if res.get("note"):
                     summary["notes"].append(f"📥 {acc.id}: {res['note']}")
+                    summary.setdefault("todo", []).append((acc, res, meta))
             except (PostError, VaultError, Exception) as e:  # noqa: BLE001
                 retryable = getattr(e, "retryable", not isinstance(e, VaultError))
                 attempts = prev.get("attempts", 0) + 1
@@ -144,8 +145,22 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
         vault.save()
         shutil.rmtree(work, ignore_errors=True)
 
+    if not dry:
+        # one message per thing you need to do, with the text to copy in its own message
+        for acc, res, meta in summary.get("todo", []):
+            if acc.platform == "tiktok":
+                notify(cfg.settings, f"🎵 **TIKTOK** ({acc.get('handle') or acc.id}): new video in your TikTok inbox. "
+                                     "Open TikTok → Inbox → System notifications (or Drafts) → tap it → paste the caption below → Post.")
+                notify(cfg.settings, meta.get("text", ""))
+            elif acc.platform == "youtube":
+                notify(cfg.settings, f"▶️ **YOUTUBE** ({acc.id}): download the Short, upload it in the YouTube app, "
+                                     f"then paste the title and description below.\n{res.get('url', '')}")
+                notify(cfg.settings, meta.get("title", ""))
+                notify(cfg.settings, meta.get("description", ""))
+            else:
+                notify(cfg.settings, f"📥 {acc.id}: {res.get('note')}")
     lines = []
-    for k, title in (("posted", "Posted"), ("notes", "Action needed"), ("retry", "Will retry"),
+    for k, title in (("posted", "Posted"), ("retry", "Will retry"),
                      ("failed", "Failed"), ("blocked", "Not connected")):
         if summary[k]:
             lines.append(f"**{title}**\n" + "\n".join(summary[k]))
