@@ -5,24 +5,28 @@
   {
    "date": "2026-11-09",
    "followers": 0
+  },
+  {
+   "date": "2026-11-10",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-09T16:51:48Z",
+ "updated_at": "2026-11-10T15:14:09Z",
  "videos": {
   "17930642286181802": {
    "clip_id": "71ed301b734e-01-0a33",
    "comments": 0,
    "created": "2026-11-09T16:01:48Z",
    "id": "17930642286181802",
-   "likes": 0,
+   "likes": 1,
    "match": "id",
    "shares": 0,
    "title": "Bro got caught in 4K by Liberty City PD 😭🚓 @KaiCenat\n\n🎥 @KaiCenat on Twitch\n\n#ka",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://www.instagram.com/reel/DfhtlyZgXs6/",
-   "views": 122
+   "views": 151
   },
   "17952539307349112": {
    "clip_id": "71ed301b734e-00-1d38",
@@ -33,9 +37,48 @@
    "match": "id",
    "shares": 0,
    "title": "Liberty City NPCs have zero chill outside the precinct 💀 @KaiCenat\n\n🎥 @KaiCenat ",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://www.instagram.com/reel/DfhYxGkFcdA/",
-   "views": 140
+   "views": 142
+  },
+  "18119203490097060": {
+   "clip_id": "71ed301b734e-04-7f0c",
+   "comments": 0,
+   "created": "2026-11-10T10:31:26Z",
+   "id": "18119203490097060",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "Bro is sprinting with a baseball bat begging for a taxi ride 💀🚖 @KaiCenat\n\n🎥 @Ka",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.instagram.com/reel/DfjslGvlVnC/",
+   "views": 180
+  },
+  "18127529714489233": {
+   "clip_id": "71ed301b734e-03-8c5f",
+   "comments": 0,
+   "created": "2026-11-09T21:01:51Z",
+   "id": "18127529714489233",
+   "likes": 2,
+   "match": "id",
+   "shares": 0,
+   "title": "Singing along right before destroying the whip 🚗💥 @KaiCenat\n\n🎥 @KaiCenat on Twit",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.instagram.com/reel/DfiP7AuiGIA/",
+   "views": 147
+  },
+  "18139593532638716": {
+   "clip_id": "71ed301b734e-02-4954",
+   "comments": 0,
+   "created": "2026-11-09T18:31:47Z",
+   "id": "18139593532638716",
+   "likes": 11,
+   "match": "id",
+   "shares": 0,
+   "title": "Kai pulled up to the wrong neighborhood in Liberty City 😭👊 @KaiCenat\n\n🎥 @KaiCena",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.instagram.com/reel/Dfh-wWhDbJZ/",
+   "views": 1518
   }
  }
 }

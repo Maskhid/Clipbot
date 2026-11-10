@@ -5,11 +5,15 @@
   {
    "date": "2026-11-09",
    "followers": 0
+  },
+  {
+   "date": "2026-11-10",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "youtube",
- "updated_at": "2026-11-09T16:51:48Z",
+ "updated_at": "2026-11-10T15:14:09Z",
  "videos": {
   "0IKXUbHIBWM": {
    "clip_id": "71ed301b734e-00-1d38",
@@ -20,22 +24,48 @@
    "match": "time",
    "shares": null,
    "title": "GTA 3 NPCs Start a Riot Outside Police Station #shorts",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://youtube.com/shorts/0IKXUbHIBWM",
    "views": 4
+  },
+  "8LC7PfN38yY": {
+   "clip_id": "71ed301b734e-04-7f0c",
+   "comments": 0,
+   "created": "2026-11-10T12:55:20Z",
+   "id": "8LC7PfN38yY",
+   "likes": 0,
+   "match": "time",
+   "shares": null,
+   "title": "Kai Desperately Chases a Cab on 1 HP #Shorts",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://youtube.com/shorts/8LC7PfN38yY",
+   "views": 0
+  },
+  "UTcjCxG8HLc": {
+   "clip_id": "71ed301b734e-02-4954",
+   "comments": 0,
+   "created": "2026-11-09T19:37:50Z",
+   "id": "UTcjCxG8HLc",
+   "likes": 0,
+   "match": "time",
+   "shares": null,
+   "title": "Kai Steps Out Into a Chinatown Gang War #Shorts",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://youtube.com/shorts/UTcjCxG8HLc",
+   "views": 0
   },
   "ctcXJN1j1l4": {
    "clip_id": "71ed301b734e-01-0a33",
    "comments": 0,
    "created": "2026-11-09T16:17:54Z",
    "id": "ctcXJN1j1l4",
-   "likes": 0,
+   "likes": 1,
    "match": "time",
    "shares": null,
    "title": "Bro got caught in 4K by Liberty City PD 😭 #gaming #gta3 #gtamodes #kaicenat",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://youtube.com/shorts/ctcXJN1j1l4",
-   "views": 0
+   "views": 53
   }
  }
 }

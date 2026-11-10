@@ -5,12 +5,55 @@
   {
    "date": "2026-11-09",
    "followers": 1
+  },
+  {
+   "date": "2026-11-10",
+   "followers": 1
   }
  ],
  "notes": [],
  "platform": "facebook",
- "updated_at": "2026-11-09T16:51:48Z",
+ "updated_at": "2026-11-10T15:14:09Z",
  "videos": {
+  "1156622493469132": {
+   "clip_id": "71ed301b734e-04-7f0c",
+   "comments": 0,
+   "created": "2026-11-10T10:32:09Z",
+   "id": "1156622493469132",
+   "likes": 0,
+   "match": "id",
+   "shares": null,
+   "title": "Bro is sprinting with a baseball bat begging for a taxi ride 💀🚖 @KaiCenat\n\n🎥 @Ka",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.facebook.com/reel/1156622493469132",
+   "views": 0
+  },
+  "1457796013120134": {
+   "clip_id": "71ed301b734e-03-8c5f",
+   "comments": 0,
+   "created": "2026-11-09T21:00:33Z",
+   "id": "1457796013120134",
+   "likes": 0,
+   "match": "id",
+   "shares": null,
+   "title": "Singing along right before destroying the whip 🚗💥 @KaiCenat\n\n🎥 @KaiCenat on Twit",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.facebook.com/reel/1457796013120134",
+   "views": 0
+  },
+  "1641232300875384": {
+   "clip_id": "71ed301b734e-02-4954",
+   "comments": 0,
+   "created": "2026-11-09T18:30:40Z",
+   "id": "1641232300875384",
+   "likes": 1,
+   "match": "id",
+   "shares": null,
+   "title": "Kai pulled up to the wrong neighborhood in Liberty City 😭👊 @KaiCenat\n\n🎥 @KaiCena",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.facebook.com/reel/1641232300875384",
+   "views": 2
+  },
   "1874222000598366": {
    "clip_id": "71ed301b734e-00-1d38",
    "comments": 0,
@@ -20,9 +63,9 @@
    "match": "id",
    "shares": null,
    "title": "Liberty City NPCs have zero chill outside the precinct 💀 @KaiCenat\n\n🎥 @KaiCenat ",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://www.facebook.com/reel/1874222000598366",
-   "views": 2
+   "views": 3
   },
   "973187602529424": {
    "clip_id": "71ed301b734e-01-0a33",
@@ -33,9 +76,9 @@
    "match": "id",
    "shares": null,
    "title": "Bro got caught in 4K by Liberty City PD 😭🚓 @KaiCenat\n\n🎥 @KaiCenat on Twitch\n\n#ka",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://www.facebook.com/reel/973187602529424",
-   "views": 2
+   "views": 3
   }
  }
 }

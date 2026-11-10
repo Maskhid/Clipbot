@@ -5,24 +5,67 @@
   {
    "date": "2026-11-09",
    "followers": 2
+  },
+  {
+   "date": "2026-11-10",
+   "followers": 4
   }
  ],
  "notes": [],
  "platform": "tiktok",
- "updated_at": "2026-11-09T16:51:48Z",
+ "updated_at": "2026-11-10T15:14:09Z",
  "videos": {
   "7706154323444632852": {
    "clip_id": "71ed301b734e-00-1d38",
    "comments": 0,
    "created": "2026-11-09T12:54:35Z",
    "id": "7706154323444632852",
-   "likes": 5,
+   "likes": 11,
    "match": "time",
    "shares": 0,
    "title": "",
-   "updated_at": "2026-11-09T16:51:48Z",
+   "updated_at": "2026-11-10T15:14:09Z",
    "url": "https://www.tiktok.com/@peak.gaminggt/video/7706154323444632852",
-   "views": 65
+   "views": 132
+  },
+  "7706230409838742785": {
+   "clip_id": "71ed301b734e-01-0a33",
+   "comments": 0,
+   "created": "2026-11-09T17:50:15Z",
+   "id": "7706230409838742785",
+   "likes": 3,
+   "match": "time",
+   "shares": 0,
+   "title": "Bro got caught in 4K by Liberty City PD 😭🚓 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #gta #fails ",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.tiktok.com/@peak.gaminggt/video/7706230409838742785",
+   "views": 143
+  },
+  "7706260849110863110": {
+   "clip_id": "71ed301b734e-02-4954",
+   "comments": 0,
+   "created": "2026-11-09T19:49:07Z",
+   "id": "7706260849110863110",
+   "likes": 2,
+   "match": "time",
+   "shares": 0,
+   "title": "Kai pulled up to the wrong neighborhood in Liberty City 😭👊 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #grandtheftauto #funnygaming #twitch ",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.tiktok.com/@peak.gaminggt/video/7706260849110863110",
+   "views": 101
+  },
+  "7706525727562222854": {
+   "clip_id": "71ed301b734e-04-7f0c",
+   "comments": 0,
+   "created": "2026-11-10T12:56:23Z",
+   "id": "7706525727562222854",
+   "likes": 1,
+   "match": "time",
+   "shares": 0,
+   "title": "Bro is sprinting with a baseball bat begging for a taxi ride 💀🚖 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #gta #twitchclips #gamingfunny ",
+   "updated_at": "2026-11-10T15:14:09Z",
+   "url": "https://www.tiktok.com/@peak.gaminggt/video/7706525727562222854",
+   "views": 40
   }
  }
 }
