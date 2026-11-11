@@ -37,7 +37,7 @@ jobs:
 
       - name: Install ffmpeg
         if: steps.check.outputs.has_due == 'true'
-        run: which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg)
+        run: bash scripts/install_ffmpeg.sh
 
       - name: Post
         if: steps.check.outputs.has_due == 'true'
