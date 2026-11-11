@@ -1,0 +1,56 @@
+{
+  "asset": "a04e5304b15a-03-966d.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "caption_examples": [
+      "The new MW4 MP maps look INSANE",
+      "Season 1 of MW4 is coming with all new content"
+    ],
+    "content_type": "the official Call of Duty MW4 Season 01 trailer",
+    "disclosure": "#Ad",
+    "hashtags": [
+      "#MW4",
+      "#CallOfDuty",
+      "#Warzone"
+    ],
+    "hook_examples": [
+      "Look at the new MP maps coming to MW4 Season 1",
+      "New DMZ missions are already here"
+    ],
+    "max_hashtags": 3,
+    "mention": "@callofduty",
+    "name": "COD MW4 Trailer",
+    "platforms": [
+      "instagram",
+      "tiktok"
+    ],
+    "submit_url": "https://contentrewards.com/c/campaigns/78b4e379-2aa0-4d20-9fd0-ed02a816e3b1",
+    "watermark": false
+  },
+  "captions": {
+    "hype": "Canyon map revealed in the official Call of Duty MW4 Season 01 trailer 🏜️🔥"
+  },
+  "created_at": "2026-11-11T16:05:09Z",
+  "credit": null,
+  "duration": 16.0,
+  "end": 28.5,
+  "hashtags": [
+    "#mw4",
+    "#callofduty",
+    "#cod",
+    "#gaming",
+    "#season1"
+  ],
+  "hook": "NEW CANYON MAP REVEALED",
+  "id": "a04e5304b15a-03-966d",
+  "score": 0.355,
+  "shared": false,
+  "source": "https://github.com/Maskhid/Clipbot/releases/download/campaign-cod-mw4/MW4_S1_Premium_TRAILER_FULL_COD_Channel_ESRB_16x9_4K.mp4",
+  "source_key": "a04e5304b15a",
+  "start": 12.5,
+  "tag": "clips-2026-11-11",
+  "title": "Call of Duty MW4 Season 01 Canyon Map Reveal",
+  "watermarked": true
+}

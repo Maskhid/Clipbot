@@ -1,7 +1,11 @@
 {
-  "at": "2026-11-11T15:24:08Z",
-  "attempts": 1,
-  "error": "AI writer unavailable; campaign clips need honest AI captions, so this will retry next run",
-  "status": "error",
+  "at": "2026-11-11T16:05:09Z",
+  "clips": [
+    "a04e5304b15a-00-64d5",
+    "a04e5304b15a-01-e5e3",
+    "a04e5304b15a-02-26ee",
+    "a04e5304b15a-03-966d"
+  ],
+  "status": "done",
   "url": "https://github.com/Maskhid/Clipbot/releases/download/campaign-cod-mw4/MW4_S1_Premium_TRAILER_FULL_COD_Channel_ESRB_16x9_4K.mp4"
 }

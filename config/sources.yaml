@@ -116,6 +116,26 @@ sources:
     credit: "@adinross on Kick"
     layout: "blur"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2924316911"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 670730  SICK STREAM   BUT WE HAVE TO FIND THE PIRATE TOKEN 
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "blur"
+    max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1c283-3488-7c6a-9099-a4b6983acbd7#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1c28334887c6a9099a4b6983acbd7
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "blur"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
