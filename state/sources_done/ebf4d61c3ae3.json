@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-11T15:07:48Z",
+  "attempts": 1,
+  "error": "ERROR: [generic] 'PASTE_LINK' is not a valid URL",
+  "status": "error",
+  "url": "PASTE_LINK"
+}
