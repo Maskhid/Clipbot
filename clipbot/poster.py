@@ -86,6 +86,11 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
             if not clip:
                 state.save_result(job["id"], {**base, "status": "failed", "error": "clip record missing", "at": iso(now)})
                 continue
+            camp = clip.get("campaign") or {}
+            live = next((x.get("campaign") for x in cfg.sources if x.get("url") == clip.get("source")), None)
+            if camp and isinstance(live, dict) and live.get("active") is False:
+                state.save_result(job["id"], {**base, "status": "failed", "error": "campaign ended", "at": iso(now)})
+                continue
             brand = cfg.brands[job["brand"]] if job["brand"] in cfg.brands else cfg.brands[acc.brand]
             meta = compose(clip, brand, acc)
             try:
@@ -124,6 +129,8 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 counts[acc.id] = counts.get(acc.id, 0) + 1
                 done_this_run += 1
                 summary["posted"].append(f"✅ {acc.id}: {res.get('url') or res.get('id')}")
+                if camp and not dry:
+                    summary.setdefault("submit", []).append((acc, res, camp))
                 if res.get("note"):
                     summary["notes"].append(f"📥 {acc.id}: {res['note']}")
                     summary.setdefault("todo", []).append((acc, res, meta))
@@ -159,6 +166,16 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 notify(cfg.settings, meta.get("description", ""))
             else:
                 notify(cfg.settings, f"📥 {acc.id}: {res.get('note')}")
+        # paid campaigns: the post link on its own, ready to paste into the campaign's "Submit clip"
+        for acc, res, camp in summary.get("submit", []):
+            name = camp.get("name") or "campaign"
+            where = f"\n{camp['submit_url']}" if camp.get("submit_url") else ""
+            if acc.platform in ("instagram", "facebook") and res.get("url") and res.get("id") != "manual":
+                notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): tap Submit clip and paste the link below.{where}")
+                notify(cfg.settings, res["url"])
+            else:
+                notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): after you post it, tap Share → Copy link, "
+                                     f"then Submit clip and paste it.{where}")
     lines = []
     for k, title in (("posted", "Posted"), ("retry", "Will retry"),
                      ("failed", "Failed"), ("blocked", "Not connected")):

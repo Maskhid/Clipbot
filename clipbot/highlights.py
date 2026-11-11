@@ -110,7 +110,7 @@ def find_highlights(duration: float, loud_db: list[float], segments: list[dict],
     lead, follow = float(cfg["lead_in_seconds"]), float(cfg["follow_seconds"])
     if duration < mn:
         return []
-    target = max(1, min(int(cfg["max_clips_per_source"]), math.ceil(duration / 3600 * cfg["clips_per_hour"])))
+    target = clip_target(duration, cfg)
     if duration <= mx + 1:
         return [{"start": 0.0, "end": round(duration, 2), "peak": duration / 2, "score": 1.0}]
 
@@ -155,6 +155,8 @@ def find_highlights(duration: float, loud_db: list[float], segments: list[dict],
 
 
 def clip_target(duration: float, cfg: dict) -> int:
+    if cfg.get("clips_target"):
+        return max(1, int(cfg["clips_target"]))
     return max(1, min(int(cfg["max_clips_per_source"]), math.ceil(duration / 3600 * cfg["clips_per_hour"])))
 
 

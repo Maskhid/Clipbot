@@ -96,6 +96,7 @@ Titles must be specific too. No clickbait lies, no slurs, don't claim to be the 
 Streamer: {streamer}
 Each candidate may come with 3 frames (start, peak, end) so you can see what happens.
 {gameplay_rule}
+{campaign_rule}
 
 Candidates:
 {cands}
@@ -179,6 +180,27 @@ def _providers(lc: dict) -> list[tuple[str, str, str, str]]:
     return out
 
 
+def campaign_rules(camp: dict | None) -> str:
+    """Extra instructions when the clip is for a paid clipping campaign (brand rules are strict)."""
+    if not camp:
+        return ""
+    lines = ["THIS IS FOR A PAID BRAND CAMPAIGN. Follow these rules exactly or the clip is rejected:",
+             "- Write like a genuine fan, in your own words. Calm and honest: no exaggerated hooks, rage bait or clickbait.",
+             "- Everything must be TRUE and match what is on screen. Never invent facts, stats, dates or features.",
+             "- Do not write any hashtags or @mentions in the captions (they are added automatically).",
+             "- Pick DIFFERENT moments/shots for each clip so no two clips look the same.",
+             "- The hook (on-screen text) must describe what is actually shown; use \"\" if unsure."]
+    if camp.get("content_type"):
+        lines.append(f"- The footage is: {camp['content_type']}. Call it exactly that, never 'gameplay' unless it is gameplay.")
+    if camp.get("brief"):
+        lines.append("- Campaign brief: " + " ".join(str(camp["brief"]).split()))
+    if camp.get("caption_examples"):
+        lines.append("- Caption tone examples (do NOT copy them word for word): " + " | ".join(camp["caption_examples"]))
+    if camp.get("hook_examples"):
+        lines.append("- On-screen text direction (stay close, keep it true): " + " | ".join(camp["hook_examples"]))
+    return "\n".join(lines)
+
+
 def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles: list[str],
              settings: dict, game: str, frames: dict[int, list[bytes]] | None = None) -> list[dict] | None:
     lc = settings["llm"]
@@ -203,7 +225,8 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
                            streamer=streamer,
                            gameplay_rule=("ONLY pick moments where actual gameplay is on screen; skip chatting, "
                                           "menus, loading screens and reacting to other videos."
-                                          if src.get("only_gaming") else ""))
+                                          if src.get("only_gaming") else ""),
+                           campaign_rule=campaign_rules(src.get("campaign")))
     images = []
     for i, shots in (frames or {}).items():
         for j, jpg in enumerate(shots):

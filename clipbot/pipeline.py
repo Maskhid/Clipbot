@@ -66,9 +66,12 @@ def schedule_clip(cfg: Config, state: State, sched: Scheduler, clip: dict) -> li
     jobs = []
     for bname in clip["brands"]:
         brand = cfg.brands[bname]
+        plats = (clip.get("campaign") or {}).get("platforms")
         for acc in brand.accounts:
             if not acc.get("enabled", True):
                 continue
+            if plats and acc.platform not in plats:
+                continue  # this campaign only pays on some platforms
             jid = State.job_id(clip["id"], acc.id)
             if state._read("queue", jid):
                 continue
@@ -93,6 +96,9 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
             cc[k] = src[k]
     if src.get("max_clips"):
         cc["max_clips_per_source"] = int(src["max_clips"])
+    if src.get("clips"):  # exact number of clips wanted (e.g. several cuts of a short trailer)
+        cc["clips_target"] = int(src["clips"])
+    camp = src.get("campaign") or None
 
     video = sources.fetch(src, work / "dl")
     info = ffprobe(video)
@@ -129,6 +135,8 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     pool = cands[: min(len(cands), max(target * 2, 6), 12)]
     frames = grab_frames(video, pool, work / "frames") if writer._providers(cfg.settings["llm"]) else None
     picks = writer.llm_pick(pool, segs, src, target, styles, cfg.settings, game, frames)
+    if not picks and camp:
+        raise RuntimeError("AI writer unavailable; campaign clips need honest AI captions, so this will retry next run")
     if not picks:
         picks = []
         for c in cands[:target]:
@@ -155,10 +163,13 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
             ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur,
                                      None if pill else p.get("hook"), cc["caption"],
                                      float(cc.get("hook_seconds", 3)), work / f"{cid}.ass")
-            wm = cfg.brands[clip_brands[0]].get("watermark") if len(clip_brands) == 1 else None
+            badge = not (camp and camp.get("watermark") is False)
+            wm = cfg.brands[clip_brands[0]].get("watermark") if (len(clip_brands) == 1 and badge) else None
             brand0 = cfg.brands[clip_brands[0]]
             logo = brand0.get("logo") or "assets/logo.png"
             logo_path = Path(logo) if Path(logo).is_absolute() else (ROOT / logo)
+            if not badge:
+                logo_path = Path("/nonexistent")
             out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm,
                                      hook=p.get("hook") if pill else None, colors=brand0.get("colors"),
                                      logo=logo_path if (len(clip_brands) == 1 and logo_path.exists()) else None)
@@ -169,7 +180,8 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
             clip = {"id": cid, "source": src["url"], "source_key": skey, "start": p["start"], "end": p["end"],
                     "duration": round(dur, 2), "score": p.get("score"), "title": p.get("title"), "hook": p.get("hook"),
                     "captions": cap_map, "hashtags": p.get("hashtags", []), "credit": src.get("credit"),
-                    "brands": clip_brands, "shared": len(clip_brands) > 1, "watermarked": bool(wm),
+                    "brands": clip_brands, "shared": len(clip_brands) > 1, "watermarked": bool(wm) or not badge,
+                    "campaign": camp,
                     "asset": asset, "tag": tag, "created_at": iso(utcnow())}
             state.save_clip(clip)
             jobs = schedule_clip(cfg, state, sched, clip)
@@ -206,6 +218,11 @@ def run_clip(cfg: Config, state: State | None = None, only_url: str | None = Non
             made = process_source(cfg, state, storage, src, sched, brand_load)
             state.mark_source(src, {"status": "done", "clips": [c["id"] for c in made], "at": iso(utcnow())})
             all_made += made
+            if made and src.get("campaign") and (src["campaign"].get("priority", True)):
+                n = reschedule_all(cfg, state)
+                log.info("Campaign clips moved to the front of the queue (%d posts re-planned)", n)
+                busy, clip_times, brand_load = busy_times(state, utcnow())
+                sched = Scheduler(cfg, busy, clip_times, now=utcnow())
         except SkipSource as e:
             log.info("Skipped %s: %s", src["url"], e)
             state.mark_source(src, {"status": "done", "skipped": str(e), "clips": [], "at": iso(utcnow())})
@@ -231,8 +248,9 @@ def reschedule_all(cfg: Config, state: State) -> int:
     busy, clip_times, _ = busy_times(state, now)
     sched = Scheduler(cfg, busy, clip_times, now=now)
     n = 0
-    for clip_id in sorted({j["clip_id"] for j in pending}):
-        clip = state.clip(clip_id)
-        if clip:
-            n += len(schedule_clip(cfg, state, sched, clip))
+    clips = [c for c in (state.clip(cid) for cid in sorted({j["clip_id"] for j in pending})) if c]
+    # paid campaign clips get the earliest slots; the rest keep their order
+    clips.sort(key=lambda c: 0 if (c.get("campaign") or {}).get("priority", True) and c.get("campaign") else 1)
+    for clip in clips:
+        n += len(schedule_clip(cfg, state, sched, clip))
     return n
