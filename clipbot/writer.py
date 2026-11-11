@@ -279,6 +279,7 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
 GAMING_PROMPT = """These {n} frames are spread across a livestream titled: "{title}".
 Decide if this stream is mainly the streamer PLAYING a video game (gameplay visible on screen most of the time),
 as opposed to just chatting, reacting to videos, IRL, music, or sitting in a menu.
+Casino, slots, gambling, betting sites and boxing/fight events are NOT video games: count those frames as no gameplay.
 {games_rule}
 Return ONLY JSON: {{"gameplay_frames": <how many frames show actual gameplay>, "game": "<game name or empty>"}}"""
 

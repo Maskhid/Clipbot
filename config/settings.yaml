@@ -40,7 +40,7 @@ llm:
   language: English
 
 posting:
-  min_gap_minutes: 90           # minimum time between two posts on the same account
+  min_gap_minutes: 30           # minimum time between two posts on the same account
   jitter_minutes: 20            # random shift so times aren't robotic
   same_clip_spread_minutes: 150 # same clip on two different brands: at least this far apart
   max_posts_per_run: 12

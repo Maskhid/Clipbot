@@ -68,3 +68,49 @@ channels:
     window_minutes: 120
     max_clips: 5
     max_age_hours: 48
+    
+  - url: "https://www.twitch.tv/jynxzi"
+    brands: [peakgaminggt]
+    only_gaming: true
+    credit: "@Jynxzi on Twitch"
+    layout: blur
+    start_minute: 30
+    window_minutes: 120
+    max_clips: 5
+    max_age_hours: 48
+  - url: "https://www.twitch.tv/xqc"
+    brands: [peakgaminggt]
+    only_gaming: true
+    credit: "@xQc on Twitch"
+    layout: blur
+    start_minute: 30
+    window_minutes: 120
+    max_clips: 5
+    max_age_hours: 48
+  - url: "https://www.twitch.tv/caseoh_"
+    brands: [peakgaminggt]
+    only_gaming: true
+    credit: "@caseoh_ on Twitch"
+    layout: blur
+    start_minute: 30
+    window_minutes: 120
+    max_clips: 5
+    max_age_hours: 48
+  - url: "https://www.twitch.tv/stableronaldo"
+    brands: [peakgaminggt]
+    only_gaming: true
+    credit: "@StableRonaldo on Twitch"
+    layout: blur
+    start_minute: 30
+    window_minutes: 120
+    max_clips: 5
+    max_age_hours: 48
+  - url: "https://kick.com/adinross"
+    brands: [peakgaminggt]
+    only_gaming: true
+    credit: "@adinross on Kick"
+    layout: blur
+    start_minute: 30
+    window_minutes: 120
+    max_clips: 5
+    max_age_hours: 48
