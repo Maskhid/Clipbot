@@ -18,7 +18,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 sources:
-  - url: "PASTE_LINK"
+  - url: "https://github.com/Maskhid/Clipbot/releases/download/campaign-cod-mw4/MW4_S1_Premium_TRAILER_FULL_COD_Channel_ESRB_16x9_4K.mp4"
     brands: [peakgaminggt]
     game: "Call of Duty MW4"
     clips: 5
