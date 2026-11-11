@@ -103,6 +103,25 @@ Candidates:
 """
 
 
+def _gemini_models(key: str) -> list[str]:
+    """Current Flash models this API key can use, newest first (Google retires old names often)."""
+    try:
+        r = requests.get("https://generativelanguage.googleapis.com/v1beta/models", params={"key": key, "pageSize": 200},
+                         timeout=30)
+        names = [x["name"].split("/", 1)[-1] for x in r.json().get("models", [])
+                 if "generateContent" in (x.get("supportedGenerationMethods") or [])]
+    except Exception:  # noqa: BLE001
+        return []
+    flash = [n for n in names if "flash" in n and not any(b in n for b in ("image", "tts", "audio", "live", "exp", "preview"))]
+
+    def ver(n):
+        m = re.search(r"(\d+(?:\.\d+)?)", n)
+        return (float(m.group(1)) if m else 0, "lite" not in n)
+    flash.sort(key=ver, reverse=True)
+    log.info("AI writer: Google lists these Flash models: %s", ", ".join(flash[:6]) or "none")
+    return flash[:4]
+
+
 def _call_gemini(model: str, key: str, prompt: str, images: list[tuple[str, bytes]] | None = None) -> str:
     import base64  # noqa: PLC0415
 
@@ -113,7 +132,13 @@ def _call_gemini(model: str, key: str, prompt: str, images: list[tuple[str, byte
     import time  # noqa: PLC0415
 
     last = None
-    for m in dict.fromkeys([model, "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite"]):
+    models = list(dict.fromkeys([model, "gemini-flash-latest", "gemini-3.5-flash", "gemini-flash-lite-latest",
+                                 "gemini-3.5-flash-lite", "gemini-2.5-flash"]))
+    discovered = False
+    i = 0
+    while i < len(models) and i < 10:
+        m = models[i]
+        i += 1
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent"
         for attempt in range(3):
             try:
@@ -129,7 +154,13 @@ def _call_gemini(model: str, key: str, prompt: str, images: list[tuple[str, byte
                 log.info("AI writer: Gemini model %s answered", m)
                 return r.json()["candidates"][0]["content"]["parts"][0]["text"]
             last = f"{m}: HTTP {r.status_code} {r.text[:200]}"
-            if r.status_code == 404:  # model name retired -> next model
+            if r.status_code == 404:  # model name retired -> next model (and ask Google which ones exist)
+                log.info("AI writer: %s not available (retired)", m)
+                if not discovered:
+                    discovered = True
+                    for extra in _gemini_models(key):
+                        if extra not in models:
+                            models.append(extra)
                 break
             if r.status_code in (429, 500, 502, 503, 504):  # busy -> wait, retry, then next model
                 log.info("AI writer: %s busy (HTTP %s), retrying", m, r.status_code)

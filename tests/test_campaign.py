@@ -56,6 +56,42 @@ def test_campaign_scheduling_platforms_and_priority():
     by = {}
     for j in state.jobs():
         by.setdefault(j["account"], {})[j["clip_id"]] = parse_iso(j["due_at"])
-    for acc, d in by.items():
-        if "zzcod-00-bbbb" in d:
-            assert d["zzcod-00-bbbb"] < d["kai-00-aaaa"], acc  # campaign clip goes first
+    try:
+        for acc, d in by.items():
+            if "zzcod-00-bbbb" in d:
+                assert d["zzcod-00-bbbb"] < d["kai-00-aaaa"], acc  # campaign clip goes first
+    finally:  # leave the shared test state clean for the other tests
+        for j in state.jobs():
+            if j["clip_id"] in ("kai-00-aaaa", "zzcod-00-bbbb"):
+                state.delete_job(j["id"])
+        state.delete_clip("kai-00-aaaa")
+        state.delete_clip("zzcod-00-bbbb")
+
+
+def test_gemini_falls_back_to_listed_models(monkeypatch):
+    import clipbot.writer as w
+
+    class R:
+        def __init__(self, code, body):
+            self.status_code, self._b, self.text = code, body, str(body)
+
+        def json(self):
+            return self._b
+
+    tried = []
+
+    def post(url, **kw):
+        m = url.split("/models/")[1].split(":")[0]
+        tried.append(m)
+        if m == "gemini-9.9-flash":
+            return R(200, {"candidates": [{"content": {"parts": [{"text": "{\"ok\":1}"}]}}]})
+        return R(404, {"error": "gone"})
+
+    def get(url, **kw):
+        return R(200, {"models": [{"name": "models/gemini-9.9-flash", "supportedGenerationMethods": ["generateContent"]},
+                                  {"name": "models/gemini-9.9-flash-image", "supportedGenerationMethods": ["generateContent"]}]})
+
+    monkeypatch.setattr(w.requests, "post", post)
+    monkeypatch.setattr(w.requests, "get", get)
+    assert w._call_gemini("gemini-2.5-flash", "k", "hi") == "{\"ok\":1}"
+    assert tried[-1] == "gemini-9.9-flash" and "gemini-9.9-flash-image" not in tried
