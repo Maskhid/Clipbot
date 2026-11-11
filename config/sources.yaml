@@ -136,6 +136,26 @@ sources:
     credit: "@adinross on Kick"
     layout: "blur"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2924625705"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LOSING MY MIND
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@caseoh_ on Twitch"
+    layout: "blur"
+    max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1471c-3b78-77ce-a16d-37f39802b8ad#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1471c3b7877cea16d37f39802b8ad
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "blur"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
