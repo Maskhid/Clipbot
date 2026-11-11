@@ -9,11 +9,15 @@
   {
    "date": "2026-11-10",
    "followers": 1
+  },
+  {
+   "date": "2026-11-11",
+   "followers": 1
   }
  ],
  "notes": [],
  "platform": "facebook",
- "updated_at": "2026-11-10T15:14:09Z",
+ "updated_at": "2026-11-11T14:42:52Z",
  "videos": {
   "1156622493469132": {
    "clip_id": "71ed301b734e-04-7f0c",
@@ -24,7 +28,7 @@
    "match": "id",
    "shares": null,
    "title": "Bro is sprinting with a baseball bat begging for a taxi ride 💀🚖 @KaiCenat\n\n🎥 @Ka",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.facebook.com/reel/1156622493469132",
    "views": 0
   },
@@ -37,7 +41,7 @@
    "match": "id",
    "shares": null,
    "title": "Singing along right before destroying the whip 🚗💥 @KaiCenat\n\n🎥 @KaiCenat on Twit",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.facebook.com/reel/1457796013120134",
    "views": 0
   },
@@ -50,9 +54,9 @@
    "match": "id",
    "shares": null,
    "title": "Kai pulled up to the wrong neighborhood in Liberty City 😭👊 @KaiCenat\n\n🎥 @KaiCena",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.facebook.com/reel/1641232300875384",
-   "views": 2
+   "views": 3
   },
   "1874222000598366": {
    "clip_id": "71ed301b734e-00-1d38",
@@ -63,9 +67,48 @@
    "match": "id",
    "shares": null,
    "title": "Liberty City NPCs have zero chill outside the precinct 💀 @KaiCenat\n\n🎥 @KaiCenat ",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.facebook.com/reel/1874222000598366",
-   "views": 3
+   "views": 5
+  },
+  "1920249885804381": {
+   "clip_id": "840e1e35a8b3-00-7890",
+   "comments": 0,
+   "created": "2026-11-11T10:30:35Z",
+   "id": "1920249885804381",
+   "likes": 1,
+   "match": "id",
+   "shares": null,
+   "title": "nobody was ready for this 😭\nCR-22KQFF\n\n🎥 @KaiCenat on Twitch\n\n#gaming #gamingcli",
+   "updated_at": "2026-11-11T14:42:52Z",
+   "url": "https://www.facebook.com/reel/1920249885804381",
+   "views": 2
+  },
+  "2182761689113218": {
+   "clip_id": "71ed301b734e-05-df4f",
+   "comments": 0,
+   "created": "2026-11-10T16:00:43Z",
+   "id": "2182761689113218",
+   "likes": 0,
+   "match": "id",
+   "shares": null,
+   "title": "The pedestrians in GTA 3 do not let car thefts slide 🏃💨 @KaiCenat\n\n🎥 @KaiCenat o",
+   "updated_at": "2026-11-11T14:42:52Z",
+   "url": "https://www.facebook.com/reel/2182761689113218",
+   "views": 1
+  },
+  "29664612169893017": {
+   "clip_id": "71ed301b734e-06-949a",
+   "comments": 0,
+   "created": "2026-11-10T18:30:35Z",
+   "id": "29664612169893017",
+   "likes": 0,
+   "match": "id",
+   "shares": null,
+   "title": "GTA 3 radio commercials are still completely unhinged 😂📻 @KaiCenat\n\n🎥 @KaiCenat ",
+   "updated_at": "2026-11-11T14:42:52Z",
+   "url": "https://www.facebook.com/reel/29664612169893017",
+   "views": 2
   },
   "973187602529424": {
    "clip_id": "71ed301b734e-01-0a33",
@@ -76,9 +119,9 @@
    "match": "id",
    "shares": null,
    "title": "Bro got caught in 4K by Liberty City PD 😭🚓 @KaiCenat\n\n🎥 @KaiCenat on Twitch\n\n#ka",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.facebook.com/reel/973187602529424",
-   "views": 3
+   "views": 4
   }
  }
 }

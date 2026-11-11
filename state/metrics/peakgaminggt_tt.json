@@ -9,11 +9,15 @@
   {
    "date": "2026-11-10",
    "followers": 4
+  },
+  {
+   "date": "2026-11-11",
+   "followers": 6
   }
  ],
  "notes": [],
  "platform": "tiktok",
- "updated_at": "2026-11-10T15:14:09Z",
+ "updated_at": "2026-11-11T14:42:52Z",
  "videos": {
   "7706154323444632852": {
    "clip_id": "71ed301b734e-00-1d38",
@@ -24,9 +28,9 @@
    "match": "time",
    "shares": 0,
    "title": "",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.tiktok.com/@peak.gaminggt/video/7706154323444632852",
-   "views": 132
+   "views": 133
   },
   "7706230409838742785": {
    "clip_id": "71ed301b734e-01-0a33",
@@ -37,7 +41,7 @@
    "match": "time",
    "shares": 0,
    "title": "Bro got caught in 4K by Liberty City PD 😭🚓 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #gta #fails ",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.tiktok.com/@peak.gaminggt/video/7706230409838742785",
    "views": 143
   },
@@ -50,22 +54,61 @@
    "match": "time",
    "shares": 0,
    "title": "Kai pulled up to the wrong neighborhood in Liberty City 😭👊 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #grandtheftauto #funnygaming #twitch ",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.tiktok.com/@peak.gaminggt/video/7706260849110863110",
-   "views": 101
+   "views": 127
   },
   "7706525727562222854": {
    "clip_id": "71ed301b734e-04-7f0c",
    "comments": 0,
    "created": "2026-11-10T12:56:23Z",
    "id": "7706525727562222854",
-   "likes": 1,
+   "likes": 3,
    "match": "time",
    "shares": 0,
    "title": "Bro is sprinting with a baseball bat begging for a taxi ride 💀🚖 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #gta #twitchclips #gamingfunny ",
-   "updated_at": "2026-11-10T15:14:09Z",
+   "updated_at": "2026-11-11T14:42:52Z",
    "url": "https://www.tiktok.com/@peak.gaminggt/video/7706525727562222854",
-   "views": 40
+   "views": 145
+  },
+  "7706586587366247732": {
+   "clip_id": "71ed301b734e-05-df4f",
+   "comments": 0,
+   "created": "2026-11-10T16:52:29Z",
+   "id": "7706586587366247732",
+   "likes": 6,
+   "match": "time",
+   "shares": 0,
+   "title": "The pedestrians in GTA 3 do not let car thefts slide 🏃💨 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #gamingmemes #grandtheftauto #viral ",
+   "updated_at": "2026-11-11T14:42:52Z",
+   "url": "https://www.tiktok.com/@peak.gaminggt/video/7706586587366247732",
+   "views": 159
+  },
+  "7706617409108741382": {
+   "clip_id": "71ed301b734e-06-949a",
+   "comments": 0,
+   "created": "2026-11-10T18:52:14Z",
+   "id": "7706617409108741382",
+   "likes": 5,
+   "match": "time",
+   "shares": 0,
+   "title": "GTA 3 radio commercials are still completely unhinged 😂📻 @KaiCenat 🎥 @KaiCenat on Twitch #kaicenat #gta3 #gaminghumor #grandtheftauto #shorts ",
+   "updated_at": "2026-11-11T14:42:52Z",
+   "url": "https://www.tiktok.com/@peak.gaminggt/video/7706617409108741382",
+   "views": 170
+  },
+  "7706865225181711617": {
+   "clip_id": "840e1e35a8b3-00-7890",
+   "comments": 0,
+   "created": "2026-11-11T10:53:23Z",
+   "id": "7706865225181711617",
+   "likes": 4,
+   "match": "time",
+   "shares": 0,
+   "title": "nobody was ready for this 😭 🎥 @KaiCenat on Twitch #gaming #gamingclips",
+   "updated_at": "2026-11-11T14:42:52Z",
+   "url": "https://www.tiktok.com/@peak.gaminggt/video/7706865225181711617",
+   "views": 70
   }
  }
 }
