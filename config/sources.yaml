@@ -45,6 +45,17 @@ sources:
     start: "00:10:00"
     end: "01:00:00"
     credit: "@KaiCenat on Twitch"
+  - url: "https://www.twitch.tv/videos/2924282282"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  #  PLAYING EVERY GTA UNTIL I BEAT IT Grand Theft Auto 4
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@KaiCenat on Twitch"
+    layout: "split"
+    split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
