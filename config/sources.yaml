@@ -18,6 +18,26 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 sources:
+  - url: "PASTE_LINK"
+    brands: [peakgaminggt]
+    game: "Call of Duty MW4"
+    clips: 5
+    min_clip_seconds: 12
+    max_clip_seconds: 35
+    layout: blur
+    campaign:
+      name: "COD MW4 Trailer"
+      platforms: [instagram, tiktok]
+      mention: "@callofduty"
+      disclosure: "#Ad"
+      hashtags: ["#MW4", "#CallOfDuty", "#Warzone"]
+      max_hashtags: 3
+      watermark: false
+      content_type: "the official Call of Duty MW4 Season 01 trailer"
+      submit_url: "https://contentrewards.com/c/campaigns/78b4e379-2aa0-4d20-9fd0-ed02a816e3b1"
+      caption_examples: ["The new MW4 MP maps look INSANE", "Season 1 of MW4 is coming with all new content"]
+      hook_examples: ["Look at the new MP maps coming to MW4 Season 1", "New DMZ missions are already here"]
+      
 #  - url: "https://www.twitch.tv/videos/1234567890"
 #    brands: [gta_chaos, gta_funny, naija_gamer]
 #    distribute: split
