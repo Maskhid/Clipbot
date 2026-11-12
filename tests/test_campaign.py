@@ -95,3 +95,41 @@ def test_gemini_falls_back_to_listed_models(monkeypatch):
     monkeypatch.setattr(w.requests, "get", get)
     assert w._call_gemini("gemini-2.5-flash", "k", "hi") == "{\"ok\":1}"
     assert tried[-1] == "gemini-9.9-flash" and "gemini-9.9-flash-image" not in tried
+
+
+LHM = {"name": "LHM", "platforms": ["instagram", "tiktok", "youtube"],
+       "mention": {"instagram": "@lethimmansplain", "tiktok": "@lethimmansplain", "youtube": "@LetHimMansplain"},
+       "first_line": "Full episode on {mention}", "hashtags": ["#lethimmansplain", "#hottakes", "#podcast"]}
+
+
+def test_first_line_mention_per_platform_no_ad():
+    clip = {"title": "He had an answer for everything", "captions": {"hype": "He had an answer for EVERYTHING 💀 #fyp"},
+            "campaign": LHM}
+    ig = compose(clip, _brand(), Account(id="i", platform="instagram", brand="peak", raw={}))["text"]
+    assert ig.split("\n") == ["Full episode on @lethimmansplain", "He had an answer for EVERYTHING 💀",
+                              "#lethimmansplain #hottakes #podcast"]
+    yt = compose(clip, _brand(), Account(id="y", platform="youtube", brand="peak", raw={}))
+    assert yt["description"].startswith("Full episode on @LetHimMansplain")
+    assert "@" not in yt["title"] and "#Ad" not in yt["description"]
+
+
+def test_logo_overlay_renders(tmp_path):
+    import subprocess
+    from PIL import Image
+    from clipbot import render
+    from clipbot.util import ffprobe
+    src = tmp_path / "s.mp4"
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "lavfi", "-i", "testsrc=size=1280x720:rate=30:duration=3",
+                    "-f", "lavfi", "-i", "sine=duration=3", "-shortest", str(src)], check=True)
+    logo = tmp_path / "logo.png"
+    img = Image.new("RGBA", (400, 200), (0, 0, 0, 0))
+    img.paste((255, 0, 0, 255), (50, 50, 350, 150))
+    img.save(logo)
+    out = tmp_path / "o.mp4"
+    cfg = {"layout": "blur", "fps": 30, "render_preset": "ultrafast", "graphics": {"progress_bar": False},
+           "logo_overlay": {"path": str(logo), "width": 200, "position": "top-right", "y": 230}}
+    render.render_clip(src, ffprobe(src), 0, 2.5, None, out, cfg)
+    frame = tmp_path / "f.png"
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", "2.3", "-i", str(out), "-frames:v", "1", str(frame)], check=True)
+    px = Image.open(frame).convert("RGB").getpixel((1080 - 40 - 100, 230 + 50))
+    assert px[0] > 180 and px[1] < 90  # red logo still visible at the end of the clip

@@ -68,6 +68,78 @@ def _cookie_file() -> str | None:
     return path
 
 
+VIDEO_EXT = (".mp4", ".mov", ".m4v", ".mkv", ".mxf", ".webm", ".avi")
+
+
+def _is_direct_file(url: str) -> bool:
+    """A plain link to a video file (GitHub release asset, Frame.io/Dropbox/S3 download link...)."""
+    from urllib.parse import urlparse  # noqa: PLC0415
+
+    return url.startswith("http") and urlparse(url).path.lower().endswith(VIDEO_EXT)
+
+
+def _direct_title(url: str) -> str | None:
+    from urllib.parse import parse_qs, unquote, urlparse  # noqa: PLC0415
+
+    u = urlparse(url)
+    disp = parse_qs(u.query).get("response-content-disposition", [""])[0]
+    m = re.search(r'filename="([^"]+)"', disp)
+    name = m.group(1) if m else unquote(u.path.rsplit("/", 1)[-1])
+    name = re.sub(r"\.[A-Za-z0-9]{2,4}$", "", name).replace("_", " ").strip()
+    return name if name and name.lower() not in ("original", "video", "file") else None
+
+
+def _fetch_direct(src: dict, url: str, work: Path, start, end) -> Path:
+    """Stream a direct video link through ffmpeg into a 1080p H.264 working copy.
+    Big studio files (4K, ProRes .mov) are shrunk on the fly, so the original never has to fit on disk."""
+    import json as _json  # noqa: PLC0415
+
+    need("ffmpeg")
+    net = ["-reconnect", "1", "-reconnect_streamed", "1", "-reconnect_on_network_error", "1", "-reconnect_delay_max", "30",
+           "-rw_timeout", "60000000"]
+    probe = run(["ffprobe", "-v", "error", "-show_entries", "stream=codec_type,codec_name,width,height",
+                 "-show_entries", "format=duration", "-of", "json", url], timeout=300)
+    meta = _json.loads(probe.stdout or "{}")
+    v = next((x for x in meta.get("streams", []) if x.get("codec_type") == "video"), None)
+    if not v:
+        raise RuntimeError(f"No video stream found at {url[:80]}...")
+    small = v.get("codec_name") in ("h264",) and int(v.get("height") or 9999) <= 1080 and int(v.get("width") or 9999) <= 1920
+    out = work / "source.mp4"
+    cmd = ["ffmpeg", "-y", "-v", "error", *net]
+    if start is not None:
+        cmd += ["-ss", str(start)]
+    if end is not None:
+        cmd += ["-to", str(end)]
+    cmd += ["-i", url, "-map", "0:v:0", "-map", "0:a:0?"]
+    if small:
+        cmd += ["-c", "copy"]
+    else:
+        cmd += ["-vf", "scale='if(gt(a,16/9),min(1920,iw),-2)':'if(gt(a,16/9),-2,min(1080,ih))':flags=lanczos,format=yuv420p",
+                "-c:v", "libx264", "-preset", "veryfast", "-crf", "17", "-c:a", "aac", "-b:a", "192k", "-ar", "48000"]
+    cmd += ["-movflags", "+faststart", str(out)]
+    dur = float((meta.get("format") or {}).get("duration") or 0)
+    log.info("Downloading direct file (%s %sx%s, %.0f min) -> %s", v.get("codec_name"), v.get("width"), v.get("height"),
+             dur / 60, "copy" if small else "1080p H.264")
+    try:
+        run(cmd)
+    except RuntimeError as e:  # server without range support etc. -> download the whole file first, then convert
+        log.warning("Streaming read failed (%s); downloading the whole file first", str(e).splitlines()[-1][:120])
+        import requests  # noqa: PLC0415
+
+        raw = work / ("raw" + (Path(url.split("?")[0]).suffix or ".mp4"))
+        with requests.get(url, stream=True, timeout=120) as r:
+            r.raise_for_status()
+            with open(raw, "wb") as f:
+                for chunk in r.iter_content(8 << 20):
+                    f.write(chunk)
+        cmd2 = cmd[:4] + cmd[4 + len(net):]  # same command minus the network options
+        cmd2[cmd2.index(url)] = str(raw)
+        run(cmd2)
+        raw.unlink(missing_ok=True)
+    src["_title"] = src.get("_title") or _direct_title(url)
+    return out
+
+
 def fetch(src: dict, work: Path) -> Path:
     url = src["url"]
     work.mkdir(parents=True, exist_ok=True)
@@ -88,6 +160,9 @@ def fetch(src: dict, work: Path) -> Path:
             return work / "source.mp4"
         shutil.copy2(local, out)
         return out
+
+    if _is_direct_file(url) or src.get("direct"):
+        return _fetch_direct(src, url, work, start, end)
 
     try:
         import yt_dlp  # noqa: PLC0415

@@ -36,22 +36,40 @@ def _strip_tags(text: str) -> str:
     return re.sub(r"[ \t]{2,}", " ", text).strip(" \n")
 
 
-def campaign_text(clip: dict, brand: Brand) -> str:
-    """[your caption] @mention
-    #Ad #tag #tag #tag      <- disclosure first, on its own line, max N more hashtags"""
+def _mention_for(camp: dict, platform: str) -> list[str]:
+    m = camp.get("mention") or []
+    if isinstance(m, dict):  # different handle per platform
+        m = m.get(platform) or m.get("default") or []
+    m = [m] if isinstance(m, str) else list(m)
+    return [x if x.startswith("@") else "@" + x for x in m if x]
+
+
+def campaign_text(clip: dict, brand: Brand, platform: str = "") -> str:
+    """Default:            [your caption] @mention
+                           #Ad #tag #tag #tag   <- disclosure first, own line, max N more hashtags
+    With first_line:       Full episode on @mention   <- tag in the FIRST line
+                           [your caption]
+                           #tag #tag #tag"""
     camp = clip["campaign"]
-    caption = _strip_tags(pick_caption(clip, brand))
-    mentions = camp.get("mention") or []
-    mentions = [mentions] if isinstance(mentions, str) else mentions
-    first = " ".join([caption] + [m if m.startswith("@") else "@" + m for m in mentions]).strip()
-    disc = camp.get("disclosure") or "#Ad"
-    extra = [t for t in _dedupe_tags(camp.get("hashtags")) if t.lower() != disc.lower()][: int(camp.get("max_hashtags", 3))]
-    return first + "\n" + " ".join([disc] + extra)
+    caption = _strip_tags(pick_caption(clip, brand)).replace("\n", " ").strip()
+    mentions = " ".join(_mention_for(camp, platform))
+    disc = camp.get("disclosure")
+    tags = [t for t in _dedupe_tags(camp.get("hashtags")) if not disc or t.lower() != disc.lower()]
+    tags = tags[: int(camp.get("max_hashtags", 3))]
+    tag_line = " ".join(([disc] if disc else []) + tags)
+    if camp.get("first_line"):
+        first = str(camp["first_line"]).replace("{mention}", mentions).strip()
+        lines = [first, caption]
+    else:
+        lines = [" ".join(x for x in (caption, mentions) if x)]
+    if tag_line:
+        lines.append(tag_line)
+    return "\n".join(lines)
 
 
 def compose(clip: dict, brand: Brand, acc: Account) -> dict:
     if clip.get("campaign"):
-        text = campaign_text(clip, brand)
+        text = campaign_text(clip, brand, acc.platform)
         title = _strip_tags(clip.get("title") or "") or text.split("\n")[0]
         if acc.platform == "youtube":
             return {"title": title[:100], "description": text, "tags": []}

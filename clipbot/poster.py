@@ -77,7 +77,7 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
             if counts.get(acc.id, 0) >= cap:
                 log.info("%s hit its 24h cap (%d); waiting", acc.id, cap)
                 continue
-            if not vault.has_account(acc.id):
+            if acc.get("mode") != "manual" and not vault.has_account(acc.id):  # manual pages need no login
                 if prev.get("status") != "blocked":
                     summary["blocked"].append(f"{acc.id}: not connected yet (run auth for it)")
                 state.save_result(job["id"], {**base, "status": "blocked", "error": "account not connected", "at": iso(now)})
@@ -176,6 +176,13 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
             else:
                 notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): after you post it, tap Share → Copy link, "
                                      f"then Submit clip and paste it.{where}")
+            pins = camp.get("pin_comments") or []
+            pins = [pins] if isinstance(pins, str) else pins
+            if pins and acc.platform in (camp.get("pin_platforms") or ["instagram", "tiktok"]):
+                pick = pins[sum(map(ord, str(res.get("id") or acc.id))) % len(pins)]
+                notify(cfg.settings, f"📌 **PIN A COMMENT** on this {acc.platform} post (required for payout). "
+                                     f"Post the comment below on your clip, then long-press it → Pin:")
+                notify(cfg.settings, pick)
     lines = []
     for k, title in (("posted", "Posted"), ("retry", "Will retry"),
                      ("failed", "Failed"), ("blocked", "Not connected")):

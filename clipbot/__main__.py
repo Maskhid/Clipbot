@@ -223,6 +223,24 @@ def cmd_reschedule(args):
     print(f"Rescheduled {reschedule_all(load_config(), State())} job(s).")
 
 
+def cmd_schedule(args):
+    """Give posting slots to clips that have none yet, e.g. after turning on a paused page's accounts."""
+    from .pipeline import busy_times, schedule_clip
+    from .scheduler import Scheduler
+
+    cfg = load_config()
+    st = State()
+    keep = timedelta(days=int(cfg.settings["storage"]["keep_days"]))
+    now = utcnow()
+    busy, ct, _ = busy_times(st, now)
+    sched = Scheduler(cfg, busy, ct, now=now)
+    clips = [c for c in st.clips() if (not args.brand or args.brand in c.get("brands", []))
+             and now - parse_iso(c.get("created_at", "2000-01-01T00:00:00Z")) < keep]
+    clips.sort(key=lambda c: (0 if c.get("campaign") else 1, c.get("created_at", "")))
+    n = sum(len(schedule_clip(cfg, st, sched, c)) for c in clips)
+    print(f"Scheduled {n} new post(s) from {len(clips)} clip(s).")
+
+
 def cmd_retry(args):
     st = State()
     n = 0
@@ -333,6 +351,10 @@ def main(argv=None):
 
     p = sub.add_parser("reschedule", help="re-plan unposted jobs after changing posting times")
     p.set_defaults(fn=cmd_reschedule)
+
+    p = sub.add_parser("schedule", help="schedule clips that have no posts yet (e.g. after enabling a page)")
+    p.add_argument("--brand", help="only clips of this brand")
+    p.set_defaults(fn=cmd_schedule)
 
     p = sub.add_parser("retry", help="retry failed / blocked posts")
     p.add_argument("--account")

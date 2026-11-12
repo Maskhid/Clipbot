@@ -99,6 +99,12 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     if src.get("clips"):  # exact number of clips wanted (e.g. several cuts of a short trailer)
         cc["clips_target"] = int(src["clips"])
     camp = src.get("campaign") or None
+    if camp and camp.get("logo"):
+        lg = camp["logo"]
+        lg = {"path": lg} if isinstance(lg, str) else dict(lg)
+        lpath = Path(lg["path"])
+        lg["path"] = str(lpath if lpath.is_absolute() else ROOT / lpath)
+        cc["logo_overlay"] = lg
 
     video = sources.fetch(src, work / "dl")
     info = ffprobe(video)

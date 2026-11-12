@@ -18,6 +18,38 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 sources:
+  - &lhm_episode
+    url: "https://assets.frame.io/uploads/a7e530d5-055c-468a-8cd3-0c25e7f86906/original.mov?response-content-disposition=attachment%3B+filename%3D%22Nick+Madincea+Full+Episode.mov%22%3B+filename%2A%3DUTF-8%27%27Nick%2520Madincea%2520Full%2520Episode.mov&response-content-type=video%2Fquicktime&x-amz-meta-resource_type=asset&x-amz-meta-resource_id=a7e530d5-055c-468a-8cd3-0c25e7f86906&x-amz-meta-project_id=802e4fd7-e8a2-49d2-9709-5c0a39f78f36&Expires=1794528000&Signature=kUwugsi~ll34lNFilqFH~7SdDuInTNl~8uSH2T-HtfWDQgvUVLhtiKXbL67hhEIhmXMWD9ffkPrhmNafQYbSyJ7Nq-LujDs~RPaFu~704iHV-1bwaTE8QtOsOCmj2BEexhOVMre3cq7kyD9BqXkAoZXlVXc8L7QfGyr64jCYW2ZlCdtdXQhN~mzFu9TsJxuAeRSdIq60D1FjfxO1N-PVsY8PXKWX7KSzx-MEtU4bRZhAaZ4P41JaGY5h7OUkSr~0HQxiQ6A-AU9gtg6H-26PFQABVJgLibTbmmqAKEP1eWgE3u7DRkSmXvDLFLDa48CdnVFSaoOKoubXnoOn~z~hgA__&Key-Pair-Id=K1XW5DOJMY1ET9"
+    brands: [lhm]
+    kind: "podcast / talk-show clips"
+    game: "Let Him Mansplain podcast"
+    clips: 4
+    min_clip_seconds: 20
+    max_clip_seconds: 60
+    layout: blur
+    campaign:
+      name: "Let Him Mansplain"
+      platforms: [instagram, tiktok, youtube]
+      mention: {instagram: "@lethimmansplain", tiktok: "@lethimmansplain", youtube: "@LetHimMansplain"}
+      first_line: "Full episode on {mention}"
+      hashtags: ["#lethimmansplain", "#hottakes", "#podcast"]
+      max_hashtags: 3
+      watermark: false
+      logo: {path: assets/lhm_logo.png, width: 560}
+      content_type: "a clip from the Let Him Mansplain podcast, where host Lily Kate talks with a guest about dating, marriage, faith and today's issues"
+      brief: "Best picks: funny moments, big reactions and truth-bomb answers that make sense on their own. Keep it true to the conversation, no fake context. Nothing that looks like an ad."
+      caption_examples: ["He had an answer for EVERYTHING 💀", "Unpopular opinion incoming..."]
+      pin_comments:
+        - "Full episode on YouTube @lethimmansplain 🔗"
+        - "It's Let Him Mansplain! Full episode on @lethimmansplain"
+        - "Catch the whole convo on @lethimmansplain 👀"
+        - "You gotta hear the rest. Full episode on @lethimmansplain"
+  - <<: *lhm_episode
+    url: "https://assets.frame.io/uploads/e5eedc8b-069f-4958-a92b-af521ef33977/original.mov?response-content-disposition=attachment%3B+filename%3D%22Christian+Hodges+Full+Episode.mov%22%3B+filename%2A%3DUTF-8%27%27Christian%2520Hodges%2520Full%2520Episode.mov&response-content-type=video%2Fquicktime&x-amz-meta-resource_type=asset&x-amz-meta-resource_id=e5eedc8b-069f-4958-a92b-af521ef33977&x-amz-meta-project_id=802e4fd7-e8a2-49d2-9709-5c0a39f78f36&Expires=1794528000&Signature=ASOvsVjJPbL~3l11QQzuXLphqPpAtVeN6qsHQjBp3Df~B9fxKLf9EULHOHczVopXPj5mx7e5the3nxmbjf9Q7pLPs4Xab0fqzXRbMb8y83tJNvC84U5pQzrO64oAJaPiFE7KWv9C-~FTcc1UwyKAPifPImZ9HLY0wy1x52ry7M71Cu52t0D-77eqWAWcjz6VZx6wEfT5jQK9vVeJ4Nkbj2F2GTQ80stO~aw3iNyiikzIgWdYYU8tvCglDQTf0DIabkrwWZQIDn69cV5Rw-Gr7lkGKCWFGs2d8YxR~8p5teA-JIDlUUKdN5FrEQKAQNRrvVcEeDixygsBg6avxg58Zw__&Key-Pair-Id=K1XW5DOJMY1ET9"
+  - <<: *lhm_episode
+    url: "https://assets.frame.io/uploads/3fd45c3e-d68f-4a9c-bcae-5c1636f95d38/original.mov?response-content-disposition=attachment%3B+filename%3D%22Noah+Sofio+Full+Episode.mov%22%3B+filename%2A%3DUTF-8%27%27Noah%2520Sofio%2520Full%2520Episode.mov&response-content-type=video%2Fquicktime&x-amz-meta-resource_type=asset&x-amz-meta-resource_id=3fd45c3e-d68f-4a9c-bcae-5c1636f95d38&x-amz-meta-project_id=802e4fd7-e8a2-49d2-9709-5c0a39f78f36&Expires=1794528000&Signature=Us8iW0FQzDlN~7EamT6yqWlCjdMt7Zg3WNHBW9GJdhmRAh2R0oX3PrikycgtZYsuTcU-A2Ul1B-HrxMxUf4FtJzLgocRodWjSVjziaRJ-HjCTlFsXkT80dhO~hiJuNvCLroGF8hRrojZARYZFhAzXGg3M-9XnQ~8FTOVwqzRODh~IoGb7kdoTYyCvHNwDi3mmtWPDF1FOH7vQPg72ngK3yeyg9votCQjWpaUbpB62KWuobLWsvw~8sOE5CfoxptuCiv5o4jwBug55IUkx7jfJheOsUEiGlIwDAytpKe~dQxZBM842WWu2AxLR~mhCxRpXFrjchqpvvck9BLef1X5aw__&Key-Pair-Id=K1XW5DOJMY1ET9"
+  - <<: *lhm_episode
+    url: "https://assets.frame.io/uploads/9d23d666-9025-46dd-8af6-63f1cbfd6e2a/original.mov?response-content-disposition=attachment%3B+filename%3D%22Shahriq+Khan+Full+Episode.mov%22%3B+filename%2A%3DUTF-8%27%27Shahriq%2520Khan%2520Full%2520Episode.mov&response-content-type=video%2Fquicktime&x-amz-meta-resource_type=asset&x-amz-meta-resource_id=9d23d666-9025-46dd-8af6-63f1cbfd6e2a&x-amz-meta-project_id=802e4fd7-e8a2-49d2-9709-5c0a39f78f36&Expires=1794528000&Signature=g~kE~869Hock1nk1hi~BKoaiZKntqjzCAklp~9PciE-Fihj6vrLjjvgLGNIeWexagDgu5vto-3Qxc5X2b7y-i1AmvPw4EkrQ1ti5LDV5z4RT9GmD8dVwEkNcNAYyXDCgacBXh8CNEHvq1fSX5FiehKK3tNqFYRVZ0quIQsNs5bFNQc0~xJbqXPj8ULvPiVfgqhz7Q8iQJPqeBdB6zk6illlttiDpElfW6BDpothEobBVr~MO2b9Roko4iYTX1SruM5zNUuoAi2oODQT3JpruNZ~LXtY8udbKdHcFTEbIdeu72M5Lvs-zBVUvu8EIxkadaUDyOBal-f8IAT2ElJe~6w__&Key-Pair-Id=K1XW5DOJMY1ET9"
   - url: "https://github.com/Maskhid/Clipbot/releases/download/campaign-cod-mw4/MW4_S1_Premium_TRAILER_FULL_COD_Channel_ESRB_16x9_4K.mp4"
     brands: [peakgaminggt]
     game: "Call of Duty MW4"

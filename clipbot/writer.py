@@ -72,7 +72,7 @@ def heuristic_text(clip: dict, segments: list[dict], src: dict, styles: list[str
 
 # ---------------------------------------------------------------- LLM -----
 
-PROMPT = """You are an expert short-form video editor for gaming clips (TikTok, YouTube Shorts, Reels).
+PROMPT = """You are an expert short-form video editor for {kind} (TikTok, YouTube Shorts, Reels).
 Below are candidate moments from one long video, detected automatically with a loudness+hype score.
 Game / topic: {game}
 Video title: {vtitle}
@@ -250,7 +250,7 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
         lines.append(f"[{i}] {c['start']:.1f}-{c['end']:.1f}s (score {c['score']:.2f}): {txt}")
     caption_spec = ", ".join(f'"caption in a {s} style, max 150 chars, 1-3 emojis"' for s in styles)
     streamer = (src.get("credit") or src.get("_uploader") or "the streamer").replace("on Twitch", "").strip()
-    prompt = PROMPT.format(game=game or "gaming", vtitle=src.get("_title") or src.get("title_hint") or "",
+    prompt = PROMPT.format(kind=src.get("kind") or "gaming clips", game=game or "gaming", vtitle=src.get("_title") or src.get("title_hint") or "",
                            language=lc.get("language") or "English", n=n, mn=cc["min_clip_seconds"],
                            mx=cc["max_clip_seconds"], caption_spec=caption_spec, cands="\n".join(lines),
                            streamer=streamer,

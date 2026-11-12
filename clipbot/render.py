@@ -133,6 +133,38 @@ def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | Non
             steps.append(f"[{cur}][IMG{len(images) - 1}]overlay=W-w-28:{wy}[vw]")
             cur = "vw"
 
+    lo = cfg.get("logo_overlay")  # brand/campaign logo that must stay on screen the WHOLE clip
+    if lo:
+        lo = {"path": lo} if isinstance(lo, str) else dict(lo)
+        lp = Path(lo["path"])
+        if lp.exists():
+            from PIL import Image  # noqa: PLC0415
+
+            img = Image.open(lp).convert("RGBA")
+            bbox = img.getchannel("A").point(lambda v: 255 if v > 40 else 0).getbbox()  # trim empty/faint borders
+            if bbox:
+                img = img.crop(bbox)
+            lw = int(lo.get("width", 560))
+            lh = max(1, round(img.height * lw / img.width))
+            img = img.resize((lw, lh), Image.LANCZOS)
+            op = float(lo.get("opacity", 0.9))
+            if op < 1:
+                a = img.getchannel("A").point(lambda v: int(v * op))
+                img.putalpha(a)
+            ip = work / f"{out.stem}_logo.png"
+            img.save(ip)
+            images.append(ip)
+            pos = lo.get("position", "on-video")
+            if pos == "on-video":  # centred along the bottom edge of the video itself: clear of hook, captions and app UI
+                x, ly = "(W-w)/2", max(0, geo["seam"] - lh - int(lo.get("margin", 22)))
+            else:
+                x = {"top-left": "40", "top-center": "(W-w)/2", "top-right": "W-w-40"}.get(pos, "W-w-40")
+                ly = int(lo.get("y", 230))
+            steps.append(f"[{cur}][IMG{len(images) - 1}]overlay={x}:{ly}[vl]")
+            cur = "vl"
+        else:
+            raise FileNotFoundError(f"logo_overlay file not found: {lp} (upload it to the repo first)")
+
     steps.append(f"[{cur}]null[vout]")
     fc = vf + ";" + ";".join(steps)
 
