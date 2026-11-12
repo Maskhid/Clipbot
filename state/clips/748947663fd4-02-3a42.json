@@ -1,0 +1,67 @@
+{
+  "asset": "748947663fd4-02-3a42.mp4",
+  "brands": [
+    "lhm"
+  ],
+  "campaign": {
+    "brief": "Best picks: funny moments, big reactions and truth-bomb answers that make sense on their own. Keep it true to the conversation, no fake context. Nothing that looks like an ad.",
+    "caption_examples": [
+      "He had an answer for EVERYTHING 💀",
+      "Unpopular opinion incoming..."
+    ],
+    "content_type": "a clip from the Let Him Mansplain podcast, where host Lily Kate talks with a guest about dating, marriage, faith and today's issues",
+    "first_line": "Full episode on {mention}",
+    "hashtags": [
+      "#lethimmansplain",
+      "#hottakes",
+      "#podcast"
+    ],
+    "logo": {
+      "path": "assets/lhm_logo.png",
+      "width": 560
+    },
+    "max_hashtags": 3,
+    "mention": {
+      "instagram": "@lethimmansplain",
+      "tiktok": "@lethimmansplain",
+      "youtube": "@LetHimMansplain"
+    },
+    "name": "Let Him Mansplain",
+    "pin_comments": [
+      "Full episode on YouTube @lethimmansplain 🔗",
+      "It's Let Him Mansplain! Full episode on @lethimmansplain",
+      "Catch the whole convo on @lethimmansplain 👀",
+      "You gotta hear the rest. Full episode on @lethimmansplain"
+    ],
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ],
+    "watermark": false
+  },
+  "captions": {
+    "relatable podcast": "Parents always told us financial stability matters for a reason 💡"
+  },
+  "created_at": "2026-11-12T20:12:58Z",
+  "credit": null,
+  "duration": 22.7,
+  "end": 395.0,
+  "hashtags": [
+    "#genz",
+    "#dating",
+    "#economy",
+    "#relationships",
+    "#podcast"
+  ],
+  "hook": "ECONOMY AFFECTS YOUR DATING PROSPECTS",
+  "id": "748947663fd4-02-3a42",
+  "score": 1.873,
+  "shared": false,
+  "source": "https://assets.frame.io/uploads/3fd45c3e-d68f-4a9c-bcae-5c1636f95d38/original.mov?response-content-disposition=attachment%3B+filename%3D%22Noah+Sofio+Full+Episode.mov%22%3B+filename%2A%3DUTF-8%27%27Noah%2520Sofio%2520Full%2520Episode.mov&response-content-type=video%2Fquicktime&x-amz-meta-resource_type=asset&x-amz-meta-resource_id=3fd45c3e-d68f-4a9c-bcae-5c1636f95d38&x-amz-meta-project_id=802e4fd7-e8a2-49d2-9709-5c0a39f78f36&Expires=1794528000&Signature=Us8iW0FQzDlN~7EamT6yqWlCjdMt7Zg3WNHBW9GJdhmRAh2R0oX3PrikycgtZYsuTcU-A2Ul1B-HrxMxUf4FtJzLgocRodWjSVjziaRJ-HjCTlFsXkT80dhO~hiJuNvCLroGF8hRrojZARYZFhAzXGg3M-9XnQ~8FTOVwqzRODh~IoGb7kdoTYyCvHNwDi3mmtWPDF1FOH7vQPg72ngK3yeyg9votCQjWpaUbpB62KWuobLWsvw~8sOE5CfoxptuCiv5o4jwBug55IUkx7jfJheOsUEiGlIwDAytpKe~dQxZBM842WWu2AxLR~mhCxRpXFrjchqpvvck9BLef1X5aw__&Key-Pair-Id=K1XW5DOJMY1ET9",
+  "source_key": "748947663fd4",
+  "start": 372.3,
+  "tag": "clips-2026-11-12",
+  "title": "Why the Economy Actually Dictates Your Dating Life",
+  "watermarked": true
+}

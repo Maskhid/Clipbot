@@ -188,6 +188,56 @@ sources:
     credit: "@adinross on Kick"
     layout: "blur"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2926082452"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 672730  Claude Picks My Operator in Legends Division  Findin
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "blur"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2926188923"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LIVEDRAMAALERTQUICKCLICKLOCK INGTA V MAYBEGAMESIDKLOCK IN TH
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@xQc on Twitch"
+    layout: "blur"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2926436422"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LOSING MY MIND
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@caseoh_ on Twitch"
+    layout: "blur"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2926145084"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  #  MY LAST STREAM  STREAMER AWARDS TOMORROW  IMPORTANT UPDATES
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@StableRonaldo on Twitch"
+    layout: "blur"
+    max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1ccfb-1f20-7b3a-9105-2e5722f278b4#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1ccfb1f207b3a91052e5722f278b4
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "blur"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
