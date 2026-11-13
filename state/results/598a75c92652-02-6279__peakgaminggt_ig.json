@@ -1,0 +1,10 @@
+{
+  "account": "peakgaminggt_ig",
+  "at": "2026-11-13T16:00:40Z",
+  "attempts": 1,
+  "clip_id": "598a75c92652-02-6279",
+  "error": "Meta IG container via URL (direct upload failed: Meta IG container failed (code 190): Error validating access token: The session has been invalidated because the user ch) failed (code 190): Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons. — reconnect with: python -m clipbot auth meta (see SETUP.md)",
+  "job_id": "598a75c92652-02-6279__peakgaminggt_ig",
+  "platform": "instagram",
+  "status": "failed"
+}
