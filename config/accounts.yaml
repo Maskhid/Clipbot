@@ -9,7 +9,7 @@ brands:
     accounts:
       - id: peakgaminggt_yt
         platform: youtube
-        mode: manual             # until Google approves the audit; then delete this line
+        daily_cap: 6
         posts_per_day: 8
         windows: ["10:15-13:00", "16:00-23:00"]
         timezone: Africa/Lagos
