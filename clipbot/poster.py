@@ -36,7 +36,8 @@ def due_jobs(cfg: Config, state: State, now=None) -> list[dict]:
 def _posted_last_24h(state: State, now) -> dict[str, int]:
     counts: dict[str, int] = {}
     for r in state.results().values():
-        if r.get("status") == "posted" and r.get("posted_at") and parse_iso(r["posted_at"]) > now - timedelta(hours=24):
+        if r.get("status") == "posted" and r.get("remote_id") != "manual" and r.get("posted_at") \
+                and parse_iso(r["posted_at"]) > now - timedelta(hours=24):  # hand-posted ones don't use the API limit
             counts[r["account"]] = counts.get(r["account"], 0) + 1
     return counts
 
@@ -74,10 +75,14 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 state.save_result(job["id"], {**base, "status": "failed", "error": "account removed or disabled", "at": iso(now)})
                 continue
             cap = int(acc.get("daily_cap", DAILY_CAP.get(acc.platform, 10)))
-            if counts.get(acc.id, 0) >= cap:
-                log.info("%s hit its 24h cap (%d); waiting", acc.id, cap)
-                continue
-            if acc.get("mode") != "manual" and not vault.has_account(acc.id):  # manual pages need no login
+            manual = acc.get("mode") == "manual"
+            if not manual and counts.get(acc.id, 0) >= cap:
+                if acc.get("overflow") == "manual":  # over the API limit: send it to you to upload by hand
+                    manual = True
+                else:
+                    log.info("%s hit its 24h cap (%d); waiting", acc.id, cap)
+                    continue
+            if not manual and not vault.has_account(acc.id):  # manual pages need no login
                 if prev.get("status") != "blocked":
                     summary["blocked"].append(f"{acc.id}: not connected yet (run auth for it)")
                 state.save_result(job["id"], {**base, "status": "blocked", "error": "account not connected", "at": iso(now)})
@@ -107,7 +112,7 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 if dry:
                     log.info("[dry-run] would post %s -> %s: %s", clip["id"], acc.id, (meta.get("title") or meta.get("text"))[:80])
                     res = {"id": "dry-run", "url": ""}
-                elif acc.get("mode") == "manual":
+                elif manual:
                     # you post it yourself: get the file link + text in your notifications
                     if Path(video) != Path(master):  # upload this brand's copy next to the master
                         storage.put(Path(video), clip["tag"])
@@ -126,7 +131,8 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                 rec = {**base, "status": "posted", "posted_at": iso(utcnow()), "remote_id": res.get("id"), "post_id": res.get("post_id"),
                        "url": res.get("url", ""), "dry_run": dry, "attempts": prev.get("attempts", 0) + 1}
                 state.save_result(job["id"], rec)
-                counts[acc.id] = counts.get(acc.id, 0) + 1
+                if not manual:
+                    counts[acc.id] = counts.get(acc.id, 0) + 1
                 done_this_run += 1
                 summary["posted"].append(f"✅ {acc.id}: {res.get('url') or res.get('id')}")
                 if camp and not dry:
