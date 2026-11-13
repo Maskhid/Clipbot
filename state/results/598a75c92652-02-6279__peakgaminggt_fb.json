@@ -1,0 +1,10 @@
+{
+  "account": "peakgaminggt_fb",
+  "at": "2026-11-13T15:00:50Z",
+  "attempts": 1,
+  "clip_id": "598a75c92652-02-6279",
+  "error": "Meta FB reel start failed (code 190): Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons. — reconnect with: python -m clipbot auth meta (see SETUP.md)",
+  "job_id": "598a75c92652-02-6279__peakgaminggt_fb",
+  "platform": "facebook",
+  "status": "failed"
+}
