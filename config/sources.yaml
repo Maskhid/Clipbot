@@ -369,6 +369,27 @@ sources:
       - Catch the whole convo on @lethimmansplain 👀
       - You gotta hear the rest. Full episode on @lethimmansplain
     distribute: split
+  - url: "https://www.twitch.tv/videos/2927989820"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LIVECLICKHERELOCK INDRAMANEWSVIDEOSGAMESCHILLVARIETYAND STUF
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@xQc on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1d3bf-96d8-7e28-bbb0-0e6df4c99f4b#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1d3bf96d87e28bbb00e6df4c99f4b
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "auto"
+    max_clips: 5
+
 channels:
   - url: "https://www.twitch.tv/kaicenat"
     only_gaming: true
