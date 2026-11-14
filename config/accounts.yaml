@@ -43,24 +43,25 @@ brands:
     accounts:
       - id: lhm_ig
         platform: instagram
-        handle: "@CHANGE_ME"
-        page: "CHANGE_ME"
+        handle: "@lhmclips2"
+        page: "Lhmclips"
         enabled: false
         posts_per_day: 3
         windows: ["11:00-14:00", "18:00-22:00"]
         timezone: America/New_York
       - id: lhm_tt
         platform: tiktok
-        handle: "@CHANGE_ME"
+        handle: "@lhmclips.tt"
         tiktok_mode: inbox
         enabled: false
         posts_per_day: 3
-        windows: ["11:00-14:00", "18:00-22:30"]
+        windows: ["11:00-14:00"]
         timezone: America/New_York
       - id: lhm_yt
         platform: youtube
+        handle: "@lethimmansplainclips"
         mode: manual
         enabled: false
         posts_per_day: 3
-        windows: ["12:00-14:00", "18:00-22:00"]
+        windows: ["11:00-14:00"]
         timezone: America/New_York
