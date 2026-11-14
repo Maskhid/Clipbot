@@ -329,6 +329,46 @@ sources:
     layout: "auto"
     max_clips: 5
 
+  - url: FRAMEIO_LINK
+    brands:
+    - lhm
+    kind: podcast / talk-show clips
+    game: Let Him Mansplain podcast
+    clips: 4
+    min_clip_seconds: 20
+    max_clip_seconds: 60
+    layout: blur
+    campaign:
+      name: Let Him Mansplain
+      platforms:
+      - instagram
+      - tiktok
+      - youtube
+      mention:
+        instagram: '@lethimmansplain'
+        tiktok: '@lethimmansplain'
+        youtube: '@LetHimMansplain'
+      first_line: Full episode on {mention}
+      hashtags:
+      - '#lethimmansplain'
+      - '#hottakes'
+      - '#podcast'
+      max_hashtags: 3
+      watermark: false
+      logo:
+        path: assets/lhm_logo.png
+        width: 560
+      content_type: a clip from the Let Him Mansplain podcast, where host Lily Kate talks with a guest about dating, marriage, faith and today's issues
+      brief: 'Best picks: funny moments, big reactions and truth-bomb answers that make sense on their own. Keep it true to the conversation, no fake context. Nothing that looks like an ad.'
+      caption_examples:
+      - He had an answer for EVERYTHING 💀
+      - Unpopular opinion incoming...
+      pin_comments:
+      - Full episode on YouTube @lethimmansplain 🔗
+      - It's Let Him Mansplain! Full episode on @lethimmansplain
+      - Catch the whole convo on @lethimmansplain 👀
+      - You gotta hear the rest. Full episode on @lethimmansplain
+    distribute: split
 channels:
   - url: "https://www.twitch.tv/kaicenat"
     only_gaming: true

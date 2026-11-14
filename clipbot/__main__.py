@@ -1,6 +1,7 @@
 """ClipBot command line.  Run `python -m clipbot --help`."""
 from __future__ import annotations
 
+import copy
 import argparse
 import os
 import sys
@@ -104,32 +105,62 @@ def cmd_post(args):
     print(f"posted={len(s['posted'])} retry={len(s['retry'])} failed={len(s['failed'])} blocked={len(s['blocked'])}")
 
 
+def _insert_sources(entries: list[dict]) -> None:
+    """Adds entries to the sources list (before `channels:` if the file has a watch list)."""
+    import yaml as _yaml  # noqa: PLC0415
+
+    block = _yaml.safe_dump(entries, allow_unicode=True, sort_keys=False, width=10000)
+    block = "".join("  " + ln if ln.strip() else ln for ln in block.splitlines(True))
+    path = CONFIG_DIR / "sources.yaml"
+    text = path.read_text(encoding="utf-8") if path.exists() else "sources:\n"
+    text = text.replace("sources: []", "sources:")
+    if "sources:" not in text:
+        text = "sources:\n" + text
+    if not text.endswith("\n"):
+        text += "\n"
+    marker = "\nchannels:"
+    if marker in text:
+        i = text.index(marker) + 1
+        text = text[:i] + block + text[i:]
+    else:
+        text += block
+    path.write_text(text, encoding="utf-8")
+
+
 def cmd_add_source(args):
-    brands = [b.strip() for b in args.brands.split(",") if b.strip()] if args.brands else []
     cfg = load_config()
+    brands = [b.strip() for b in args.brands.split(",") if b.strip()] if args.brands else []
     for b in brands:
         if b not in cfg.brands:
             sys.exit(f"Unknown brand '{b}'. Brands: {', '.join(cfg.brands)}")
-    lines = [f"  - url: \"{args.url}\""]
-    if brands:
-        lines.append(f"    brands: [{', '.join(brands)}]")
-    lines.append(f"    distribute: {args.distribute}")
-    for k in ("start", "end", "credit", "game", "title_hint"):
-        v = getattr(args, k)
-        if v:
-            lines.append(f"    {k}: \"{v}\"")
-    if args.max_clips:
-        lines.append(f"    max_clips: {args.max_clips}")
-    path = CONFIG_DIR / "sources.yaml"
-    text = path.read_text(encoding="utf-8") if path.exists() else "sources:\n"
-    if "sources:" not in text:
-        text += "\nsources:\n"
-    text = text.replace("sources: []", "sources:")
-    if not text.endswith("\n"):
-        text += "\n"
-    path.write_text(text + "\n".join(lines) + "\n", encoding="utf-8")
+    base: dict = {}
+    if args.like:  # copy every setting (campaign rules, logo, layout...) from the latest source of that brand
+        same = [s for s in cfg.sources if args.like in (s.get("brands") or [])]
+        if not same:
+            sys.exit(f"No existing source for brand '{args.like}' to copy settings from.")
+        base = {k: v for k, v in same[-1].items() if k not in ("url", "start", "end", "enabled") and not k.startswith("_")}
+    entries = []
+    for url in args.url:
+        e = {"url": url, **copy.deepcopy(base)}
+        if brands:
+            e["brands"] = brands
+        if not base:
+            e["distribute"] = args.distribute
+        for k in ("start", "end", "credit", "game", "title_hint"):
+            v = getattr(args, k)
+            if v:
+                e[k] = v
+        if args.max_clips:
+            e["max_clips"] = args.max_clips
+        entries.append(e)
+    known = {s.get("url") for s in cfg.sources}
+    dup = [e["url"] for e in entries if e["url"] in known]
+    if dup:
+        sys.exit(f"Already in sources.yaml: {dup[0][:80]}")
+    _insert_sources(entries)
     load_config()  # validate
-    print(f"Added {args.url}")
+    for e in entries:
+        print(f"Added {e['url'][:90]}{'...' if len(e['url']) > 90 else ''}")
 
 
 def cmd_status(args):
@@ -317,8 +348,9 @@ def main(argv=None):
     p.add_argument("--account")
     p.set_defaults(fn=cmd_post)
 
-    p = sub.add_parser("add-source", help="add a video/stream URL to config/sources.yaml")
-    p.add_argument("url")
+    p = sub.add_parser("add-source", help="add video/stream URL(s) to config/sources.yaml")
+    p.add_argument("url", nargs="+")
+    p.add_argument("--like", help="copy all settings from the latest source of this brand (e.g. lhm)")
     p.add_argument("--brands", help="comma separated brand names (default: all)")
     p.add_argument("--distribute", choices=["split", "all"], default="split")
     p.add_argument("--start")
