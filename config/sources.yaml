@@ -278,6 +278,16 @@ sources:
     credit: "@adinross on Kick"
     layout: "blur"
     max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a02be6-62d0-76a1-b338-0a9c3f3b8175#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a02be662d076a1b3380a9c3f3b8175
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "blur"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
