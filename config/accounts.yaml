@@ -45,7 +45,7 @@ brands:
         platform: instagram
         handle: "@lhmclips2"
         page: "Lhmclips"
-        enabled: false
+        enabled: true
         posts_per_day: 3
         windows: ["11:00-14:00", "18:00-22:00"]
         timezone: America/New_York
@@ -53,7 +53,7 @@ brands:
         platform: tiktok
         handle: "@lhmclips.tt"
         tiktok_mode: inbox
-        enabled: false
+        enabled: true
         posts_per_day: 3
         windows: ["11:00-14:00"]
         timezone: America/New_York
@@ -61,7 +61,7 @@ brands:
         platform: youtube
         handle: "@lethimmansplainclips"
         mode: manual
-        enabled: false
+        enabled: true
         posts_per_day: 3
         windows: ["11:00-14:00"]
         timezone: America/New_York
