@@ -1,0 +1,31 @@
+{
+  "asset": "4824e5dae69b-03-7843.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": null,
+  "captions": {
+    "hype": "Calculating under extreme pressure on Chess.com 🧠♟️"
+  },
+  "created_at": "2026-11-14T07:44:12Z",
+  "credit": "@Jynxzi on Twitch",
+  "duration": 16.6,
+  "end": 1814.7,
+  "hashtags": [
+    "#jynxzi",
+    "#chess",
+    "#chessgame",
+    "#twitch",
+    "#gaming"
+  ],
+  "hook": "OPPONENT THREATENS JYNXZI'S ROOK",
+  "id": "4824e5dae69b-03-7843",
+  "score": 3.968,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2927785503",
+  "source_key": "4824e5dae69b",
+  "start": 1798.1,
+  "tag": "clips-2026-11-14",
+  "title": "When the Chess Opponent Tries to Trap You",
+  "watermarked": true
+}

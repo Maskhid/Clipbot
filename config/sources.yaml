@@ -288,6 +288,46 @@ sources:
     credit: "@adinross on Kick"
     layout: "blur"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2927785503"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 674730  I WON 2026 GAMER OF THE YEAR  RATING MINECRAFT BASES
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2928244097"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LOSING MY MIND
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@caseoh_ on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2927935655"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  #  WE WON  I LOVE YOU  LETS GO  WE HERE  NEWS  UPDATES  REACTS
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@StableRonaldo on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1d8a2-90d8-7c91-a843-7bf53735ca87#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1d8a290d87c91a8437bf53735ca87
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
