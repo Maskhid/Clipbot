@@ -91,7 +91,7 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     work = WORK_DIR / skey
     work.mkdir(parents=True, exist_ok=True)
     cc = dict(cfg.settings["clipping"])
-    for k in ("layout", "fg_zoom", "crop_x", "split", "min_clip_seconds", "max_clip_seconds", "clips_per_hour"):
+    for k in ("layout", "no_facecam_layout", "fg_zoom", "crop_x", "split", "min_clip_seconds", "max_clip_seconds", "clips_per_hour"):
         if k in src:
             cc[k] = src[k]
     if src.get("max_clips"):
@@ -176,7 +176,14 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
             logo_path = Path(logo) if Path(logo).is_absolute() else (ROOT / logo)
             if not badge:
                 logo_path = Path("/nonexistent")
-            out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", cc, watermark=wm,
+            rc = cc
+            if cc.get("layout") in ("split", "auto"):  # face-on-top only when a webcam face is really there
+                from .facecam import find_facecam  # noqa: PLC0415
+
+                given = (cc.get("split") or {}).get("facecam") if cc.get("layout") == "split" else None
+                sp = find_facecam(video, p["start"], p["end"], info["width"], info["height"], given)
+                rc = {**cc, "layout": "split", "split": sp} if sp else {**cc, "layout": cc.get("no_facecam_layout", "crop")}
+            out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", rc, watermark=wm,
                                      hook=p.get("hook") if pill else None, colors=brand0.get("colors"),
                                      logo=logo_path if (len(clip_brands) == 1 and logo_path.exists()) else None)
             asset = storage.put(out, tag)

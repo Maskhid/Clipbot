@@ -22,7 +22,7 @@ from .config import CONFIG_DIR, Config
 from .state import State, utcnow
 from .util import log
 
-COPY_KEYS = ("only_gaming", "games", "brands", "distribute", "credit", "game", "title_hint", "layout", "split", "fg_zoom", "crop_x",
+COPY_KEYS = ("only_gaming", "games", "brands", "distribute", "credit", "game", "title_hint", "layout", "no_facecam_layout", "split", "fg_zoom", "crop_x",
              "max_clips", "min_clip_seconds", "max_clip_seconds", "clips_per_hour")
 
 

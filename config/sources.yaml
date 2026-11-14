@@ -305,7 +305,7 @@ channels:
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@Jynxzi on Twitch"
-    layout: blur
+    layout: auto
     start_minute: 30
     window_minutes: 120
     max_clips: 5
@@ -314,7 +314,7 @@ channels:
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@xQc on Twitch"
-    layout: blur
+    layout: auto
     start_minute: 30
     window_minutes: 120
     max_clips: 5
@@ -323,7 +323,7 @@ channels:
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@caseoh_ on Twitch"
-    layout: blur
+    layout: auto
     start_minute: 30
     window_minutes: 120
     max_clips: 5
@@ -332,7 +332,7 @@ channels:
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@StableRonaldo on Twitch"
-    layout: blur
+    layout: auto
     start_minute: 30
     window_minutes: 120
     max_clips: 5
@@ -341,7 +341,7 @@ channels:
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@adinross on Kick"
-    layout: blur
+    layout: auto
     start_minute: 30
     window_minutes: 120
     max_clips: 5
