@@ -389,6 +389,26 @@ sources:
     credit: "@adinross on Kick"
     layout: "auto"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2928767125"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 675730  LEAGUE OF LEGENDS WORLDS FINALE 
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2929115707"
+    start: "00:30:00"
+    end: "01:31:41"
+    added_by: watch  # PLAYING THE GREATEST GAME EVER  twitterinsta stableronaldo p
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@StableRonaldo on Twitch"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
