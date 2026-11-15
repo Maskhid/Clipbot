@@ -5,10 +5,65 @@
   {
    "date": "2026-11-14",
    "followers": 0
+  },
+  {
+   "date": "2026-11-15",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "tiktok",
- "updated_at": "2026-11-14T13:48:20Z",
- "videos": {}
+ "updated_at": "2026-11-15T14:18:54Z",
+ "videos": {
+  "7708134904244014388": {
+   "clip_id": "fda6d712bca9-02-9160",
+   "comments": 0,
+   "created": "2026-11-14T21:01:12Z",
+   "id": "7708134904244014388",
+   "likes": 6,
+   "match": "time",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain Honestly he brought up a really interesting point here 😳 definitely makes you think about modern dating #lethimmansplain #hottakes #podcast",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.tiktok.com/@lhmclips.tt/video/7708134904244014388",
+   "views": 77
+  },
+  "7708369064099564820": {
+   "clip_id": "fda6d712bca9-01-02d4",
+   "comments": 2,
+   "created": "2026-11-15T12:08:57Z",
+   "id": "7708369064099564820",
+   "likes": 1,
+   "match": "time",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain Honestly he brought up a really interesting point here 😳 definitely makes you think about modern dating #lethimmansplain #hottakes #podcast",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.tiktok.com/@lhmclips.tt/video/7708369064099564820",
+   "views": 30
+  },
+  "7708371517930802484": {
+   "clip_id": "fda6d712bca9-00-aabb",
+   "comments": 1,
+   "created": "2026-11-15T12:18:30Z",
+   "id": "7708371517930802484",
+   "likes": 1,
+   "match": "time",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain Nothing ruins a dinner date faster than this behavior 💀 total buzzkill for guys #lethimmansplain #hottakes #podcast",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.tiktok.com/@lhmclips.tt/video/7708371517930802484",
+   "views": 22
+  },
+  "7708372278160968981": {
+   "comments": 1,
+   "created": "2026-11-15T12:21:24Z",
+   "id": "7708372278160968981",
+   "likes": 1,
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain Unpopular opinion incoming but he actually makes a solid point about culture 🤯 #lethimmansplain #hottakes #podcast",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.tiktok.com/@lhmclips.tt/video/7708372278160968981",
+   "views": 5
+  }
+ }
 }

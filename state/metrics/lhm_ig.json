@@ -5,10 +5,54 @@
   {
    "date": "2026-11-14",
    "followers": 0
+  },
+  {
+   "date": "2026-11-15",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-14T13:48:20Z",
- "videos": {}
+ "updated_at": "2026-11-15T14:18:54Z",
+ "videos": {
+  "17923299771454923": {
+   "clip_id": "fda6d712bca9-01-02d4",
+   "comments": 1,
+   "created": "2026-11-15T00:01:09Z",
+   "id": "17923299771454923",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain\nNothing ruins a dinner date faster than this be",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.instagram.com/reel/DfvcbKzkS8Z/",
+   "views": 145
+  },
+  "17949472944075899": {
+   "clip_id": "fda6d712bca9-02-9160",
+   "comments": 1,
+   "created": "2026-11-14T17:03:08Z",
+   "id": "17949472944075899",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain\nUnpopular opinion incoming but he actually make",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.instagram.com/reel/DfuslbpkuTw/",
+   "views": 59
+  },
+  "18172000867486978": {
+   "clip_id": "fda6d712bca9-00-aabb",
+   "comments": 1,
+   "created": "2026-11-14T17:31:56Z",
+   "id": "18172000867486978",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain\nHonestly he brought up a really interesting poi",
+   "updated_at": "2026-11-15T14:18:54Z",
+   "url": "https://www.instagram.com/reel/Dfuv4eKCW5r/",
+   "views": 144
+  }
+ }
 }
