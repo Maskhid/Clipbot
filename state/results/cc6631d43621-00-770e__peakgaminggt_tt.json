@@ -1,0 +1,11 @@
+{
+  "account": "peakgaminggt_tt",
+  "at": "2026-11-15T20:31:09Z",
+  "attempts": 1,
+  "clip_id": "cc6631d43621-00-770e",
+  "error": "TikTok inbox init failed: spam_risk_too_many_pending_share spam_risk_too_many_pending_share",
+  "job_id": "cc6631d43621-00-770e__peakgaminggt_tt",
+  "next_attempt_at": "2026-11-15T21:16:09Z",
+  "platform": "tiktok",
+  "status": "retry"
+}
