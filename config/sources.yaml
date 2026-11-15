@@ -409,6 +409,26 @@ sources:
     credit: "@StableRonaldo on Twitch"
     layout: "auto"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2929044358"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LIVECLICKHERELOCK INDRAMANEWSVIDEOSREACTSGAMESSTUFFDONT MISS
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@xQc on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1de96-a8d0-7e65-a379-04ff1f49027b#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1de96a8d07e65a37904ff1f49027b
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
