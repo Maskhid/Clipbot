@@ -459,6 +459,16 @@ sources:
     credit: "@StableRonaldo on Twitch"
     layout: "auto"
     max_clips: 5
+  - url: "https://kick.com/adinross/videos/01a1e3ad-9798-7a69-9e91-db28dc03baea#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # kickvod video 01a1e3ad97987a699e91db28dc03baea
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@adinross on Kick"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
