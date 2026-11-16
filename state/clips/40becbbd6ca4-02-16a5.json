@@ -1,0 +1,31 @@
+{
+  "asset": "40becbbd6ca4-02-16a5.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": null,
+  "captions": {
+    "hype": "He forgot the customer's burger order in 5 seconds flat 😭🍔"
+  },
+  "created_at": "2026-11-16T07:46:14Z",
+  "credit": "@caseoh_ on Twitch",
+  "duration": 31.3,
+  "end": 5184.7,
+  "hashtags": [
+    "#caseoh",
+    "#familybusiness",
+    "#gaming",
+    "#funny",
+    "#streamer"
+  ],
+  "hook": "CUSTOMER ORDERS A SIPSY BURGER",
+  "id": "40becbbd6ca4-02-16a5",
+  "score": 2.802,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2930232350",
+  "source_key": "40becbbd6ca4",
+  "start": 5153.4,
+  "tag": "clips-2026-11-16",
+  "title": "CaseOh Forgets The Order Instantly",
+  "watermarked": true
+}

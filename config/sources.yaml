@@ -429,6 +429,36 @@ sources:
     credit: "@adinross on Kick"
     layout: "auto"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2929975105"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 676730  1 Champion vs 5 Coppers  FINDING THE PIRATE TOKEN DA
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2930232350"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LOSING MY MIND
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@caseoh_ on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2929980619"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  #  DAY WITH MARLON  LEARNING STICK  PAWN SHOP  HES MY DAD TODA
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@StableRonaldo on Twitch"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
