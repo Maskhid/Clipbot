@@ -9,11 +9,15 @@
   {
    "date": "2026-11-15",
    "followers": 0
+  },
+  {
+   "date": "2026-11-16",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-15T14:18:54Z",
+ "updated_at": "2026-11-16T16:26:21Z",
  "videos": {
   "17923299771454923": {
    "clip_id": "fda6d712bca9-01-02d4",
@@ -24,9 +28,22 @@
    "match": "id",
    "shares": 0,
    "title": "Full episode on @lethimmansplain\nNothing ruins a dinner date faster than this be",
-   "updated_at": "2026-11-15T14:18:54Z",
+   "updated_at": "2026-11-16T16:26:21Z",
    "url": "https://www.instagram.com/reel/DfvcbKzkS8Z/",
-   "views": 145
+   "views": 157
+  },
+  "17945143215097096": {
+   "clip_id": "d0e5a36d21c8-01-ddb1",
+   "comments": 0,
+   "created": "2026-11-16T02:01:10Z",
+   "id": "17945143215097096",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain\nTalking about how dating worked back in the day",
+   "updated_at": "2026-11-16T16:26:21Z",
+   "url": "https://www.instagram.com/reel/DfyO8_MlCqd/",
+   "views": 131
   },
   "17949472944075899": {
    "clip_id": "fda6d712bca9-02-9160",
@@ -37,9 +54,35 @@
    "match": "id",
    "shares": 0,
    "title": "Full episode on @lethimmansplain\nUnpopular opinion incoming but he actually make",
-   "updated_at": "2026-11-15T14:18:54Z",
+   "updated_at": "2026-11-16T16:26:21Z",
    "url": "https://www.instagram.com/reel/DfuslbpkuTw/",
-   "views": 59
+   "views": 81
+  },
+  "17956910643323240": {
+   "clip_id": "d0e5a36d21c8-00-f273",
+   "comments": 0,
+   "created": "2026-11-16T00:01:16Z",
+   "id": "17956910643323240",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain\nThe stats on modern college dating might surpri",
+   "updated_at": "2026-11-16T16:26:21Z",
+   "url": "https://www.instagram.com/reel/DfyBOjyiOEh/",
+   "views": 123
+  },
+  "18116073677174221": {
+   "clip_id": "fda6d712bca9-03-8133",
+   "comments": 0,
+   "created": "2026-11-15T17:31:20Z",
+   "id": "18116073677174221",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Full episode on @lethimmansplain\nThis truth bomb hit differently 💯 long term mar",
+   "updated_at": "2026-11-16T16:26:21Z",
+   "url": "https://www.instagram.com/reel/DfxUm3gkm1N/",
+   "views": 137
   },
   "18172000867486978": {
    "clip_id": "fda6d712bca9-00-aabb",
@@ -50,7 +93,7 @@
    "match": "id",
    "shares": 0,
    "title": "Full episode on @lethimmansplain\nHonestly he brought up a really interesting poi",
-   "updated_at": "2026-11-15T14:18:54Z",
+   "updated_at": "2026-11-16T16:26:21Z",
    "url": "https://www.instagram.com/reel/Dfuv4eKCW5r/",
    "views": 144
   }
