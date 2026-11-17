@@ -8,10 +8,15 @@ import requests
 from .util import log
 
 
-def notify(settings: dict, text: str):
+def notify(settings: dict, text: str, channel: str | None = None):
+    """channel="tiktok" / "youtube" sends to DISCORD_WEBHOOK_TIKTOK / DISCORD_WEBHOOK_YOUTUBE
+    when that secret is set; otherwise everything goes to the main DISCORD_WEBHOOK."""
+    if not text:
+        return False
     n = settings.get("notify", {})
     sent = False
-    hook = os.environ.get(n.get("discord_webhook_env", "DISCORD_WEBHOOK") or "")
+    hook = os.environ.get(f"DISCORD_WEBHOOK_{channel.upper()}", "") if channel else ""
+    hook = hook or os.environ.get(n.get("discord_webhook_env", "DISCORD_WEBHOOK") or "")
     if hook:
         for chunk in _chunks(text, 1900):
             try:

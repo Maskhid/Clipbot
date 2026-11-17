@@ -161,34 +161,36 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
     if not dry:
         # one message per thing you need to do, with the text to copy in its own message
         for acc, res, meta in summary.get("todo", []):
+            ch = acc.platform if acc.platform in ("tiktok", "youtube") else None
             if acc.platform == "tiktok":
                 notify(cfg.settings, f"🎵 **TIKTOK** ({acc.get('handle') or acc.id}): new video in your TikTok inbox. "
-                                     "Open TikTok → Inbox → System notifications (or Drafts) → tap it → paste the caption below → Post.")
-                notify(cfg.settings, meta.get("text", ""))
+                                     "Open TikTok → Inbox → System notifications (or Drafts) → tap it → paste the caption below → Post.", ch)
+                notify(cfg.settings, meta.get("text", ""), ch)
             elif acc.platform == "youtube":
                 notify(cfg.settings, f"▶️ **YOUTUBE** ({acc.id}): download the Short, upload it in the YouTube app, "
-                                     f"then paste the title and description below.\n{res.get('url', '')}")
-                notify(cfg.settings, meta.get("title", ""))
-                notify(cfg.settings, meta.get("description", ""))
+                                     f"then paste the title and description below.\n{res.get('url', '')}", ch)
+                notify(cfg.settings, meta.get("title", ""), ch)
+                notify(cfg.settings, meta.get("description", ""), ch)
             else:
                 notify(cfg.settings, f"📥 {acc.id}: {res.get('note')}")
         # paid campaigns: the post link on its own, ready to paste into the campaign's "Submit clip"
         for acc, res, camp in summary.get("submit", []):
             name = camp.get("name") or "campaign"
+            ch = acc.platform if acc.platform == "tiktok" or (acc.platform == "youtube" and res.get("id") == "manual") else None
             where = f"\n{camp['submit_url']}" if camp.get("submit_url") else ""
             if acc.platform in ("instagram", "facebook") and res.get("url") and res.get("id") != "manual":
                 notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): tap Submit clip and paste the link below.{where}")
                 notify(cfg.settings, res["url"])
             else:
                 notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): after you post it, tap Share → Copy link, "
-                                     f"then Submit clip and paste it.{where}")
+                                     f"then Submit clip and paste it.{where}", ch)
             pins = camp.get("pin_comments") or []
             pins = [pins] if isinstance(pins, str) else pins
             if pins and acc.platform in (camp.get("pin_platforms") or ["instagram", "tiktok"]):
                 pick = pins[sum(map(ord, str(res.get("id") or acc.id))) % len(pins)]
                 notify(cfg.settings, f"📌 **PIN A COMMENT** on this {acc.platform} post (required for payout). "
-                                     f"Post the comment below on your clip, then long-press it → Pin:")
-                notify(cfg.settings, pick)
+                                     f"Post the comment below on your clip, then long-press it → Pin:", ch)
+                notify(cfg.settings, pick, ch)
     lines = []
     for k, title in (("posted", "Posted"), ("retry", "Will retry"),
                      ("failed", "Failed"), ("blocked", "Not connected")):

@@ -128,3 +128,16 @@ def test_tiktok_chunking():
     assert size == 10 * MB and n == 13
     # last chunk absorbs remainder and stays under 128MB
     assert 130 * MB - size * (n - 1) < 128 * MB
+
+
+def test_notify_routes_to_platform_webhook(monkeypatch):
+    from clipbot import notify as nm
+    sent = []
+    monkeypatch.setattr(nm.requests, "post", lambda url, **kw: sent.append(url))
+    monkeypatch.setenv("DISCORD_WEBHOOK", "main")
+    monkeypatch.setenv("DISCORD_WEBHOOK_TIKTOK", "tt")
+    monkeypatch.delenv("DISCORD_WEBHOOK_YOUTUBE", raising=False)
+    nm.notify({}, "a", "tiktok")
+    nm.notify({}, "b", "youtube")   # no YouTube webhook set -> main
+    nm.notify({}, "c")
+    assert sent == ["tt", "main", "main"]

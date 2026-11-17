@@ -45,6 +45,8 @@ jobs:
           VAULT_KEY: ${{ secrets.VAULT_KEY }}
           GH_TOKEN: ${{ github.token }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK_TIKTOK: ${{ secrets.DISCORD_WEBHOOK_TIKTOK }}
+          DISCORD_WEBHOOK_YOUTUBE: ${{ secrets.DISCORD_WEBHOOK_YOUTUBE }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DRY_RUN: ${{ inputs.dry_run }}
