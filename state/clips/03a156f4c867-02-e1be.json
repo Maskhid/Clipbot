@@ -1,0 +1,31 @@
+{
+  "asset": "03a156f4c867-02-e1be.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": null,
+  "captions": {
+    "hype": "He was this close to doing the impossible against Woody Alien 👽♟️"
+  },
+  "created_at": "2026-11-17T03:17:00Z",
+  "credit": "@Jynxzi on Twitch",
+  "duration": 21.6,
+  "end": 4930.3,
+  "hashtags": [
+    "#chess",
+    "#jynxzi",
+    "#chesscom",
+    "#chessbot",
+    "#gaming"
+  ],
+  "hook": "HE ALMOST BEAT WOODY ALIEN",
+  "id": "03a156f4c867-02-e1be",
+  "score": 4.672,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2930731749",
+  "source_key": "03a156f4c867",
+  "start": 4908.7,
+  "tag": "clips-2026-11-17",
+  "title": "He Almost Beat The Hardest Chess Bot",
+  "watermarked": true
+}

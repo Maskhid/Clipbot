@@ -469,6 +469,16 @@ sources:
     credit: "@adinross on Kick"
     layout: "auto"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2930731749"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 676730   FINDING THE PIRATE TOKEN DAY 10 
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
