@@ -1,11 +1,13 @@
 {
   "account": "peakgaminggt_tt",
-  "at": "2026-11-17T15:32:33Z",
-  "attempts": 1,
+  "attempts": 2,
   "clip_id": "0712cbf28fed-01-951f",
-  "error": "TikTok inbox init failed: spam_risk_too_many_pending_share spam_risk_too_many_pending_share",
+  "dry_run": false,
   "job_id": "0712cbf28fed-01-951f__peakgaminggt_tt",
-  "next_attempt_at": "2026-11-17T16:17:33Z",
   "platform": "tiktok",
-  "status": "retry"
+  "post_id": null,
+  "posted_at": "2026-11-17T16:32:40Z",
+  "remote_id": "v_inbox_file~v2.7709178832717088776",
+  "status": "posted",
+  "url": "https://www.tiktok.com/@peak.gaminggt"
 }
