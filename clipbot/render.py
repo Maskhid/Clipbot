@@ -135,6 +135,22 @@ def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | Non
             steps.append(f"[{cur}][hk]overlay=(W-w)/2:{hy}:enable='lt(t,{min(hook_s, dur):.2f})'[vh]")
             cur = "vh"
 
+    ec = cfg.get("end_card")  # call-to-action at the end, e.g. "Follow X on Twitch: twitch.tv/x"
+    if ec:
+        ec = {"text": ec} if isinstance(ec, str) else dict(ec)
+        secs = min(float(ec.get("seconds", 3.0)), max(1.0, dur - 1))
+        ep = work / f"{out.stem}_end.png"
+        size = graphics.hook_banner(ec["text"], ep, ec.get("colors") or ["#9146FF", "#772CE8"], size=int(ec.get("size", 50)), max_w=1020,
+                                    upper=bool(ec.get("upper", False)))
+        if size:
+            images.append(ep)
+            ew, eh = size
+            ey = max(0, min(H - eh, geo["hook_center"] - eh // 2))
+            st = max(0.0, dur - secs)
+            steps.append(f"[IMG{len(images) - 1}]format=rgba,fade=t=in:st=0:d=0.3:alpha=1,setpts=PTS+{st:.2f}/TB[ec]")
+            steps.append(f"[{cur}][ec]overlay=(W-w)/2:{ey}:eof_action=pass:enable='gte(t,{st:.2f})'[ve]")
+            cur = "ve"
+
     if watermark or (logo and Path(logo).exists()):
         wp = work / f"{out.stem}_wm.png"
         size = graphics.watermark_badge(watermark or "", wp, logo)

@@ -180,7 +180,7 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
             name = camp.get("name") or "campaign"
             ch = acc.platform if acc.platform == "tiktok" or (acc.platform == "youtube" and res.get("id") == "manual") else None
             where = f"\n{camp['submit_url']}" if camp.get("submit_url") else ""
-            if acc.platform in ("instagram", "facebook") and res.get("url") and res.get("id") != "manual":
+            if acc.platform in ("instagram", "facebook", "youtube") and res.get("url") and res.get("id") != "manual":
                 notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): tap Submit clip and paste the link below.{where}",
                        None, acc.brand)
                 notify(cfg.settings, res["url"], None, acc.brand)

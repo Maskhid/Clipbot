@@ -201,6 +201,8 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
                 given = (cc.get("split") or {}).get("facecam") if cc.get("layout") == "split" else None
                 sp = find_facecam(video, p["start"], p["end"], info["width"], info["height"], given)
                 rc = {**cc, "layout": "split", "split": sp} if sp else {**cc, "layout": cc.get("no_facecam_layout", "crop")}
+            if camp and camp.get("end_card"):
+                rc = {**rc, "end_card": camp["end_card"]}
             if cc.get("punch_in", True) and loud:
                 rc = {**rc, "punch": punch_moments(loud, p["start"], p["end"])}
             out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", rc, watermark=wm,

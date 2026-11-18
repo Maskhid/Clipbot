@@ -55,6 +55,12 @@ def campaign_text(clip: dict, brand: Brand, platform: str = "") -> str:
     mentions = " ".join(_mention_for(camp, platform))
     disc = camp.get("disclosure")
     tags = [t for t in _dedupe_tags(camp.get("hashtags")) if not disc or t.lower() != disc.lower()]
+    pool = [t for t in _dedupe_tags(camp.get("hashtag_pool")) if t.lower() not in {x.lower() for x in tags}]
+    if pool:  # "mix them up between posts": a different pick for every clip/platform
+        import random as _r  # noqa: PLC0415
+
+        rng = _r.Random(f"{clip.get('id')}-{platform}")
+        tags += rng.sample(pool, min(len(pool), int(camp.get("pool_pick", 3))))
     tags = tags[: int(camp.get("max_hashtags", 3))]
     tag_line = " ".join(([disc] if disc else []) + tags)
     if camp.get("first_line"):
@@ -62,6 +68,8 @@ def campaign_text(clip: dict, brand: Brand, platform: str = "") -> str:
         lines = [first, caption]
     else:
         lines = [" ".join(x for x in (caption, mentions) if x)]
+    if camp.get("cta"):
+        lines.append(str(camp["cta"]).strip())
     if tag_line:
         lines.append(tag_line)
     return "\n".join(lines)

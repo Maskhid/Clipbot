@@ -62,23 +62,27 @@ def _wrap(draw, text: str, font, max_w: int, max_lines: int = 3) -> list[str]:
     return lines
 
 
-def clean_hook(text: str) -> str:
+def clean_hook(text: str, upper: bool = True) -> str:
     # keep letters, numbers and normal punctuation (the font has no emoji)
-    t = re.sub(r"[^\w\s'’!?.,:&%$#@+\-]", "", text or "", flags=re.UNICODE)
-    return re.sub(r"\s+", " ", t).strip().upper()
+    t = re.sub(r"[^\w\s'’!?.,:&%$#@+/\-]", "", text or "", flags=re.UNICODE)
+    t = re.sub(r"\s+", " ", t).strip()
+    return t.upper() if upper else t
 
 
-def hook_banner(text: str, out: Path, colors: list[str] | None = None, max_w: int = 940, size: int = 66) -> tuple[int, int] | None:
+def hook_banner(text: str, out: Path, colors: list[str] | None = None, max_w: int = 940, size: int = 66,
+                upper: bool = True) -> tuple[int, int] | None:
     """Rounded pill with brand gradient, white bold text with a soft shadow. Returns (w, h)."""
     from PIL import Image, ImageDraw, ImageFilter  # noqa: PLC0415
 
-    text = clean_hook(text)
-    if not text:
+    parts = [clean_hook(t, upper) for t in str(text or "").split("\n")]   # "\n" = forced line break
+    parts = [t for t in parts if t]
+    if not parts:
         return None
+    text = " ".join(parts)
     font = _font(size)
     probe = ImageDraw.Draw(Image.new("RGBA", (10, 10)))
     pad_x, pad_y, gap = 44, 26, 10
-    lines = _wrap(probe, text, font, max_w - 2 * pad_x)
+    lines = [ln for part in parts for ln in _wrap(probe, part, font, max_w - 2 * pad_x)]
     asc, desc = font.getmetrics()
     line_h = asc + desc
     text_w = max(int(probe.textlength(line, font=font)) for line in lines)
