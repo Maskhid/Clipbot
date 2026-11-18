@@ -47,7 +47,11 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           DISCORD_WEBHOOK_TIKTOK: ${{ secrets.DISCORD_WEBHOOK_TIKTOK }}
           DISCORD_WEBHOOK_YOUTUBE: ${{ secrets.DISCORD_WEBHOOK_YOUTUBE }}
-          SECRETS_JSON: ${{ toJSON(secrets) }}
+          DISCORD_WEBHOOK_SURVIVAL: ${{ secrets.DISCORD_WEBHOOK_SURVIVAL }}
+          DISCORD_WEBHOOK_MYSTERIES: ${{ secrets.DISCORD_WEBHOOK_MYSTERIES }}
+          DISCORD_WEBHOOK_CREEPY: ${{ secrets.DISCORD_WEBHOOK_CREEPY }}
+          DISCORD_WEBHOOK_LHM: ${{ secrets.DISCORD_WEBHOOK_LHM }}
+          DISCORD_WEBHOOK_PEAKGAMINGGT: ${{ secrets.DISCORD_WEBHOOK_PEAKGAMINGGT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           DRY_RUN: ${{ inputs.dry_run }}

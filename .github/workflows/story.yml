@@ -49,7 +49,11 @@ jobs:
           POLLINATIONS_TOKEN: ${{ secrets.POLLINATIONS_TOKEN }}
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          SECRETS_JSON: ${{ toJSON(secrets) }}
+          DISCORD_WEBHOOK_SURVIVAL: ${{ secrets.DISCORD_WEBHOOK_SURVIVAL }}
+          DISCORD_WEBHOOK_MYSTERIES: ${{ secrets.DISCORD_WEBHOOK_MYSTERIES }}
+          DISCORD_WEBHOOK_CREEPY: ${{ secrets.DISCORD_WEBHOOK_CREEPY }}
+          DISCORD_WEBHOOK_LHM: ${{ secrets.DISCORD_WEBHOOK_LHM }}
+          DISCORD_WEBHOOK_PEAKGAMINGGT: ${{ secrets.DISCORD_WEBHOOK_PEAKGAMINGGT }}
           SAMPLE: ${{ inputs.sample }}
           NICHE: ${{ inputs.niche }}
           COUNT: ${{ inputs.count }}
