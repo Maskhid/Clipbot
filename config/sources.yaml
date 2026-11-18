@@ -499,6 +499,36 @@ sources:
     credit: "@adinross on Kick"
     layout: "auto"
     max_clips: 5
+  - url: "https://www.twitch.tv/videos/2931538239"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # 678730  KRILLIONS  CHESS  FINDING PIRATE TOKEN  ESPORTS AWAR
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@Jynxzi on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2932003293"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # LOSING MY MIND
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@caseoh_ on Twitch"
+    layout: "auto"
+    max_clips: 5
+  - url: "https://www.twitch.tv/videos/2931680211"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  #  EMERGENCY NEWS  UPDATES  GIVEAWAYS  GTA 6 SOON  IRL TODAY  
+    only_gaming: true
+    brands: [peakgaminggt]
+    distribute: "split"
+    credit: "@StableRonaldo on Twitch"
+    layout: "auto"
+    max_clips: 5
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
