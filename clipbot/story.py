@@ -63,9 +63,9 @@ Write ONE episode. Rules:
 - No gore, no sexual content, nothing hateful, no real private people.
 {facts_rule}
 - Split it into {smin}-{smax} scenes. Each scene: 1-3 sentences of narration + a picture.
-- "image" = a precise visual description of ONE still picture for that scene (who, where, action, camera angle,
-  lighting, mood). No text or letters in the picture. If the main character appears, describe them exactly the same
-  way every time. Never mention real brands or famous characters.
+- "image" = ONE still picture for that scene, max 35 words, main subject FIRST, then action, place, camera angle,
+  lighting. Every scene needs a DIFFERENT picture (new angle, place or action). No text or letters in the picture.
+  If the main character appears, describe them exactly the same way every time. No real brands or famous characters.
 {ending_rule}
 
 Reply ONLY with JSON:
@@ -253,50 +253,59 @@ def _pollinations(prompt: str, seed: int) -> bytes | None:
     return r.content
 
 
-def make_images(scenes: list[dict], n: dict, work: Path, seed0: int) -> list[Path]:
-    style = n["art_style"]
-    neg = "no text, no letters, no words, no watermark, no logo, no signature"
-    paths, last_poll = [], 0.0
+def make_images(scenes: list[dict], n: dict, work: Path, seed0: int) -> tuple[list[Path], dict]:
+    from io import BytesIO  # noqa: PLC0415
+
+    from PIL import Image  # noqa: PLC0415
+
+    style = " ".join(str(n["art_style"]).split())
+    char = " ".join(str(n.get("character") or "").split())
+    neg = "no text, no letters, no words, no watermark, no logo"
+    paths, stats, last_poll = [], {}, 0.0
+    have_cf = bool(os.environ.get("CF_ACCOUNT_ID") and os.environ.get("CF_API_TOKEN"))
     for i, sc in enumerate(scenes):
-        prompt = f"{style}. {sc['image']}. {neg}"
-        img = None
-        for prov in ("cloudflare", "pollinations"):
-            for attempt in range(2):
+        desc = sc["image"]
+        if char and "{char}" in desc:
+            desc = desc.replace("{char}", char)
+        prompt = f"{style}. {desc}. {style.split(',')[0]}. {neg}"   # style first and last: flux follows it better
+        img, used = None, ""
+        for prov in (["cloudflare"] if have_cf else []) + ["pollinations"]:
+            for attempt in range(3):
                 try:
                     if prov == "pollinations":
                         wait = 16 - (time.time() - last_poll)   # free tier: one picture per 15 s
                         if wait > 0:
                             time.sleep(wait)
                         last_poll = time.time()
-                        img = _pollinations(prompt, seed0 + i)
+                        img = _pollinations(prompt, seed0 + i + attempt * 1000)
                     else:
-                        img = _cloudflare(prompt, seed0 + i)
+                        img = _cloudflare(prompt, seed0 + i + attempt * 1000)
                     if img:
+                        used = prov
                         break
                 except Exception as e:  # noqa: BLE001
-                    log.warning("Picture %d via %s failed: %s", i + 1, prov, str(e)[:160])
-                    time.sleep(4)
-                if prov == "cloudflare" and img is None and not os.environ.get("CF_API_TOKEN"):
-                    break
+                    log.warning("Picture %d via %s failed (try %d): %s", i + 1, prov, attempt + 1, str(e)[:160])
+                    time.sleep(6 * (attempt + 1))
             if img:
                 break
         if not img:
             if not paths:
                 raise StoryError("Could not make the first picture (image services unavailable)")
             log.warning("Picture %d failed; reusing the previous one", i + 1)
+            stats["reused"] = stats.get("reused", 0) + 1
             paths.append(paths[-1])
             continue
-        p = work / f"scene{i:02d}.png"
-        from io import BytesIO  # noqa: PLC0415
-
-        from PIL import Image  # noqa: PLC0415
-
+        stats[used] = stats.get(used, 0) + 1
         im = Image.open(BytesIO(img)).convert("RGB")
+        if used == "pollinations":   # free tier stamps a small logo in the bottom corner: trim it off
+            im = im.crop((0, 0, im.width, int(im.height * 0.92)))
         s = min(im.size)
         im = im.crop(((im.width - s) // 2, (im.height - s) // 2, (im.width + s) // 2, (im.height + s) // 2))
+        p = work / f"scene{i:02d}.png"
         im.resize((2048, 2048), Image.LANCZOS).save(p)
         paths.append(p)
-    return paths
+    log.info("Pictures: %s", stats)
+    return paths, stats
 
 
 # --------------------------------------------------------------------------- render
@@ -339,7 +348,7 @@ def _scene_clip(img: Path, dur: float, motion: int, out: Path) -> Path:
     z, x, y = (m.format(d=frames) for m in MOTIONS[motion % len(MOTIONS)])
     fc = (f"[0:v]split[a][b];"
           f"[a]zoompan=z='{z}':x='{x}':y='{y}':d={frames}:s={IMG}x{IMG}:fps={FPS}[fg];"
-          f"[b]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=40:3,eq=brightness=-0.32,"
+          f"[b]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=30:2,eq=brightness=-0.16:saturation=1.2,"
           f"loop=loop={frames}:size=1:start=0,setpts=N/{FPS}/TB,trim=end_frame={frames}[bg];"
           f"[bg][fg]overlay=0:{IMG_Y},setsar=1,format=yuv420p[v]")
     run(["ffmpeg", "-y", "-v", "error", "-i", str(img), "-filter_complex", fc, "-map", "[v]",
@@ -391,7 +400,7 @@ def render_story(n: dict, script: dict, images: list[Path], voice: Path, words: 
     else:
         joined = clips[0]
     # captions, header, voice and music
-    cap = {"size": int(n.get("caption_size", 80)), "position": 0.865, "words_per_line": int(n.get("words_per_line", 4)),
+    cap = {"size": int(n.get("caption_size", 96)), "position": 0.865, "words_per_line": int(n.get("words_per_line", 3)),
            "uppercase": bool(n.get("caption_upper", False)), "highlight": n.get("accent", "#FFB020"), "outline": 6}
     ass = captions.build_ass(words, total, None, cap, 0, work / "story.ass")
     header = _header_png(n, script, work / "header.png")
@@ -433,7 +442,7 @@ def make_episode(cfg, name: str, n: dict, state, storage, work: Path, sample: bo
     text = " ".join(s["narration"].strip() for s in script["scenes"])
     voice, words = make_voice(text, n.get("voice") or {}, work)
     seed = int(short_hash(name + script.get("title", "") + iso(utcnow()), 8), 16) % 900000
-    images = make_images(script["scenes"], n, work, seed)
+    images, pic_stats = make_images(script["scenes"], n, work, seed)
     vid = f"{name}-{utcnow().strftime('%Y%m%d-%H%M')}-{short_hash(script.get('title', ''), 4)}"
     out = render_story(n, script, images, voice, words, work / f"{vid}.mp4", work)
     dur = float(ffprobe(out)["duration"])
@@ -451,7 +460,7 @@ def make_episode(cfg, name: str, n: dict, state, storage, work: Path, sample: bo
                       "summary": script.get("summary")}}
     if not sample:
         state._write("stories", name, update_memory(n, mem, script))
-    return {"clip": clip, "script": script, "url": storage.public_url(asset, tag)}
+    return {"clip": clip, "script": script, "url": storage.public_url(asset, tag), "pictures": pic_stats}
 
 
 def run_stories(cfg, only: str | None = None, sample: bool = False, count: int | None = None) -> int:
@@ -482,7 +491,9 @@ def run_stories(cfg, only: str | None = None, sample: bool = False, count: int |
                 ep = make_episode(cfg, name, n, state, storage, work, sample=sample)
                 made += 1
                 if sample:
-                    notify(cfg.settings, f"🎬 **SAMPLE – {name}**: {ep['clip']['title']}\n{ep['url']}", brand=n["brand"])
+                    pics = ", ".join(f"{k} {v}" for k, v in ep["pictures"].items())
+                    notify(cfg.settings, f"🎬 **SAMPLE – {name}**: {ep['clip']['title']} "
+                                         f"({ep['clip']['duration']:.0f}s, pictures: {pics})\n{ep['url']}", brand=n["brand"])
                 else:
                     state.save_clip(ep["clip"])
                     busy, ct, _ = busy_times(state, utcnow())

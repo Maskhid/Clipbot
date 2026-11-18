@@ -19,15 +19,15 @@ stories:
       and must make quick smart decisions to survive. Fast, tense, practical, with a countdown feeling.
     voice_style: tense, urgent narrator speaking directly to "you", present tense
     character: >
-      a teenage boy with messy black hair, a yellow raincoat and a grey backpack (this is "you")
+      a cartoon teenage boy with messy black hair, bright yellow raincoat and grey backpack
     art_style: >
-      2D cartoon illustration, bold clean black outlines, flat cel shading, cinematic dramatic lighting,
-      muted colors with orange and red accents, storybook comic style, consistent character design
-    words: [140, 175]
-    scenes: [7, 9]
+      flat 2D cartoon illustration, thick black outlines, simple cel shading, bold colors,
+      dramatic cinematic lighting, webcomic style
+    words: [160, 190]
+    scenes: [8, 10]
     accent: "#FF5A36"
     outro: "Tell the viewer part {next} is coming and to follow so they don't miss it (skip this on the final part)."
-    voice: {provider: edge, name: en-US-AndrewNeural, rate: "+8%", pitch: "+0Hz"}
+    voice: {provider: edge, name: en-US-AndrewNeural, rate: "+4%", pitch: "+0Hz"}
     music_dir: assets/music/survival
     music_volume: 0.12
 
@@ -47,8 +47,8 @@ stories:
     art_style: >
       cinematic photorealistic digital art, dark moody lighting, deep blue and teal tones, volumetric light,
       highly detailed, epic scale, documentary still
-    words: [130, 165]
-    scenes: [6, 8]
+    words: [150, 185]
+    scenes: [7, 9]
     accent: "#3FD0FF"
     outro: "End with a short question that makes people comment."
     voice: {provider: edge, name: en-US-ChristopherNeural, rate: "-4%", pitch: "-2Hz"}
@@ -70,8 +70,8 @@ stories:
     art_style: >
       dark eerie digital painting, desaturated muted colors, fog and long shadows, cinematic horror atmosphere,
       subtle film grain, unsettling but not gory
-    words: [140, 175]
-    scenes: [7, 9]
+    words: [160, 190]
+    scenes: [8, 10]
     accent: "#B983FF"
     voice: {provider: edge, name: en-US-GuyNeural, rate: "-6%", pitch: "-3Hz"}
     music_dir: assets/music/creepy
