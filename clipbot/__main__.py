@@ -272,6 +272,12 @@ def cmd_schedule(args):
     print(f"Scheduled {n} new post(s) from {len(clips)} clip(s).")
 
 
+def cmd_story(args):
+    from .story import run_stories
+
+    sys.exit(run_stories(load_config(), only=args.niche, sample=args.sample, count=args.count))
+
+
 def cmd_retry(args):
     st = State()
     n = 0
@@ -387,6 +393,12 @@ def main(argv=None):
     p = sub.add_parser("schedule", help="schedule clips that have no posts yet (e.g. after enabling a page)")
     p.add_argument("--brand", help="only clips of this brand")
     p.set_defaults(fn=cmd_schedule)
+
+    p = sub.add_parser("story", help="make faceless story videos (config/stories.yaml)")
+    p.add_argument("--niche", help="only this niche")
+    p.add_argument("--sample", action="store_true", help="make one test video per niche and send it to Discord (no posting)")
+    p.add_argument("--count", type=int, help="videos per niche this run (default: per_run in stories.yaml)")
+    p.set_defaults(fn=cmd_story)
 
     p = sub.add_parser("retry", help="retry failed / blocked posts")
     p.add_argument("--account")

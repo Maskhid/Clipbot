@@ -1,6 +1,8 @@
 """`post` command: posts every job whose time has come."""
 from __future__ import annotations
 
+import re
+
 import shutil
 from datetime import timedelta
 from pathlib import Path
@@ -164,38 +166,51 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
             ch = acc.platform if acc.platform in ("tiktok", "youtube") else None
             if acc.platform == "tiktok":
                 notify(cfg.settings, f"🎵 **TIKTOK** ({acc.get('handle') or acc.id}): new video in your TikTok inbox. "
-                                     "Open TikTok → Inbox → System notifications (or Drafts) → tap it → paste the caption below → Post.", ch)
-                notify(cfg.settings, meta.get("text", ""), ch)
+                                     "Open TikTok → Inbox → System notifications (or Drafts) → tap it → paste the caption below → Post.", ch, acc.brand)
+                notify(cfg.settings, meta.get("text", ""), ch, acc.brand)
             elif acc.platform == "youtube":
                 notify(cfg.settings, f"▶️ **YOUTUBE** ({acc.id}): download the Short, upload it in the YouTube app, "
-                                     f"then paste the title and description below.\n{res.get('url', '')}", ch)
-                notify(cfg.settings, meta.get("title", ""), ch)
-                notify(cfg.settings, meta.get("description", ""), ch)
+                                     f"then paste the title and description below.\n{res.get('url', '')}", ch, acc.brand)
+                notify(cfg.settings, meta.get("title", ""), ch, acc.brand)
+                notify(cfg.settings, meta.get("description", ""), ch, acc.brand)
             else:
-                notify(cfg.settings, f"📥 {acc.id}: {res.get('note')}")
+                notify(cfg.settings, f"📥 {acc.id}: {res.get('note')}", None, acc.brand)
         # paid campaigns: the post link on its own, ready to paste into the campaign's "Submit clip"
         for acc, res, camp in summary.get("submit", []):
             name = camp.get("name") or "campaign"
             ch = acc.platform if acc.platform == "tiktok" or (acc.platform == "youtube" and res.get("id") == "manual") else None
             where = f"\n{camp['submit_url']}" if camp.get("submit_url") else ""
             if acc.platform in ("instagram", "facebook") and res.get("url") and res.get("id") != "manual":
-                notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): tap Submit clip and paste the link below.{where}")
-                notify(cfg.settings, res["url"])
+                notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): tap Submit clip and paste the link below.{where}",
+                       None, acc.brand)
+                notify(cfg.settings, res["url"], None, acc.brand)
             else:
                 notify(cfg.settings, f"💰 **SUBMIT** to {name} ({acc.platform}): after you post it, tap Share → Copy link, "
-                                     f"then Submit clip and paste it.{where}", ch)
+                                     f"then Submit clip and paste it.{where}", ch, acc.brand)
             pins = camp.get("pin_comments") or []
             pins = [pins] if isinstance(pins, str) else pins
             if pins and acc.platform in (camp.get("pin_platforms") or ["instagram", "tiktok"]):
                 pick = pins[sum(map(ord, str(res.get("id") or acc.id))) % len(pins)]
                 notify(cfg.settings, f"📌 **PIN A COMMENT** on this {acc.platform} post (required for payout). "
-                                     f"Post the comment below on your clip, then long-press it → Pin:", ch)
-                notify(cfg.settings, pick, ch)
-    lines = []
-    for k, title in (("posted", "Posted"), ("retry", "Will retry"),
-                     ("failed", "Failed"), ("blocked", "Not connected")):
-        if summary[k]:
-            lines.append(f"**{title}**\n" + "\n".join(summary[k]))
-    if lines and not dry:
-        notify(cfg.settings, "ClipBot\n" + "\n\n".join(lines))
+                                     f"Post the comment below on your clip, then long-press it → Pin:", ch, acc.brand)
+                notify(cfg.settings, pick, ch, acc.brand)
+    if not dry:  # the summary: each brand with its own Discord server gets its own lines
+        from .notify import brand_hook  # noqa: PLC0415
+
+        acc_brand = {a.id: b.name for b in cfg.brands.values() for a in b.accounts}
+
+        def owner(line: str) -> str | None:
+            for aid, bn in acc_brand.items():
+                if re.search(rf"(^|\s){re.escape(aid)}:", line):
+                    return bn if brand_hook(bn) else None
+            return None
+        groups: dict = {}
+        for k in ("posted", "retry", "failed", "blocked"):
+            for line in summary[k]:
+                groups.setdefault(owner(line), {}).setdefault(k, []).append(line)
+        for bn, g in groups.items():
+            lines = [f"**{t}**\n" + "\n".join(g[k]) for k, t in (("posted", "Posted"), ("retry", "Will retry"),
+                     ("failed", "Failed"), ("blocked", "Not connected")) if g.get(k)]
+            if lines:
+                notify(cfg.settings, "ClipBot\n" + "\n\n".join(lines), None, bn)
     return summary

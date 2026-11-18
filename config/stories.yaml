@@ -1,0 +1,78 @@
+# Faceless story channels. Each niche = one brand in accounts.yaml (its own IG / TikTok / YouTube).
+# ClipBot writes, voices, illustrates, edits and schedules each video.
+#
+# voice.provider: edge (free Microsoft voices) or elevenlabs (paid, set ELEVENLABS_API_KEY + voice_id)
+# Pictures: Cloudflare Workers AI (free, set CF_ACCOUNT_ID + CF_API_TOKEN) with Pollinations as backup.
+# music_dir: put a few royalty-free tracks there (e.g. from the YouTube Audio Library). Empty = no music.
+
+stories:
+  survival:
+    brand: survival
+    enabled: true
+    per_run: 1                 # videos made per daily run
+    format: series             # Part 1 / 2 / 3, each continues the last
+    parts: 3
+    channel_name: "Survive This"
+    brief: >
+      Second-person survival stories: the viewer ("you") is thrown into a disaster or impossible
+      situation (outbreak, nuclear alert, flood, blackout, stranded at sea, frozen city, monster in the woods)
+      and must make quick smart decisions to survive. Fast, tense, practical, with a countdown feeling.
+    voice_style: tense, urgent narrator speaking directly to "you", present tense
+    character: >
+      a teenage boy with messy black hair, a yellow raincoat and a grey backpack (this is "you")
+    art_style: >
+      2D cartoon illustration, bold clean black outlines, flat cel shading, cinematic dramatic lighting,
+      muted colors with orange and red accents, storybook comic style, consistent character design
+    words: [140, 175]
+    scenes: [7, 9]
+    accent: "#FF5A36"
+    outro: "Tell the viewer part {next} is coming and to follow so they don't miss it (skip this on the final part)."
+    voice: {provider: edge, name: en-US-AndrewNeural, rate: "+8%", pitch: "+0Hz"}
+    music_dir: assets/music/survival
+    music_volume: 0.12
+
+  mysteries:
+    brand: mysteries
+    enabled: true
+    per_run: 1
+    format: standalone
+    channel_name: "Deep Unknown"
+    header_sub: "Deep Unknown"
+    factual: true
+    brief: >
+      Real mysteries of the deep ocean and outer space: strange creatures, unexplained sounds, the Mariana
+      Trench, black holes, rogue planets, signals from space, shipwrecks, ocean zones. Awe and curiosity,
+      true facts only, explained simply. Each video answers one question ("What is at the bottom of...").
+    voice_style: calm, deep documentary narrator, full of wonder
+    art_style: >
+      cinematic photorealistic digital art, dark moody lighting, deep blue and teal tones, volumetric light,
+      highly detailed, epic scale, documentary still
+    words: [130, 165]
+    scenes: [6, 8]
+    accent: "#3FD0FF"
+    outro: "End with a short question that makes people comment."
+    voice: {provider: edge, name: en-US-ChristopherNeural, rate: "-4%", pitch: "-2Hz"}
+    music_dir: assets/music/mysteries
+    music_volume: 0.14
+
+  creepy:
+    brand: creepy
+    enabled: true
+    per_run: 1
+    format: standalone
+    channel_name: "After Midnight"
+    header_sub: "Scary Story"
+    brief: >
+      Original short creepy stories told in first person ("I"): strange rules at a new job, a neighbour
+      who never blinks, a town where everyone has a second shadow, a voice message from yourself. Slow build,
+      unsettling details, a twist ending that gives chills. Spooky, not gory.
+    voice_style: quiet, slow, unsettling first-person storyteller
+    art_style: >
+      dark eerie digital painting, desaturated muted colors, fog and long shadows, cinematic horror atmosphere,
+      subtle film grain, unsettling but not gory
+    words: [140, 175]
+    scenes: [7, 9]
+    accent: "#B983FF"
+    voice: {provider: edge, name: en-US-GuyNeural, rate: "-6%", pitch: "-3Hz"}
+    music_dir: assets/music/creepy
+    music_volume: 0.13

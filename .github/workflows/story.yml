@@ -1,0 +1,65 @@
+name: Story
+
+on:
+  schedule:
+    - cron: "20 5 * * *"     # once a day: make today's story videos (they post at each account's times)
+  workflow_dispatch:
+    inputs:
+      sample:
+        description: "Sample only: make 1 test video per niche and send it to Discord (nothing is posted)"
+        type: boolean
+        default: true
+      niche:
+        description: "Only this niche (blank = all)"
+        required: false
+      count:
+        description: "Videos per niche (blank = per_run from stories.yaml)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: clipbot-story
+  cancel-in-progress: false
+
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: |
+          bash scripts/install_ffmpeg.sh
+          pip install -q -U -r requirements.txt
+
+      - name: Make story videos
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          POLLINATIONS_TOKEN: ${{ secrets.POLLINATIONS_TOKEN }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          SECRETS_JSON: ${{ toJSON(secrets) }}
+          SAMPLE: ${{ inputs.sample }}
+          NICHE: ${{ inputs.niche }}
+          COUNT: ${{ inputs.count }}
+        run: |
+          args=()
+          [ "$SAMPLE" = "true" ] && args+=(--sample)
+          [ -n "$NICHE" ] && args+=(--niche "$NICHE")
+          [ -n "$COUNT" ] && args+=(--count "$COUNT")
+          python -m clipbot story "${args[@]}"
+
+      - name: Save state
+        if: always() && inputs.sample != true
+        run: 'bash scripts/commit_state.sh "clipbot: story run"'

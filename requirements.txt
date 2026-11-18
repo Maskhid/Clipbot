@@ -9,3 +9,4 @@ faster-whisper>=1.0.3
 numpy>=1.26
 Pillow>=10.0   # hook banner, progress bar and logo graphics
 opencv-python-headless>=4.8,<5
+edge-tts>=7.0
