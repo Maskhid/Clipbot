@@ -102,6 +102,7 @@ Streamer: {streamer}
 Each candidate may come with 3 frames (start, peak, end) so you can see what happens.
 {gameplay_rule}
 {campaign_rule}
+{hook_style_rule}
 
 Candidates:
 {cands}
@@ -178,9 +179,21 @@ def _call_gemini(model: str, key: str, prompt: str, images: list[tuple[str, byte
 GENERIC = {"WATCH THIS", "WAIT FOR IT", "NO WAY", "YO", "BRO", "OMG", "WHAT", "THIS IS INSANE", "INSANE"}
 
 
-def _precise_hook(h) -> str:
-    h = re.sub(r"\s+", " ", str(h or "")).strip().upper()[:48]
-    if not h or h.strip(".!? ") in GENERIC or len(h.split()) < 2:
+TITLE_RULE = """HOOK FORMAT (overrides the caps example above): write the hook as a short on-screen title in normal
+case with ONE key word in CAPS and ONE fitting emoji at the end, max 8 words, like a top streamer-clip page:
+"GTA 6 graphics are INSANE 🔥", "Bobby did NOT see that coming 😭", "CaseOh vs the trees is CRAZY 😂".
+Still specific to this clip and true."""
+
+
+def _title_style(settings: dict, src: dict) -> bool:
+    g = (settings.get("clipping") or {}).get("graphics") or settings.get("graphics") or {}
+    return ((src.get("graphics") or {}).get("hook_style") or g.get("hook_style")) == "title"
+
+
+def _precise_hook(h, keep_case: bool = False) -> str:
+    h = re.sub(r"\s+", " ", str(h or "")).strip()
+    h = (h if keep_case else h.upper())[:60 if keep_case else 48]
+    if not h or h.upper().strip(".!? ") in GENERIC or len(h.split()) < 2:
         return ""
     return h
 
@@ -262,7 +275,8 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
                            gameplay_rule=("ONLY pick moments where actual gameplay is on screen; skip chatting, "
                                           "menus, loading screens and reacting to other videos."
                                           if src.get("only_gaming") else ""),
-                           campaign_rule=campaign_rules(src.get("campaign")))
+                           campaign_rule=campaign_rules(src.get("campaign")),
+                           hook_style_rule=(TITLE_RULE if _title_style(settings, src) else ""))
     images = []
     for i, shots in (frames or {}).items():
         for j, jpg in enumerate(shots):
@@ -312,7 +326,7 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
         tags = [t if t.startswith("#") else f"#{t}" for t in (item.get("hashtags") or [])][:6]
         tags = [re.sub(r"[^\w#]", "", t) for t in tags if len(t) > 1]
         picks.append({**c, "start": round(s, 2), "end": round(e, 2),
-                      "title": str(item.get("title") or "")[:95], "hook": _precise_hook(item.get("hook")),
+                      "title": str(item.get("title") or "")[:95], "hook": _precise_hook(item.get("hook"), _title_style(settings, src)),
                       "captions": caps, "hashtags": tags})
         if len(picks) >= n:
             break

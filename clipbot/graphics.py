@@ -157,3 +157,75 @@ def watermark_badge(text: str, out: Path, logo: Path | None = None, size: int = 
         d.text((x, (h - asc - desc) / 2 - 1), text, font=font, fill=(255, 255, 255, 235))
     img.save(out)
     return w, h
+
+
+EMOJI_FONT = Path(__file__).resolve().parent.parent / "assets" / "fonts" / "NotoColorEmoji.ttf"
+_EMOJI_RE = re.compile("[\U0001F000-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF\uFE0F\u200D]+")
+
+
+def title_text(text: str, out: Path, max_w: int = 1000, size: int = 64) -> tuple[int, int] | None:
+    """Clean streamer-clip title: white bold text with a thick black outline, normal case, emoji in colour
+    (e.g. "GTA 6 graphics are INSANE 🔥"). Returns (w, h) of the PNG."""
+    from PIL import Image, ImageDraw, ImageFont  # noqa: PLC0415
+
+    text = re.sub(r"\s+", " ", str(text or "")).strip()
+    if not text:
+        return None
+    font_path = FONT
+    stroke = max(4, size // 10)
+    for sz in (size, size - 6, size - 12, size - 18):
+        font = ImageFont.truetype(str(font_path), sz)
+        probe = ImageDraw.Draw(Image.new("RGBA", (10, 10)))
+        runs = [(m, bool(_EMOJI_RE.fullmatch(m))) for m in re.split(f"({_EMOJI_RE.pattern})", text) if m]
+        widths = []
+        for t, emo in runs:
+            widths.append(int(sz * 1.15 * len([c for c in t if c not in "\ufe0f\u200d"]) + sz * 0.12) if emo
+                          else int(probe.textlength(t, font=font)))
+        total = sum(widths) + 2 * stroke + 8
+        if total <= max_w:
+            break
+    else:  # still too wide: wrap words onto 2 lines (emoji kept with the last word)
+        words = text.split(" ")
+        half = max(1, len(words) // 2)
+        a = title_text(" ".join(words[:half]), out.with_name(out.stem + "_a.png"), max_w, size - 12)
+        b = title_text(" ".join(words[half:]), out.with_name(out.stem + "_b.png"), max_w, size - 12)
+        if not (a and b):
+            return a or b
+        ia, ib = Image.open(out.with_name(out.stem + "_a.png")), Image.open(out.with_name(out.stem + "_b.png"))
+        img = Image.new("RGBA", (max(ia.width, ib.width), ia.height + ib.height - 6), (0, 0, 0, 0))
+        img.paste(ia, ((img.width - ia.width) // 2, 0), ia)
+        img.paste(ib, ((img.width - ib.width) // 2, ia.height - 6), ib)
+        img.save(out)
+        return img.size
+    h = int(sz * 1.45) + 2 * stroke
+    img = Image.new("RGBA", (total, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    x, base_y = stroke + 4, stroke
+    efont = None
+    for (t, emo), w in zip(runs, widths):
+        if emo and EMOJI_FONT.exists():
+            try:
+                efont = efont or ImageFont.truetype(str(EMOJI_FONT), 109)
+                x += sz * 0.12
+                for ch in [c for c in t if c not in "\ufe0f\u200d"]:
+                    tmp = Image.new("RGBA", (140, 140), (0, 0, 0, 0))
+                    ImageDraw.Draw(tmp).text((4, 4), ch, font=efont, embedded_color=True)
+                    bb = tmp.getbbox()
+                    if bb:
+                        e = tmp.crop(bb)
+                        es = int(sz * 1.05)
+                        e = e.resize((es, max(1, int(e.height * es / e.width))), Image.LANCZOS)
+                        img.alpha_composite(e, (int(x), int(base_y + (sz * 1.2 - e.height) / 2)))
+                    x += sz * 1.15
+                continue
+            except OSError:
+                pass
+        if emo:
+            x += w
+            continue
+        d.text((x, base_y), t, font=font, fill="white", stroke_width=stroke, stroke_fill="black")
+        x += w
+    bb = img.getbbox()
+    img = img.crop((0, 0, int(min(total, (bb[2] if bb else total) + 4)), h))
+    img.save(out)
+    return img.size

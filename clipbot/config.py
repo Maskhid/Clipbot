@@ -37,8 +37,10 @@ DEFAULT_SETTINGS: dict[str, Any] = {
         "crf": 18,
         "render_preset": "fast",
         "graphics": {
-            "hook_style": "pill",  # pill (gradient banner) | text (plain box)
-            "progress_bar": True,
+            "hook_style": "title",  # title (clean white text at the seam, whole clip) | pill (gradient banner) | text
+            "progress_bar": False,
+            "captions": False,      # word-by-word captions (campaigns that require subtitles turn this on)
+            "badge": False,         # @handle logo badge
             "colors": ["#00F0FF", "#8A5CFF", "#FF2E93"],
         },
         "hook_seconds": 3.0,

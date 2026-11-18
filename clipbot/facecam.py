@@ -83,7 +83,7 @@ def _stable_face(found, n_frames: int):
 def _rect_around(face: dict, aspect_src: float) -> list[float]:
     """A crop (fractions of the frame) around the face, shaped like the 1080x760 top section."""
     target = OUT_W / TOP_H                       # width / height of the output section
-    w = min(0.42, max(0.15, face["w"] * 3.8))    # tight on the streamer, like a hand-made facecam crop
+    w = min(0.45, max(0.16, face["w"] * 4.6))    # head and shoulders, like top streamer-clip pages
     h = w * aspect_src / target                  # convert so the pixel aspect matches the target
     if h > 0.6:
         h = 0.6

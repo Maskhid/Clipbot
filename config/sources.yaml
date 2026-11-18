@@ -29,6 +29,7 @@ sources:
     layout: blur
     campaign:
       name: "Let Him Mansplain"
+      captions: true
       platforms: [instagram, tiktok, youtube]
       mention: {instagram: "@lethimmansplain", tiktok: "@lethimmansplain", youtube: "@LetHimMansplain"}
       first_line: "Full episode on {mention}"
@@ -340,6 +341,7 @@ sources:
     layout: blur
     campaign:
       name: Let Him Mansplain
+      captions: true
       platforms:
       - instagram
       - tiktok
@@ -543,7 +545,7 @@ sources:
     start: "00:20:00"
     end: "04:20:00"
     added_by: watch  # 65365  FORTNITE  THEN ROB RUN BUT WERE COPS  GTA GIVEAWAY TH
-    campaign: {"name": "Bobby Van Riper", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#bobbyvanriper"], "hashtag_pool": ["#twitch", "#streamer", "#twitchclips", "#gaming", "#funnymoments"], "pool_pick": 3, "max_hashtags": 4, "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper", "end_card": {"text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper", "seconds": 3}, "content_type": "a moment from streamer Bobby Vanriper's Twitch stream", "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens."}
+    campaign: {"name": "Bobby Van Riper", "captions": true, "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#bobbyvanriper"], "hashtag_pool": ["#twitch", "#streamer", "#twitchclips", "#gaming", "#funnymoments"], "pool_pick": 3, "max_hashtags": 4, "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper", "end_card": {"text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper", "seconds": 3}, "content_type": "a moment from streamer Bobby Vanriper's Twitch stream", "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens."}
     only_gaming: false
     brands: [peakgaminggt]
     distribute: "split"
@@ -619,6 +621,7 @@ channels:
     max_age_hours: 48
     campaign:
       name: "Bobby Van Riper"
+      captions: true
       platforms: [instagram, tiktok, youtube]
       hashtags: ["#bobbyvanriper"]
       hashtag_pool: ["#twitch", "#streamer", "#twitchclips", "#gaming", "#funnymoments"]

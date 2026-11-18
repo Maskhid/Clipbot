@@ -185,11 +185,13 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
                 brand_load[b.name] = brand_load.get(b.name, 0) + len(b.accounts)
 
             dur = p["end"] - p["start"]
-            pill = (cc.get("graphics") or {}).get("hook_style", "pill") == "pill"
-            ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]), dur,
+            g = cc.get("graphics") or {}
+            pill = g.get("hook_style", "pill") in ("pill", "title")
+            want_caps = bool((camp or {}).get("captions", src.get("captions", g.get("captions", True))))
+            ass = captions.build_ass(highlights.words_in(segs, p["start"], p["end"]) if want_caps else [], dur,
                                      None if pill else p.get("hook"), cc["caption"],
                                      float(cc.get("hook_seconds", 3)), work / f"{cid}.ass")
-            badge = not (camp and camp.get("watermark") is False)
+            badge = not (camp and camp.get("watermark") is False) and bool(src.get("badge", g.get("badge", True)))
             wm = cfg.brands[clip_brands[0]].get("watermark") if (len(clip_brands) == 1 and badge) else None
             brand0 = cfg.brands[clip_brands[0]]
             logo = brand0.get("logo") or "assets/logo.png"

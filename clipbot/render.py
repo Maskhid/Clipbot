@@ -135,6 +135,17 @@ def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | Non
             steps.append(f"[{cur}][hk]overlay=(W-w)/2:{hy}:enable='lt(t,{min(hook_s, dur):.2f})'[vh]")
             cur = "vh"
 
+    if hook and gcfg.get("hook_style", "pill") == "title":   # clean title on the seam for the whole clip
+        tp = work / f"{out.stem}_title.png"
+        size = graphics.title_text(hook, tp, size=int(gcfg.get("title_size", 64)))
+        if size:
+            images.append(tp)
+            tw, th = size
+            ty = max(0, min(H - th, geo["hook_center"] - th // 2))
+            steps.append(f"[IMG{len(images) - 1}]format=rgba,fade=t=in:st=0:d=0.2:alpha=1[tt]")
+            steps.append(f"[{cur}][tt]overlay=(W-w)/2:{ty}[vtt]")
+            cur = "vtt"
+
     ec = cfg.get("end_card")  # call-to-action at the end, e.g. "Follow X on Twitch: twitch.tv/x"
     if ec:
         ec = {"text": ec} if isinstance(ec, str) else dict(ec)
