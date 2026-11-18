@@ -58,8 +58,14 @@ def _detect(paths: list[Path]):
     return found, size
 
 
+def _central(cx: float, cy: float) -> bool:
+    """Webcams sit near an edge/corner; a face in the middle of the screen is a game character."""
+    return 0.3 < cx < 0.7 and 0.25 < cy < 0.75
+
+
 def _stable_face(found, n_frames: int):
     """The face position seen in the most frames (within a small radius), if it's seen often enough."""
+    found = [f for f in found if not _central(f[1], f[2])]
     best, best_frames = None, set()
     for _, cx, cy, fw, _ in found:
         r = max(0.035, fw * 0.6)
@@ -77,7 +83,7 @@ def _stable_face(found, n_frames: int):
 def _rect_around(face: dict, aspect_src: float) -> list[float]:
     """A crop (fractions of the frame) around the face, shaped like the 1080x760 top section."""
     target = OUT_W / TOP_H                       # width / height of the output section
-    w = min(0.5, max(0.18, face["w"] * 5.0))     # webcam overlays are ~4-5x the face width; not too zoomed
+    w = min(0.42, max(0.15, face["w"] * 3.8))    # tight on the streamer, like a hand-made facecam crop
     h = w * aspect_src / target                  # convert so the pixel aspect matches the target
     if h > 0.6:
         h = 0.6

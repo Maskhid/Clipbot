@@ -20,6 +20,24 @@ class SkipSource(Exception):
     """The source was checked and deliberately skipped (e.g. not a gaming stream)."""
 
 
+def punch_moments(loud: list[float], start: float, end: float, hop: float = 0.5, n: int = 3) -> list[tuple[float, float]]:
+    """The loudest spikes in the clip (yells, explosions) -> short zoom-ins, relative to the clip start."""
+    a, b = int(start / hop), int(end / hop)
+    seg = loud[a:b]
+    if len(seg) < 8:
+        return []
+    mean = sum(seg) / len(seg)
+    sd = (sum((x - mean) ** 2 for x in seg) / len(seg)) ** 0.5 or 1
+    peaks = sorted(((v, i) for i, v in enumerate(seg) if v >= mean + 1.0 * sd and 2 <= i <= len(seg) - 3), reverse=True)
+    picked: list[int] = []
+    for _, i in peaks:
+        if all(abs(i - j) * hop >= 4 for j in picked):
+            picked.append(i)
+        if len(picked) >= n:
+            break
+    return [(max(0.0, i * hop - 0.25), i * hop + 1.1) for i in sorted(picked)]
+
+
 def busy_times(state: State, now: datetime) -> tuple[dict, dict, dict]:
     """Taken posting times per account, planned times per clip, pending jobs per brand."""
     results = state.results()
@@ -183,6 +201,8 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
                 given = (cc.get("split") or {}).get("facecam") if cc.get("layout") == "split" else None
                 sp = find_facecam(video, p["start"], p["end"], info["width"], info["height"], given)
                 rc = {**cc, "layout": "split", "split": sp} if sp else {**cc, "layout": cc.get("no_facecam_layout", "crop")}
+            if cc.get("punch_in", True) and loud:
+                rc = {**rc, "punch": punch_moments(loud, p["start"], p["end"])}
             out = render.render_clip(video, info, p["start"], p["end"], ass, work / f"{cid}.mp4", rc, watermark=wm,
                                      hook=p.get("hook") if pill else None, colors=brand0.get("colors"),
                                      logo=logo_path if (len(clip_brands) == 1 and logo_path.exists()) else None)

@@ -40,6 +40,15 @@ def wrap(text: str, width: int = 18) -> str:
     return r"\N".join(lines[:3])
 
 
+_BAD = re.compile(r"\b(f+u+c+k+\w*|s+h+i+t+\w*|b+i+t+c+h+\w*|n+i+g+g+\w*|c+u+n+t+\w*|d+i+c+k+\w*|p+u+s+s+y+\w*|"
+                  r"a+s+s+h+o+l+e+\w*|m+o+t+h+e+r+f+\w*)", re.I)
+
+
+def censor(text: str) -> str:
+    """Swear words in burned-in captions hurt reach on TikTok/IG: show them as f***."""
+    return _BAD.sub(lambda m: m.group(0)[0] + "*" * (len(m.group(0)) - 1), text)
+
+
 def group_words(words: list[dict], per_line: int, max_chars: int = 16) -> list[list[dict]]:
     groups, cur = [], []
     for i, w in enumerate(words):
@@ -93,7 +102,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             g_end = min(nxt, g[-1]["end"] + 0.6, duration)
             if g_end <= g_start:
                 continue
-            texts = [esc(w["word"].upper() if upper else w["word"]) for w in g]
+            texts = [esc(censor(w["word"].upper() if upper else w["word"])) for w in g]
             for j, w in enumerate(g):
                 a = g_start if j == 0 else w["start"]
                 b = g[j + 1]["start"] if j + 1 < len(g) else g_end

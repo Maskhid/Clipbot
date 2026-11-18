@@ -79,7 +79,8 @@ Video title: {vtitle}
 Write in: {language}
 
 Pick the {n} candidates most likely to go viral (funny, shocking, skillful, emotional, or a clear payoff).
-Skip boring or confusing moments, and moments that need context to understand.
+Prefer moments with a BIG reaction from the streamer (yelling, laughing, shock, rage) plus something visible happening.
+Skip calm talking, menus, loading screens, explaining, reading chat, and moments that need context to understand.
 For each pick you may tighten start/end by a few seconds so it opens on action and ends right after the payoff,
 but keep start/end inside the candidate's range and the length between {mn} and {mx} seconds.
 
@@ -92,6 +93,8 @@ Return ONLY JSON like:
 
 Rules for the hook: it must be specific to what is seen or said in that clip (who/what/where), never generic
 filler like "WATCH THIS", "YO BRO", "NO WAY" or a quote of the first words. If nothing precise can be said, use "".
+It must have ENERGY: an action or stakes, not a dry description. Bad: "CASEOH PLAYS BOUNCE PARTY IN FALL GUYS",
+"CUSTOMER ORDERS A BURGER". Good: "CASEOH RAGE QUITS BOUNCE PARTY", "THE TREES ARE HUNTING HIM", "HE BLUNDERS MATE IN 1".
 Titles must be specific too. No clickbait lies, no slurs, don't claim to be the streamer, max 6 hashtags.
 Streamer: {streamer}
 Each candidate may come with 3 frames (start, peak, end) so you can see what happens.

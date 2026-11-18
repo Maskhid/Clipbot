@@ -538,8 +538,8 @@ channels:
     layout: split
     split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
     start_minute: 30
-    window_minutes: 120
-    max_clips: 5
+    window_minutes: 240
+    max_clips: 8
     max_age_hours: 48
     
   - url: "https://www.twitch.tv/jynxzi"
@@ -548,8 +548,8 @@ channels:
     credit: "@Jynxzi on Twitch"
     layout: auto
     start_minute: 30
-    window_minutes: 120
-    max_clips: 5
+    window_minutes: 240
+    max_clips: 8
     max_age_hours: 48
   - url: "https://www.twitch.tv/xqc"
     brands: [peakgaminggt]
@@ -557,8 +557,8 @@ channels:
     credit: "@xQc on Twitch"
     layout: auto
     start_minute: 30
-    window_minutes: 120
-    max_clips: 5
+    window_minutes: 240
+    max_clips: 8
     max_age_hours: 48
   - url: "https://www.twitch.tv/caseoh_"
     brands: [peakgaminggt]
@@ -566,8 +566,8 @@ channels:
     credit: "@caseoh_ on Twitch"
     layout: auto
     start_minute: 30
-    window_minutes: 120
-    max_clips: 5
+    window_minutes: 240
+    max_clips: 8
     max_age_hours: 48
   - url: "https://www.twitch.tv/stableronaldo"
     brands: [peakgaminggt]
@@ -575,8 +575,8 @@ channels:
     credit: "@StableRonaldo on Twitch"
     layout: auto
     start_minute: 30
-    window_minutes: 120
-    max_clips: 5
+    window_minutes: 240
+    max_clips: 8
     max_age_hours: 48
   - url: "https://kick.com/adinross"
     brands: [peakgaminggt]
@@ -584,6 +584,6 @@ channels:
     credit: "@adinross on Kick"
     layout: auto
     start_minute: 30
-    window_minutes: 120
-    max_clips: 5
+    window_minutes: 240
+    max_clips: 8
     max_age_hours: 48

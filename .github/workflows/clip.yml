@@ -5,7 +5,7 @@ on:
     paths:
       - config/sources.yaml
   schedule:
-    - cron: "40 */4 * * *"   # every 4h: new streams from watched channels + retries
+    - cron: "40 */2 * * *"   # every 2h: new streams from watched channels + retries
   workflow_dispatch:
     inputs:
       url:

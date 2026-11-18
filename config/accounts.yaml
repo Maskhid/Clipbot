@@ -4,7 +4,7 @@ brands:
   peakgaminggt:
     niches: [GTA 6]
     caption_style: hype          # hype | funny | chill | news
-    hashtags: ["#gaming", "#gamingclips"]
+    hashtags: ["#GTA6", "#gaming", "#gamingclips"]
     watermark: "@peakgamingGT"   # text shown on every clip
     accounts:
       - id: peakgaminggt_yt

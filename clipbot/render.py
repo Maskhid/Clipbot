@@ -37,6 +37,17 @@ def font_file() -> Path | None:
 SCALE = "flags=lanczos"
 
 
+def _punch(cfg: dict, w: int, h: int) -> str:
+    """',zoompan=...' that zooms in ~14% on the gameplay for a second at each big moment (cfg['punch'])."""
+    pts = cfg.get("punch") or []
+    if not pts:
+        return ""
+    e = "+".join(f"clip((it-{a:.2f})/0.15,0,1)*clip(({b:.2f}-it)/0.15,0,1)" for a, b in pts)
+    fps = cfg.get("_fps") or 30
+    return (f",zoompan=z='1+{float(cfg.get('punch_zoom', 0.14))}*min(1,{e})':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+            f":d=1:s={w}x{h}:fps={fps}")
+
+
 def layout_filter(layout: str, src_w: int, src_h: int, cfg: dict) -> tuple[str, dict]:
     """Returns (filtergraph producing [v0], geometry used to place the graphics)."""
     aspect = src_w / max(1, src_h)
@@ -44,7 +55,7 @@ def layout_filter(layout: str, src_w: int, src_h: int, cfg: dict) -> tuple[str, 
     if layout == "crop" or vertical:
         cx = float(cfg.get("crop_x", 0.5))
         return (f"[0:v]scale={W}:{H}:force_original_aspect_ratio=increase:{SCALE},"
-                f"crop={W}:{H}:(iw-{W})*{cx}:(ih-{H})/2,unsharp=5:5:0.4,setsar=1[v0]",
+                f"crop={W}:{H}:(iw-{W})*{cx}:(ih-{H})/2{_punch(cfg, W, H)},unsharp=5:5:0.4,setsar=1[v0]",
                 {"seam": int(H * 0.80), "hook_center": int(H * 0.16)})
     if layout == "split":
         sp = cfg.get("split") or {}
@@ -54,7 +65,7 @@ def layout_filter(layout: str, src_w: int, src_h: int, cfg: dict) -> tuple[str, 
         return (f"[0:v]split=2[a][b];"
                 f"[a]crop=iw*{fw}:ih*{fh}:iw*{fx}:ih*{fy},scale={W}:{top}:force_original_aspect_ratio=increase:{SCALE},"
                 f"crop={W}:{top},unsharp=5:5:0.9:3:3:0[top];"
-                f"[b]scale=-2:{bot}:{SCALE},crop={W}:{bot},unsharp=5:5:0.5[bot];"
+                f"[b]scale=-2:{bot}:{SCALE},crop={W}:{bot}{_punch(cfg, W, bot)},unsharp=5:5:0.5[bot];"
                 f"[top][bot]vstack=inputs=2,setsar=1[v0]",
                 {"seam": top, "hook_center": top})
     # blur (default): blurred full-screen background + zoomed gameplay strip in the middle
@@ -80,7 +91,8 @@ def render_clip(src: Path, info: dict, start: float, end: float, ass: Path | Non
     dur = max(0.5, end - start)
     gcfg = cfg.get("graphics") or {}
     colors = colors or gcfg.get("colors") or graphics.DEFAULT_COLORS
-    vf, geo = layout_filter(cfg.get("layout", "blur"), info["width"], info["height"], cfg)
+    vf, geo = layout_filter(cfg.get("layout", "blur"), info["width"], info["height"],
+                            {**cfg, "_fps": min(60, round(info.get("fps") or 30))})
     fps = cfg.get("fps", "auto")
     fps = min(60, round(info.get("fps") or 30)) if fps in ("auto", None) else int(fps)
     work = out.parent
