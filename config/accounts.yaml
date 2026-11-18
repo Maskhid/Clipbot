@@ -71,7 +71,6 @@ brands:
     hashtags: ["#survival", "#story", "#animation"]
     accounts:
       - {id: survival_ig, platform: instagram, handle: "@CHANGE_ME", page: "CHANGE_ME", enabled: false, posts_per_day: 1, windows: ["18:00-21:00"], timezone: America/New_York}
-      - {id: survival_tt, platform: tiktok, handle: "@CHANGE_ME", tiktok_mode: inbox, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
       - {id: survival_yt, platform: youtube, mode: manual, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
 
   mysteries:
@@ -80,7 +79,6 @@ brands:
     hashtags: ["#mystery", "#ocean", "#space"]
     accounts:
       - {id: mysteries_ig, platform: instagram, handle: "@CHANGE_ME", page: "CHANGE_ME", enabled: false, posts_per_day: 1, windows: ["18:00-21:00"], timezone: America/New_York}
-      - {id: mysteries_tt, platform: tiktok, handle: "@CHANGE_ME", tiktok_mode: inbox, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
       - {id: mysteries_yt, platform: youtube, mode: manual, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
 
   creepy:
@@ -89,5 +87,4 @@ brands:
     hashtags: ["#scarystories", "#creepy", "#horrorstory"]
     accounts:
       - {id: creepy_ig, platform: instagram, handle: "@CHANGE_ME", page: "CHANGE_ME", enabled: false, posts_per_day: 1, windows: ["19:00-22:00"], timezone: America/New_York}
-      - {id: creepy_tt, platform: tiktok, handle: "@CHANGE_ME", tiktok_mode: inbox, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
       - {id: creepy_yt, platform: youtube, mode: manual, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
