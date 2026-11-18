@@ -81,11 +81,13 @@ Write in: {language}
 Pick the {n} candidates most likely to go viral (funny, shocking, skillful, emotional, or a clear payoff).
 Prefer moments with a BIG reaction from the streamer (yelling, laughing, shock, rage) plus something visible happening.
 Skip calm talking, menus, loading screens, explaining, reading chat, and moments that need context to understand.
+Give each pick a "score" from 1-10 for how likely it is to make a stranger stop scrolling and watch to the end.
+Only pick moments scoring 7 or more. Returning FEWER clips (even zero) is much better than a weak one.
 For each pick you may tighten start/end by a few seconds so it opens on action and ends right after the payoff,
 but keep start/end inside the candidate's range and the length between {mn} and {mx} seconds.
 
 Return ONLY JSON like:
-{{"clips":[{{"idx":0,"start":12.3,"end":41.0,
+{{"clips":[{{"idx":0,"score":8,"start":12.3,"end":41.0,
   "title":"YouTube Shorts title, max 70 chars, no hashtags, curiosity-driven",
   "hook":"on-screen hook, max 6 words, that says PRECISELY what happens in THIS clip (use the frames and transcript), e.g. COPS BOX HIM IN AT THE DOCKS. Empty string if you can't be precise",
   "captions":[{caption_spec}],
@@ -292,6 +294,13 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
             continue
         if idx in used:
             continue
+        try:
+            score = float(item.get("score", 10))
+        except (TypeError, ValueError):
+            score = 10
+        if score < float(cc.get("min_score", 7)):
+            log.info("AI writer: skipped candidate %d (score %.0f): not strong enough", idx, score)
+            continue
         used.add(idx)
         s = float(item.get("start", c["start"]))
         e = float(item.get("end", c["end"]))
@@ -307,7 +316,7 @@ def llm_pick(cands: list[dict], segments: list[dict], src: dict, n: int, styles:
                       "captions": caps, "hashtags": tags})
         if len(picks) >= n:
             break
-    return picks or None
+    return picks   # [] = the AI looked and found nothing worth posting (not a failure)
 
 
 GAMING_PROMPT = """These {n} frames are spread across a livestream titled: "{title}".

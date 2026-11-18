@@ -109,7 +109,7 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     work = WORK_DIR / skey
     work.mkdir(parents=True, exist_ok=True)
     cc = dict(cfg.settings["clipping"])
-    for k in ("layout", "no_facecam_layout", "fg_zoom", "crop_x", "split", "min_clip_seconds", "max_clip_seconds", "clips_per_hour"):
+    for k in ("layout", "no_facecam_layout", "min_score", "fg_zoom", "crop_x", "split", "min_clip_seconds", "max_clip_seconds", "clips_per_hour"):
         if k in src:
             cc[k] = src[k]
     if src.get("max_clips"):
@@ -159,9 +159,11 @@ def process_source(cfg: Config, state: State, storage, src: dict, sched: Schedul
     pool = cands[: min(len(cands), max(target * 2, 6), 12)]
     frames = grab_frames(video, pool, work / "frames") if writer._providers(cfg.settings["llm"]) else None
     picks = writer.llm_pick(pool, segs, src, target, styles, cfg.settings, game, frames)
-    if not picks and camp:
+    if picks is not None and not picks:
+        log.info("AI found no moment strong enough in this stream window: no clips (quality over quantity)")
+    if picks is None and camp:
         raise RuntimeError("AI writer unavailable; campaign clips need honest AI captions, so this will retry next run")
-    if not picks:
+    if picks is None:
         picks = []
         for c in cands[:target]:
             t = writer.heuristic_text(c, segs, src, styles, game)

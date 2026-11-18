@@ -93,6 +93,67 @@ def _rect_around(face: dict, aspect_src: float) -> list[float]:
     return [round(float(v), 4) for v in (x, y, w, h)]
 
 
+def _edge_box(paths: list[Path], face: dict) -> list[float] | None:
+    """Finds the webcam overlay's own borders around the face (they stay put in every frame, while game
+    edges move), then fits the 1080x760 shape INSIDE them, so no chat box or game spills into the facecam."""
+    import cv2  # noqa: PLC0415
+    import numpy as np  # noqa: PLC0415
+
+    gx_sum = gy_sum = None
+    for p in paths:
+        g = cv2.imread(str(p), cv2.IMREAD_GRAYSCALE)
+        if g is None:
+            continue
+        g = g.astype(np.float32)
+        gx, gy = np.abs(cv2.Sobel(g, cv2.CV_32F, 1, 0, ksize=3)), np.abs(cv2.Sobel(g, cv2.CV_32F, 0, 1, ksize=3))
+        gx_sum = gx if gx_sum is None else gx_sum + gx
+        gy_sum = gy if gy_sum is None else gy_sum + gy
+    if gx_sum is None:
+        return None
+    H, W = gy_sum.shape
+    cx, cy, fw, fh = face["cx"] * W, face["cy"] * H, face["w"] * W, face["h"] * H
+
+    def best(profile, lo, hi):
+        lo, hi = int(max(0, lo)), int(min(len(profile) - 1, hi))
+        if hi - lo < 3:
+            return None
+        seg = profile[lo:hi]
+        i = int(np.argmax(seg))
+        med = float(np.median(profile[max(0, lo - 40):hi + 40])) or 1.0
+        return lo + i if seg[i] > 2.2 * med else None
+    cols = slice(int(max(0, cx - 1.6 * fw)), int(min(W, cx + 1.6 * fw)))
+    rows = slice(int(max(0, cy - 1.6 * fh)), int(min(H, cy + 1.6 * fh)))
+    row_prof = gy_sum[:, cols].mean(axis=1)
+    col_prof = gx_sum[rows, :].mean(axis=0)
+    bottom = best(row_prof, cy + 0.9 * fh, cy + 5 * fh)
+    top = best(row_prof, cy - 5 * fh, cy - 0.9 * fh)
+    left = best(col_prof, cx - 6 * fw, cx - 0.9 * fw)
+    right = best(col_prof, cx + 0.9 * fw, cx + 6 * fw)
+    x0 = left if left is not None else max(0, cx - 3 * fw)
+    x1 = right if right is not None else min(W, cx + 3 * fw)
+    y0 = top if top is not None else max(0, cy - 2.5 * fh)
+    y1 = bottom if bottom is not None else min(H, cy + 2.5 * fh)
+    if bottom is None and top is None and left is None and right is None:
+        return None
+    if not (1.8 * fw <= x1 - x0 <= 9 * fw and 1.6 * fh <= y1 - y0 <= 8 * fh):
+        return None
+    target = OUT_W / TOP_H
+    bw, bh = x1 - x0, y1 - y0
+    if bw / bh > target:   # cam wider than the slot: trim the sides around the face
+        nw = bh * target
+        nx = min(max(x0, cx - nw / 2), x1 - nw)
+        x0, x1 = nx, nx + nw
+    else:                  # cam taller: trim top/bottom, face a little above the middle
+        nh = bw / target
+        ny = min(max(y0, cy - nh * 0.42), y1 - nh)
+        y0, y1 = ny, ny + nh
+    pad = 2  # stay just inside the border line
+    x0, y0, x1, y1 = x0 + pad, y0 + pad, x1 - pad, y1 - pad
+    log.info("Facecam: webcam borders found (top=%s bottom=%s left=%s right=%s)",
+             top is not None, bottom is not None, left is not None, right is not None)
+    return [round(float(v), 4) for v in (x0 / W, y0 / H, (x1 - x0) / W, (y1 - y0) / H)]
+
+
 def find_facecam(video: Path, start: float, end: float, src_w: int, src_h: int,
                  given: list[float] | None = None, samples: int = 14) -> dict | None:
     """Returns a `split` config ({"facecam": [x,y,w,h], "top_height": 760}) or None if no webcam face."""
@@ -104,15 +165,20 @@ def find_facecam(video: Path, start: float, end: float, src_w: int, src_h: int,
     with tempfile.TemporaryDirectory() as td:
         paths = _frames(video, start, end, samples, Path(td))
         found, _ = _detect(paths)
-    face = _stable_face(found, len(paths))
-    if not face:
-        log.info("Facecam: no steady face found in %.0f-%.0fs -> full-screen gameplay", start, end)
-        return None
-    if given:  # configured webcam box: use it if the face really is inside it
-        x, y, w, h = given
-        if x <= face["cx"] <= x + w and y <= face["cy"] <= y + h:
-            log.info("Facecam: face found in the configured box (%d frames)", face["seen"])
-            return {"facecam": list(given), "top_height": TOP_H}
-    rect = _rect_around(face, src_w / max(1, src_h))
-    log.info("Facecam: face found at %.2f,%.2f (%d frames) -> box %s", face["cx"], face["cy"], face["seen"], rect)
+        face = _stable_face(found, len(paths))
+        if not face:
+            log.info("Facecam: no steady face found in %.0f-%.0fs -> full-screen gameplay", start, end)
+            return None
+        if given:  # configured webcam box: use it if the face really is inside it
+            x, y, w, h = given
+            if x <= face["cx"] <= x + w and y <= face["cy"] <= y + h:
+                log.info("Facecam: face found in the configured box (%d frames)", face["seen"])
+                return {"facecam": list(given), "top_height": TOP_H}
+        try:
+            rect = _edge_box(paths, face)
+        except Exception as e:  # noqa: BLE001
+            log.warning("Facecam border search failed: %s", e)
+            rect = None
+    rect = rect or _rect_around(face, src_w / max(1, src_h))
+    log.info("Facecam: face at %.2f,%.2f (%d frames) -> box %s", face["cx"], face["cy"], face["seen"], rect)
     return {"facecam": rect, "top_height": TOP_H}
