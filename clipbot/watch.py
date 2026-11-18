@@ -15,6 +15,7 @@ channels:
 """
 from __future__ import annotations
 
+import json
 import re
 from datetime import datetime, timedelta, timezone
 
@@ -132,16 +133,7 @@ def run_watch(cfg: Config, state: State | None = None, now: datetime | None = No
                      f"    added_by: watch  # {title}"]
             for k in COPY_KEYS:
                 if k in ch:
-                    val = ch[k]
-                    if isinstance(val, bool):
-                        val = "true" if val else "false"
-                    elif isinstance(val, list):
-                        val = "[" + ", ".join(str(x) for x in val) + "]"
-                    elif isinstance(val, dict):
-                        val = "{" + ", ".join(f"{a}: {('[' + ', '.join(str(x) for x in b) + ']') if isinstance(b, list) else b}"
-                                              for a, b in val.items()) + "}"
-                    elif isinstance(val, str):
-                        val = f'"{val}"'
+                    val = json.dumps(ch[k], ensure_ascii=False)   # JSON is valid YAML, nested values included
                     lines.append(f"    {k}: {val}")
             blocks.append("\n".join(lines))
             known.add(v["url"])
