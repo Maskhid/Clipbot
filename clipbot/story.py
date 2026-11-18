@@ -108,7 +108,9 @@ def write_script(n: dict, mem: dict, settings: dict) -> dict:
     prompt = PROMPT.format(
         channel=n.get("channel_name") or n["brand"], brief=" ".join(str(n.get("brief", "")).split()),
         voice_style=n.get("voice_style", "storyteller"), art_style=n["art_style"],
-        character_block=f"MAIN CHARACTER (appears in most pictures, ALWAYS described exactly like this): {char}" if char else "",
+        character_block=(f"MAIN CHARACTER (appears in most pictures, ALWAYS described exactly like this): {char}" if char else
+                         "MAIN CHARACTER: decide this episode's main character's look first (gender, age, hair, clothes) and "
+                         "copy that exact description into every picture they appear in, so they look the same throughout."),
         series_block=series_block, history="; ".join((mem.get("history") or [])[-40:]) or "none yet",
         wmin=wmin, wmax=wmax, secs=round((wmin + wmax) / 2 / 2.6), smin=smin, smax=smax,
         facts_rule=("- FACTS MUST BE TRUE. Only use well-known, verifiable facts. If unsure of a number, don't give one. "
@@ -205,6 +207,26 @@ def _elevenlabs(text: str, v: dict, out: Path) -> list[dict]:
     return words
 
 
+def _norm(t: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", t.lower())
+
+
+def attach_punctuation(words: list[dict], text: str) -> list[dict]:
+    """Voice services return bare words; put the script's punctuation back so captions break at sentence ends."""
+    toks = text.split()
+    out, j = [], 0
+    for w in words:
+        nw = _norm(w["word"])
+        k = j
+        while k < len(toks) and k < j + 4 and _norm(toks[k]) != nw:
+            k += 1
+        if k < len(toks) and k < j + 4 and _norm(toks[k]) == nw:
+            w = {**w, "word": toks[k].strip('"“”')}
+            j = k + 1
+        out.append(w)
+    return out
+
+
 def make_voice(text: str, v: dict, work: Path) -> tuple[Path, list[dict]]:
     out = work / "voice.mp3"
     prov = (v.get("provider") or "edge").lower()
@@ -224,7 +246,7 @@ def make_voice(text: str, v: dict, work: Path) -> tuple[Path, list[dict]]:
         wav = work / "voice.wav"
         run(["ffmpeg", "-y", "-v", "error", "-i", str(out), "-ac", "1", "-ar", "16000", str(wav)])
         words = [w for s in transcribe(wav) for w in s.get("words", [])]
-    return out, words
+    return out, attach_punctuation(words, text)
 
 
 # --------------------------------------------------------------------------- pictures
@@ -319,26 +341,47 @@ MOTIONS = [  # (zoom expr, x expr, y expr) for zoompan; "on" = frame number, "d"
 
 
 def _header_png(n: dict, script: dict, out: Path) -> Path:
-    """The series title (and Part N) at the top, like story channels do."""
+    """The series/episode title (and Part N) at the top. Long titles shrink, then wrap onto 2 lines."""
     from PIL import Image, ImageDraw, ImageFont  # noqa: PLC0415
 
     img = Image.new("RGBA", (W, 300), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    title = (script.get("series_title") or script.get("title") or "").strip()
+    title = " ".join((script.get("series_title") or script.get("title") or "").split())
     sub = f"Part {script['part']}" if script.get("part") else (n.get("header_sub") or "")
-    f1 = ImageFont.truetype(str(FONT), 76 if len(title) <= 18 else 60)
-    f2 = ImageFont.truetype(str(FONT), 64)
     acc = n.get("accent", "#FFB020")
+    maxw = W - 90
+
+    def fits(lines, size):
+        f = ImageFont.truetype(str(FONT), size)
+        return all(d.textlength(t, font=f) <= maxw for t in lines), f
+    lines, f1 = [title], None
+    for size in (76, 70, 64, 58):
+        ok, f1 = fits(lines, size)
+        if ok:
+            break
+    else:  # still too wide: split into two balanced lines
+        words = title.split()
+        best = min(range(1, len(words)), key=lambda k: abs(len(" ".join(words[:k])) - len(" ".join(words[k:]))),
+                   default=1)
+        lines = [" ".join(words[:best]), " ".join(words[best:])]
+        for size in (64, 58, 52, 46, 40):
+            ok, f1 = fits(lines, size)
+            if ok:
+                break
+    f2 = ImageFont.truetype(str(FONT), 56 if len(lines) > 1 else 64)
 
     def center(t, y, f, fill):
         w = d.textlength(t, font=f)
         for dx, dy in ((3, 3), (0, 3), (3, 0)):
             d.text(((W - w) / 2 + dx, y + dy), t, font=f, fill=(0, 0, 0, 170))
         d.text(((W - w) / 2, y), t, font=f, fill=fill)
-    if title:
-        center(title, 60, f1, "white")
+    y = 30 if len(lines) > 1 else 60
+    step = int(f1.size * 1.15) if f1 else 80
+    for t in lines if title else []:
+        center(t, y, f1, "white")
+        y += step
     if sub:
-        center(sub, 160, f2, acc)
+        center(sub, y + 8, f2, acc)
     img.save(out)
     return out
 
