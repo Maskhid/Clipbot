@@ -64,7 +64,7 @@ Write ONE episode. Rules:
 {facts_rule}
 - Split it into {smin}-{smax} scenes. Each scene: 1-3 sentences of narration + a picture.
 - "image" = ONE still picture for that scene, max 35 words, main subject FIRST, then action, place, camera angle,
-  lighting. Every scene needs a DIFFERENT picture (new angle, place or action). No text or letters in the picture.
+  lighting. Never use photography words (photo, realistic, 35mm, DSLR, cinematic still). Every scene needs a DIFFERENT picture (new angle, place or action). No text or letters in the picture.
   If the main character appears, describe them exactly the same way every time. No real brands or famous characters.
 {ending_rule}
 
@@ -255,7 +255,7 @@ def _cloudflare(prompt: str, seed: int) -> bytes | None:
     if not (acct and tok):
         return None
     r = requests.post(f"https://api.cloudflare.com/client/v4/accounts/{acct}/ai/run/@cf/black-forest-labs/flux-1-schnell",
-                      headers={"Authorization": f"Bearer {tok}"}, json={"prompt": prompt[:2000], "steps": 6, "seed": seed},
+                      headers={"Authorization": f"Bearer {tok}"}, json={"prompt": prompt[:2000], "steps": 8, "seed": seed},
                       timeout=120)
     if r.status_code != 200:
         raise StoryError(f"Cloudflare image HTTP {r.status_code}: {r.text[:200]}")
@@ -282,7 +282,7 @@ def make_images(scenes: list[dict], n: dict, work: Path, seed0: int) -> tuple[li
 
     style = " ".join(str(n["art_style"]).split())
     char = " ".join(str(n.get("character") or "").split())
-    neg = "no text, no letters, no words, no watermark, no logo"
+    neg = "sharp focus, clear detailed face, crisp details, no text, no letters, no words, no watermark, no logo"
     paths, stats, last_poll = [], {}, 0.0
     have_cf = bool(os.environ.get("CF_ACCOUNT_ID") and os.environ.get("CF_API_TOKEN"))
     for i, sc in enumerate(scenes):
@@ -311,11 +311,8 @@ def make_images(scenes: list[dict], n: dict, work: Path, seed0: int) -> tuple[li
             if img:
                 break
         if not img:
-            if not paths:
-                raise StoryError("Could not make the first picture (image services unavailable)")
-            log.warning("Picture %d failed; reusing the previous one", i + 1)
-            stats["reused"] = stats.get("reused", 0) + 1
-            paths.append(paths[-1])
+            log.warning("Picture %d failed; will try it again at the end", i + 1)
+            paths.append(None)
             continue
         stats[used] = stats.get(used, 0) + 1
         im = Image.open(BytesIO(img)).convert("RGB")
@@ -326,6 +323,40 @@ def make_images(scenes: list[dict], n: dict, work: Path, seed0: int) -> tuple[li
         p = work / f"scene{i:02d}.png"
         im.resize((2048, 2048), Image.LANCZOS).save(p)
         paths.append(p)
+    missing = [i for i, p in enumerate(paths) if p is None]
+    if missing:
+        time.sleep(30)
+    for i in missing:   # second chance for pictures that failed the first time
+        prompt = f"{style}. {scenes[i]['image']}. {style.split(',')[0]}. {neg}"
+        img = None
+        for prov in (["cloudflare"] if have_cf else []) + ["pollinations"]:
+            try:
+                img = _cloudflare(prompt, seed0 + i + 7000) if prov == "cloudflare" else _pollinations(prompt, seed0 + i + 7000)
+            except Exception as e:  # noqa: BLE001
+                log.warning("Picture %d retry via %s failed: %s", i + 1, prov, str(e)[:120])
+                time.sleep(15)
+            if img:
+                stats[prov] = stats.get(prov, 0) + 1
+                im = Image.open(BytesIO(img)).convert("RGB")
+                if prov == "pollinations":
+                    im = im.crop((0, 0, im.width, int(im.height * 0.92)))
+                sq = min(im.size)
+                im = im.crop(((im.width - sq) // 2, (im.height - sq) // 2, (im.width + sq) // 2, (im.height + sq) // 2))
+                paths[i] = work / f"scene{i:02d}.png"
+                im.resize((2048, 2048), Image.LANCZOS).save(paths[i])
+                break
+    good = [p for p in paths if p is not None]
+    if len(good) < max(3, len(paths) // 2):
+        raise StoryError(f"Only {len(good)} of {len(paths)} pictures could be made (image services unavailable)")
+    for i, p in enumerate(paths):
+        if p is None:   # still missing: reuse the nearest picture, mirrored and zoomed so it doesn't look repeated
+            near = min((j for j, q in enumerate(paths) if q is not None and j != i), key=lambda j: abs(j - i))
+            src = Image.open(paths[near])
+            w, h = src.size
+            alt = src.transpose(Image.FLIP_LEFT_RIGHT).crop((w // 8, h // 8, w - w // 8, h - h // 8)).resize((w, h))
+            paths[i] = work / f"scene{i:02d}_alt.png"
+            alt.save(paths[i])
+            stats["reused"] = stats.get("reused", 0) + 1
     log.info("Pictures: %s", stats)
     return paths, stats
 
@@ -393,7 +424,7 @@ def _scene_clip(img: Path, dur: float, motion: int, out: Path) -> Path:
           f"[a]zoompan=z='{z}':x='{x}':y='{y}':d={frames}:s={IMG}x{IMG}:fps={FPS}[fg];"
           f"[b]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=30:2,eq=brightness=-0.16:saturation=1.2,"
           f"loop=loop={frames}:size=1:start=0,setpts=N/{FPS}/TB,trim=end_frame={frames}[bg];"
-          f"[bg][fg]overlay=0:{IMG_Y},setsar=1,format=yuv420p[v]")
+          f"[bg][fg]overlay=0:{IMG_Y},unsharp=5:5:0.9:5:5:0.0,setsar=1,format=yuv420p[v]")
     run(["ffmpeg", "-y", "-v", "error", "-i", str(img), "-filter_complex", fc, "-map", "[v]",
          "-frames:v", str(frames), "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-r", str(FPS), str(out)])
     return out
@@ -451,8 +482,19 @@ def render_story(n: dict, script: dict, images: list[Path], voice: Path, words: 
 
     music = _pick_music(n)
     cmd = ["ffmpeg", "-y", "-v", "error", "-i", str(joined), "-i", str(header), "-i", str(voice)]
-    afc = "[2:a]apad=pad_dur=0.8,volume=1.0[vo]"
+    fx = {"creepy": "asetrate=48000*0.94,aresample=48000,atempo=1.0638,equalizer=f=120:t=q:w=1:g=4,"
+                    "aecho=0.8:0.6:70|140:0.22|0.12,lowpass=f=7000",
+          "deep": "equalizer=f=120:t=q:w=1:g=3,aecho=0.8:0.5:40:0.12"}.get(n.get("voice_fx") or "", "")
+    afc = f"[2:a]aresample=48000,{fx + ',' if fx else ''}apad=pad_dur=0.8,volume=1.0[vo]"
     amap = "[vo]"
+    if n.get("ambience") == "drone" and not music:   # dark background hum + soft wind, made on the spot
+        cmd += ["-f", "lavfi", "-t", f"{total:.2f}", "-i",
+                f"anoisesrc=color=brown:amplitude=0.06:d={total:.2f},lowpass=f=400,"
+                f"tremolo=f=0.15:d=0.6,aresample=48000"]
+        afc += (f";[3:a]volume={float(n.get('music_volume', 0.5))},afade=t=in:d=2,"
+                f"afade=t=out:st={max(0, total - 1.5):.2f}:d=1.5[amb];"
+                f"[vo][amb]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]")
+        amap = "[aout]"
     if music:
         cmd += ["-stream_loop", "-1", "-i", str(music)]
         vol = float(n.get("music_volume", 0.12))

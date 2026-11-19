@@ -9,7 +9,7 @@ stories:
   survival:
     brand: survival
     enabled: true
-    per_run: 1                 # videos made per daily run
+    per_run: 2
     format: series             # Part 1 / 2 / 3, each continues the last
     parts: 3
     channel_name: "Survive This"
@@ -21,8 +21,8 @@ stories:
     character: >
       a cartoon teenage boy with messy black hair, bright yellow raincoat and grey backpack
     art_style: >
-      flat 2D cartoon illustration, thick black outlines, simple cel shading, bold colors,
-      dramatic cinematic lighting, webcomic style
+      cartoon illustration, 2D animated TV show style, flat bright colors, thick bold black outlines,
+      simple cel shading, clean vector art, dramatic lighting, not realistic, not anime
     words: [160, 190]
     scenes: [8, 10]
     accent: "#FF5A36"
@@ -34,7 +34,7 @@ stories:
   mysteries:
     brand: mysteries
     enabled: true
-    per_run: 1
+    per_run: 2
     format: standalone
     channel_name: "Deep Unknown"
     header_sub: "Deep Unknown"
@@ -58,7 +58,7 @@ stories:
   creepy:
     brand: creepy
     enabled: true
-    per_run: 1
+    per_run: 2
     format: standalone
     channel_name: "After Midnight"
     header_sub: "Scary Story"
@@ -73,6 +73,8 @@ stories:
     words: [160, 190]
     scenes: [8, 10]
     accent: "#B983FF"
-    voice: {provider: edge, name: en-US-GuyNeural, rate: "-6%", pitch: "-3Hz"}
+    voice: {provider: edge, name: en-US-GuyNeural, rate: "-12%", pitch: "-8Hz"}
+    voice_fx: creepy
+    ambience: drone
     music_dir: assets/music/creepy
-    music_volume: 0.13
+    music_volume: 0.5
