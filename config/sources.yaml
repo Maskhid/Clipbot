@@ -659,6 +659,32 @@ sources:
     game: "GTA 6"
     layout: "auto"
     max_clips: 8
+  - url: "https://www.twitch.tv/videos/2932305259"
+    start: "02:30:00"
+    end: "04:30:00"
+    added_by: watch  # PLAYING GTA 6 FOR THE FIRST TIME 20261119 2225
+    chunked: true
+    campaign: {"name": "Kai Cenat GTA 6 Pool", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#KaiCenat", "#GTA6"], "max_hashtags": 3, "content_type": "a moment from Kai Cenat GTA 6 marathon stream", "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games."}
+    only_gaming: true
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    brands: ["peakgaminggt"]
+    distribute: "split"
+    credit: "@KaiCenat on Twitch"
+    game: "GTA 6"
+    layout: "split"
+    split: {"facecam": [0.0, 0.0, 0.235, 0.23], "top_height": 760}
+    max_clips: 8
+  - url: "https://www.twitch.tv/videos/2932974983"
+    start: "00:20:00"
+    end: "02:31:20"
+    added_by: watch  # 67365  MIAMI HEAT GAME  SUBS ARE ENTERED TO WIN A COPY OF GT
+    campaign: {"name": "Bobby Van Riper", "captions": true, "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#bobbyvanriper"], "hashtag_pool": ["#twitch", "#streamer", "#twitchclips", "#gaming", "#funnymoments"], "pool_pick": 3, "max_hashtags": 4, "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper", "end_card": {"text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper", "seconds": 3}, "content_type": "a moment from streamer Bobby Vanriper's Twitch stream", "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens."}
+    only_gaming: false
+    brands: ["peakgaminggt"]
+    distribute: "split"
+    credit: "@bobby_vanriper on Twitch"
+    layout: "auto"
+    max_clips: 6
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
