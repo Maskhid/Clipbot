@@ -9,7 +9,7 @@ stories:
   survival:
     brand: survival
     enabled: true
-    per_run: 2
+    per_run: 1                 # videos made per daily run
     format: series             # Part 1 / 2 / 3, each continues the last
     parts: 3
     channel_name: "Survive This"
@@ -34,7 +34,7 @@ stories:
   mysteries:
     brand: mysteries
     enabled: true
-    per_run: 2
+    per_run: 1
     format: standalone
     channel_name: "Deep Unknown"
     header_sub: "Deep Unknown"
@@ -58,7 +58,7 @@ stories:
   creepy:
     brand: creepy
     enabled: true
-    per_run: 2
+    per_run: 1
     format: standalone
     channel_name: "After Midnight"
     header_sub: "Scary Story"

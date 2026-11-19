@@ -2,7 +2,8 @@ name: Story
 
 on:
   schedule:
-    - cron: "20 5 * * *"     # once a day: make today's story videos (they post at each account's times)
+    - cron: "20 5 * * *"     # make today's story videos (they post at each account's times)
+    - cron: "20 13 * * *"    # second try: makes only the ones that failed in the morning
   workflow_dispatch:
     inputs:
       sample:

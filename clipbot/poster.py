@@ -129,7 +129,20 @@ def run_post(cfg: Config, state: State | None = None, dry_run: bool | None = Non
                         video = render.make_ig_safe(Path(video), work / f"{Path(video).stem}_ig.mp4")
                         storage.put(Path(video), clip["tag"])  # so Instagram can fetch it if direct upload fails
                         meta["public_url"] = storage.public_url(Path(video).name, clip["tag"])
-                    res = get_uploader(acc.platform).post(acc, vault, video, meta, cfg.settings)
+                    try:
+                        res = get_uploader(acc.platform).post(acc, vault, video, meta, cfg.settings)
+                    except PostError as pe:
+                        if acc.platform != "tiktok" or "too_many_pending" not in str(pe):
+                            raise
+                        # TikTok's inbox is full (it only holds a few unposted drafts): send this one to Discord instead
+                        log.info("%s: TikTok inbox full -> sending the video to Discord to post by hand", acc.id)
+                        manual = True
+                        if Path(video) != Path(master):
+                            storage.put(Path(video), clip["tag"])
+                        link = storage.public_url(Path(video).name, clip["tag"])
+                        res = {"id": "manual", "url": link,
+                               "note": f"TikTok inbox is full, so here is the video to post yourself: {link}\n"
+                                       f"Text:\n{meta.get('text') or ''}"}
                 rec = {**base, "status": "posted", "posted_at": iso(utcnow()), "remote_id": res.get("id"), "post_id": res.get("post_id"),
                        "url": res.get("url", ""), "dry_run": dry, "attempts": prev.get("attempts", 0) + 1}
                 state.save_result(job["id"], rec)

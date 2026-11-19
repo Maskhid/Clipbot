@@ -231,13 +231,13 @@ def make_voice(text: str, v: dict, work: Path) -> tuple[Path, list[dict]]:
     out = work / "voice.mp3"
     prov = (v.get("provider") or "edge").lower()
     words = []
-    for attempt in range(3):
+    for attempt in range(4):
         try:
             words = _elevenlabs(text, v, out) if prov == "elevenlabs" else _edge_tts(text, v, out)
             break
         except Exception as e:  # noqa: BLE001
             log.warning("Voice attempt %d failed: %s", attempt + 1, str(e)[:200])
-            time.sleep(5 * (attempt + 1))
+            time.sleep((5, 20, 45, 60)[attempt])
     if not out.exists() or out.stat().st_size < 1000:
         raise StoryError("Could not make the voiceover")
     if not words:  # no timings from the voice service -> listen to it with whisper
@@ -528,24 +528,45 @@ def run_stories(cfg, only: str | None = None, sample: bool = False, count: int |
         if n["brand"] not in cfg.brands:
             failed.append(f"{name}: brand '{n['brand']}' is not in accounts.yaml")
             continue
-        for k in range(count or (1 if sample else int(n.get("per_run", 1)))):
+        today = utcnow().strftime("%Y-%m-%d")
+        made_today = int(((state._read("stories", name) or {}).get("made") or {}).get(today, 0))
+        need = count or (1 if sample else max(0, int(n.get("per_run", 1)) - made_today))
+        if not need:
+            log.info("%s: already made today's %d video(s)", name, made_today)
+        for k in range(need):
             work = Path(os.environ.get("RUNNER_TEMP", "/tmp")) / "stories" / f"{name}{k}"
+            ep, last_err = None, None
+            for attempt in range(2):   # free AI services hiccup: wait and try the whole episode once more
+                try:
+                    ep = make_episode(cfg, name, n, state, storage, work, sample=sample)
+                    break
+                except Exception as e:  # noqa: BLE001
+                    last_err = e
+                    log.warning("Story for %s failed (try %d): %s", name, attempt + 1, str(e)[:200])
+                    if attempt == 0:
+                        time.sleep(90)
+            if not ep:
+                failed.append(f"{name}: {str(last_err)[:250]}")
+                continue
+            made += 1
             try:
-                ep = make_episode(cfg, name, n, state, storage, work, sample=sample)
-                made += 1
                 if sample:
-                    pics = ", ".join(f"{k} {v}" for k, v in ep["pictures"].items())
+                    pics = ", ".join(f"{k2} {v}" for k2, v in ep["pictures"].items())
                     notify(cfg.settings, f"🎬 **SAMPLE – {name}**: {ep['clip']['title']} "
                                          f"({ep['clip']['duration']:.0f}s, pictures: {pics})\n{ep['url']}", brand=n["brand"])
                 else:
                     state.save_clip(ep["clip"])
+                    m = state._read("stories", name) or {}
+                    m["made"] = {today: int((m.get("made") or {}).get(today, 0)) + 1}
+                    state._write("stories", name, m)
                     busy, ct, _ = busy_times(state, utcnow())
                     jobs = schedule_clip(cfg, state, Scheduler(cfg, busy, ct, now=utcnow()), ep["clip"])
                     log.info("Story %s -> %d posts scheduled", ep["clip"]["id"], len(jobs))
             except Exception as e:  # noqa: BLE001
-                log.exception("Story for %s failed", name)
+                log.exception("Saving story for %s failed", name)
                 failed.append(f"{name}: {str(e)[:250]}")
     if failed:
-        notify(cfg.settings, "❌ **Story videos failed**\n" + "\n".join(failed))
+        notify(cfg.settings, "❌ **Story videos failed** (the next run tries again)\n" + "\n".join(failed),
+               brand=next(iter(niches.values()))["brand"])
     log.info("Made %d story video(s); %d failed", made, len(failed))
     return 1 if failed and not made else 0
