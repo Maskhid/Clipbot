@@ -596,7 +596,6 @@ sources:
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
-    enabled: false
     only_gaming: true
     brands: [peakgaminggt]
     credit: "@KaiCenat on Twitch"
@@ -607,6 +606,9 @@ channels:
     max_clips: 8
     max_age_hours: 48
     
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    game: "GTA 6"
+    campaign: {"name": "Kai Cenat GTA 6 Pool", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#KaiCenat", "#GTA6"], "max_hashtags": 3, "content_type": "a moment from Kai Cenat GTA 6 marathon stream", "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games."}
   - url: "https://www.twitch.tv/jynxzi"
     enabled: false
     brands: [peakgaminggt]
