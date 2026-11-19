@@ -678,3 +678,23 @@ channels:
       end_card: {text: "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper", seconds: 3}
       content_type: "a moment from streamer Bobby Vanriper's Twitch stream"
       brief: "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens."
+  - url: "https://www.twitch.tv/kreekcraft"
+    brands: [peakgaminggt]
+    only_gaming: true
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    game: "GTA 6"
+    credit: "@KreekCraft on Twitch"
+    layout: auto
+    start_minute: 20
+    window_minutes: 300
+    max_clips: 8
+    max_age_hours: 48
+    campaign:
+      name: "KreekCraft GTA 6"
+      platforms: [instagram, tiktok, youtube]
+      hashtags: ["#GTA6", "#KreekCraft", "#GrandTheftAutoVI"]
+      max_hashtags: 3
+      cta: "Watch KreekCraft on YouTube and Twitch"
+      logo: {path: assets/kreek_logo.png, width: 300, position: top-right, y: 170}
+      content_type: "a moment from KreekCraft's GTA 6 livestream"
+      brief: "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles."
