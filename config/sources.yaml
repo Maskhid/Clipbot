@@ -91,6 +91,7 @@ sources:
     end: "01:00:00"
     credit: "@moistcr1tikal"
   - url: "https://www.twitch.tv/videos/2920505943"
+    enabled: false
     layout: split
     split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
     brands: [peakgaminggt]
@@ -99,6 +100,7 @@ sources:
     end: "01:00:00"
     credit: "@KaiCenat on Twitch"
   - url: "https://www.twitch.tv/videos/2924282282"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  #  PLAYING EVERY GTA UNTIL I BEAT IT Grand Theft Auto 4
@@ -110,6 +112,7 @@ sources:
     split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2925191124"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 671730  CLIPS  FINDING THE PIRATE TOKEN w LOS POLLOS TV 
@@ -120,6 +123,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2924308181"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LIVECLICKHEREDRAMANEWSVIDEOSGTA VNOPIXEL VPROGRESS PERHAPSLO
@@ -130,6 +134,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2925514767"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -140,6 +145,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1c7e2-3488-770e-a831-fa9e6560f21a#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1c7e23488770ea831fa9e6560f21a
@@ -150,6 +156,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2924316911"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 670730  SICK STREAM   BUT WE HAVE TO FIND THE PIRATE TOKEN 
@@ -160,6 +167,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1c283-3488-7c6a-9099-a4b6983acbd7#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1c28334887c6a9099a4b6983acbd7
@@ -170,6 +178,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2924625705"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -180,6 +189,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1471c-3b78-77ce-a16d-37f39802b8ad#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1471c3b7877cea16d37f39802b8ad
@@ -190,6 +200,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2926082452"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 672730  Claude Picks My Operator in Legends Division  Findin
@@ -200,6 +211,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2926188923"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LIVEDRAMAALERTQUICKCLICKLOCK INGTA V MAYBEGAMESIDKLOCK IN TH
@@ -210,6 +222,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2926436422"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -220,6 +233,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2926145084"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  #  MY LAST STREAM  STREAMER AWARDS TOMORROW  IMPORTANT UPDATES
@@ -230,6 +244,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1ccfb-1f20-7b3a-9105-2e5722f278b4#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1ccfb1f207b3a91052e5722f278b4
@@ -240,6 +255,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2926972985"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 673730  STREAMER AWARDS 2026 
@@ -250,6 +266,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2927311587"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -260,6 +277,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2926893168"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  #  2026 STREAMER AWARDS  EXCLUSIVE RED CARPET  REALITY STREAME
@@ -270,6 +288,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a13cae-9d98-7b0c-8f55-1491cca34cca#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a13cae9d987b0c8f551491cca34cca
@@ -280,6 +299,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a02be6-62d0-76a1-b338-0a9c3f3b8175#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a02be662d076a1b3380a9c3f3b8175
@@ -290,6 +310,7 @@ sources:
     layout: "blur"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2927785503"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 674730  I WON 2026 GAMER OF THE YEAR  RATING MINECRAFT BASES
@@ -300,6 +321,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2928244097"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -310,6 +332,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2927935655"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  #  WE WON  I LOVE YOU  LETS GO  WE HERE  NEWS  UPDATES  REACTS
@@ -320,6 +343,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1d8a2-90d8-7c91-a843-7bf53735ca87#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1d8a290d87c91a8437bf53735ca87
@@ -372,6 +396,7 @@ sources:
       - You gotta hear the rest. Full episode on @lethimmansplain
     distribute: split
   - url: "https://www.twitch.tv/videos/2927989820"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LIVECLICKHERELOCK INDRAMANEWSVIDEOSGAMESCHILLVARIETYAND STUF
@@ -382,6 +407,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1d3bf-96d8-7e28-bbb0-0e6df4c99f4b#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1d3bf96d87e28bbb00e6df4c99f4b
@@ -392,6 +418,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2928767125"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 675730  LEAGUE OF LEGENDS WORLDS FINALE 
@@ -402,6 +429,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2929115707"
+    enabled: false
     start: "00:30:00"
     end: "01:31:41"
     added_by: watch  # PLAYING THE GREATEST GAME EVER  twitterinsta stableronaldo p
@@ -412,6 +440,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2929044358"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LIVECLICKHERELOCK INDRAMANEWSVIDEOSREACTSGAMESSTUFFDONT MISS
@@ -422,6 +451,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1de96-a8d0-7e65-a379-04ff1f49027b#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1de96a8d07e65a37904ff1f49027b
@@ -432,6 +462,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2929975105"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 676730  1 Champion vs 5 Coppers  FINDING THE PIRATE TOKEN DA
@@ -442,6 +473,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2930232350"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -452,6 +484,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2929980619"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  #  DAY WITH MARLON  LEARNING STICK  PAWN SHOP  HES MY DAD TODA
@@ -462,6 +495,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1e3ad-9798-7a69-9e91-db28dc03baea#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1e3ad97987a699e91db28dc03baea
@@ -472,6 +506,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2930731749"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 676730   FINDING THE PIRATE TOKEN DAY 10 
@@ -482,6 +517,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2931106673"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -492,6 +528,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1e82e-b6d0-70e7-ab97-3e2a3e3b707e#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # kickvod video 01a1e82eb6d070e7ab973e2a3e3b707e
@@ -502,6 +539,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2931538239"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # 678730  KRILLIONS  CHESS  FINDING PIRATE TOKEN  ESPORTS AWAR
@@ -512,6 +550,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2932003293"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  # LOSING MY MIND
@@ -522,6 +561,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://www.twitch.tv/videos/2931680211"
+    enabled: false
     start: "00:30:00"
     end: "02:30:00"
     added_by: watch  #  EMERGENCY NEWS  UPDATES  GIVEAWAYS  GTA 6 SOON  IRL TODAY  
@@ -532,6 +572,7 @@ sources:
     layout: "auto"
     max_clips: 5
   - url: "https://kick.com/adinross/videos/01a1edf2-3178-7fee-b917-6dfa166a9e66#__youtubedl_smuggle=%7B%22availability%22%3A+%22public%22%7D"
+    enabled: false
     start: "00:30:00"
     end: "04:30:00"
     added_by: watch  # kickvod video 01a1edf231787feeb9176dfa166a9e66
@@ -555,6 +596,7 @@ sources:
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
+    enabled: false
     only_gaming: true
     brands: [peakgaminggt]
     credit: "@KaiCenat on Twitch"
@@ -566,6 +608,7 @@ channels:
     max_age_hours: 48
     
   - url: "https://www.twitch.tv/jynxzi"
+    enabled: false
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@Jynxzi on Twitch"
@@ -575,6 +618,7 @@ channels:
     max_clips: 8
     max_age_hours: 48
   - url: "https://www.twitch.tv/xqc"
+    enabled: false
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@xQc on Twitch"
@@ -584,6 +628,7 @@ channels:
     max_clips: 8
     max_age_hours: 48
   - url: "https://www.twitch.tv/caseoh_"
+    enabled: false
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@caseoh_ on Twitch"
@@ -593,6 +638,7 @@ channels:
     max_clips: 8
     max_age_hours: 48
   - url: "https://www.twitch.tv/stableronaldo"
+    enabled: false
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@StableRonaldo on Twitch"
@@ -602,6 +648,7 @@ channels:
     max_clips: 8
     max_age_hours: 48
   - url: "https://kick.com/adinross"
+    enabled: false
     brands: [peakgaminggt]
     only_gaming: true
     credit: "@adinross on Kick"
