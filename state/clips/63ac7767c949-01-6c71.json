@@ -1,0 +1,44 @@
+{
+  "asset": "63ac7767c949-01-6c71.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games.",
+    "content_type": "a moment from Kai Cenat GTA 6 marathon stream",
+    "hashtags": [
+      "#KaiCenat",
+      "#GTA6"
+    ],
+    "max_hashtags": 3,
+    "name": "Kai Cenat GTA 6 Pool",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Kai Cenat attempts to loot NPCs in the back of a pickup truck! 😂"
+  },
+  "created_at": "2026-11-19T17:55:24Z",
+  "credit": "@KaiCenat on Twitch",
+  "duration": 15.8,
+  "end": 5981.9,
+  "hashtags": [
+    "#gta6",
+    "#gtavi",
+    "#kaicenat",
+    "#gaming"
+  ],
+  "hook": "Kai trying to loot bodies is HILARIOUS 💀",
+  "id": "63ac7767c949-01-6c71",
+  "score": 3.694,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2932305259",
+  "source_key": "63ac7767c949",
+  "start": 5966.1,
+  "tag": "clips-2026-11-19",
+  "title": "Kai Cenat loots NPCs in the back of a truck",
+  "watermarked": true
+}

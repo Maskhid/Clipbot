@@ -1,0 +1,44 @@
+{
+  "asset": "63ac7767c949-03-a473.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games.",
+    "content_type": "a moment from Kai Cenat GTA 6 marathon stream",
+    "hashtags": [
+      "#KaiCenat",
+      "#GTA6"
+    ],
+    "max_hashtags": 3,
+    "name": "Kai Cenat GTA 6 Pool",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Kai Cenat gets into a funny confrontation on the beach! 😭"
+  },
+  "created_at": "2026-11-19T17:56:42Z",
+  "credit": "@KaiCenat on Twitch",
+  "duration": 16.5,
+  "end": 5478.9,
+  "hashtags": [
+    "#gta6",
+    "#gtavi",
+    "#kaicenat",
+    "#gaming"
+  ],
+  "hook": "NPC wants to FIGHT on the beach 🥊",
+  "id": "63ac7767c949-03-a473",
+  "score": 3.048,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2932305259",
+  "source_key": "63ac7767c949",
+  "start": 5462.4,
+  "tag": "clips-2026-11-19",
+  "title": "NPC tries to fight Kai Cenat on the beach",
+  "watermarked": true
+}
