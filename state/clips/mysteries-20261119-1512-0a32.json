@@ -1,0 +1,34 @@
+{
+  "asset": "mysteries-20261119-1512-0a32.mp4",
+  "brands": [
+    "mysteries"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Journey seven miles down into the darkest place on Earth where life refuses to give up."
+  },
+  "created_at": "2026-11-19T15:13:48Z",
+  "credit": null,
+  "duration": 48.1,
+  "end": 48.1,
+  "hashtags": [
+    "#ocean",
+    "#marianatrench",
+    "#deepsea",
+    "#science"
+  ],
+  "hook": null,
+  "id": "mysteries-20261119-1512-0a32",
+  "shared": false,
+  "source": "story:mysteries",
+  "start": 0,
+  "story": {
+    "niche": "mysteries",
+    "part": 0,
+    "series": "What hides in the Mariana Trench?",
+    "summary": "This episode explores the extreme depths of the Mariana Trench, revealing how fragile snailfish survive immense pressure and discussing mysterious sounds detected in the abyss."
+  },
+  "tag": "clips-2026-11-19",
+  "title": "What hides in the Mariana Trench?",
+  "watermarked": true
+}
