@@ -639,13 +639,15 @@ channels:
     layout: split
     split: {facecam: [0.0, 0.0, 0.235, 0.23], top_height: 760}
     start_minute: 30
-    window_minutes: 240
+    window_minutes: 120
     max_clips: 8
     max_age_hours: 48
     
     games: ["Grand Theft Auto VI", "GTA 6"]
     game: "GTA 6"
     campaign: {"name": "Kai Cenat GTA 6 Pool", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#KaiCenat", "#GTA6"], "max_hashtags": 3, "content_type": "a moment from Kai Cenat GTA 6 marathon stream", "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games."}
+    marathon: true
+    max_chunks: 12
   - url: "https://www.twitch.tv/jynxzi"
     enabled: false
     brands: [peakgaminggt]
@@ -725,7 +727,7 @@ channels:
     credit: "@KreekCraft on Twitch"
     layout: auto
     start_minute: 20
-    window_minutes: 300
+    window_minutes: 120
     max_clips: 8
     max_age_hours: 48
     campaign:
@@ -738,3 +740,5 @@ channels:
       logo: {path: assets/kreek_logo.png, width: 560, position: top-center, y: 850}
       content_type: "a moment from KreekCraft's GTA 6 livestream"
       brief: "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles."
+    marathon: true
+    max_chunks: 12

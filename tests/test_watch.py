@@ -72,3 +72,27 @@ def test_gameplay_check(monkeypatch):
     monkeypatch.setenv("LLM_API_KEY", "")
     assert w.ai_is_gaming(f, "PLAYING EVERY GTA", ["GTA"], s) == (True, "")
     assert w.ai_is_gaming(f, "IRL stream", ["GTA"], s) == (None, "")
+
+
+def test_live_stream_is_clipped_in_pieces(tmp_path, monkeypatch):
+    import clipbot.watch as w
+    from datetime import datetime, timezone
+    from clipbot.config import load_config
+    cfg = load_config()
+    b = next(iter(cfg.brands))
+    cfg.channels = [{"url": "https://www.twitch.tv/x", "brands": [b], "window_minutes": 120, "start_minute": 20}]
+    now = datetime(2026, 11, 19, 12, tzinfo=timezone.utc)
+    vod = {"url": "https://www.twitch.tv/videos/9", "title": "GTA", "timestamp": now.timestamp() - 3600 * 5,
+           "duration": 5 * 3600.0, "live": True}
+    monkeypatch.setattr(w, "new_broadcasts", lambda ch, ydl_factory=None: [dict(vod)])
+    written = {}
+    monkeypatch.setattr(w, "CONFIG_DIR", tmp_path)
+    (tmp_path / "sources.yaml").write_text("sources:\n\nchannels:\n  - url: x\n")
+    cfg.sources = []
+    assert w.run_watch(cfg, now=now) == [vod["url"]]
+    text = (tmp_path / "sources.yaml").read_text()
+    assert 'start: "00:20:00"' in text and 'end: "02:20:00"' in text and "chunked: true" in text
+    cfg.sources = [{"url": vod["url"], "start": "00:20:00", "end": "02:20:00", "chunked": True}]
+    w.run_watch(cfg, now=now)
+    text = (tmp_path / "sources.yaml").read_text()
+    assert 'start: "02:20:00"' in text and 'end: "04:20:00"' in text

@@ -140,6 +140,34 @@ def _fetch_direct(src: dict, url: str, work: Path, start, end) -> Path:
     return out
 
 
+def _fetch_hls_piece(src: dict, url: str, work: Path, start, end) -> Path:
+    """One piece of a (possibly still live) Twitch/Kick broadcast: read its HLS playlist with ffmpeg and
+    copy only the needed segments. Works while the stream is still recording."""
+    import yt_dlp  # noqa: PLC0415
+
+    need("ffmpeg")
+    with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "skip_download": True}) as ydl:
+        info = ydl.extract_info(url, download=False) or {}
+    fmts = [f for f in info.get("formats") or [] if f.get("url") and f.get("vcodec") not in (None, "none")
+            and (f.get("height") or 0) <= 1080]
+    if not fmts:
+        raise RuntimeError(f"No playable video found for {url}")
+    best = max(fmts, key=lambda f: ((f.get("height") or 0), (f.get("fps") or 0), (f.get("tbr") or 0)))
+    out = work / "source.mp4"
+    cmd = ["ffmpeg", "-y", "-v", "error", "-reconnect", "1", "-reconnect_on_network_error", "1",
+           "-reconnect_delay_max", "30"]
+    if start is not None:
+        cmd += ["-ss", str(start)]
+    cmd += ["-i", best["url"]]
+    if end is not None:
+        cmd += ["-t", str(float(end) - float(start or 0))]
+    cmd += ["-map", "0:v:0", "-map", "0:a:0?", "-c", "copy", "-bsf:a", "aac_adtstoasc", "-movflags", "+faststart", str(out)]
+    log.info("Downloading stream piece %s-%s of %s (%sp)", start, end, url, best.get("height"))
+    run(cmd)
+    src["_title"] = src.get("_title") or info.get("title")
+    return out
+
+
 def fetch(src: dict, work: Path) -> Path:
     url = src["url"]
     work.mkdir(parents=True, exist_ok=True)
@@ -163,6 +191,8 @@ def fetch(src: dict, work: Path) -> Path:
 
     if _is_direct_file(url) or src.get("direct"):
         return _fetch_direct(src, url, work, start, end)
+    if src.get("chunked"):
+        return _fetch_hls_piece(src, url, work, start, end)
 
     try:
         import yt_dlp  # noqa: PLC0415

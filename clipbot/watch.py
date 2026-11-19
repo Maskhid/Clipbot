@@ -83,12 +83,24 @@ def new_broadcasts(channel: dict, limit: int = 6, ydl_factory=None) -> list[dict
             except Exception as ex:  # noqa: BLE001
                 log.warning("watch: could not read %s (%s)", url, str(ex)[:150])
                 continue
-            if full.get("is_live") or full.get("live_status") in ("is_live", "is_upcoming"):
+            live = bool(full.get("is_live") or full.get("live_status") == "is_live")
+            if full.get("live_status") == "is_upcoming" or (live and channel.get("clip_live") is False):
                 continue  # still streaming; pick it up on a later run
             ts = full.get("timestamp") or full.get("release_timestamp")
             out.append({"url": full.get("webpage_url") or url, "title": full.get("title") or "",
-                        "timestamp": ts, "duration": float(full.get("duration") or 0)})
+                        "timestamp": ts, "duration": float(full.get("duration") or 0), "live": live})
     return out
+
+
+def _secs(t) -> float:
+    if t is None or t == "":
+        return 0.0
+    if isinstance(t, (int, float)):
+        return float(t)
+    parts = [float(x) for x in str(t).split(":")]
+    while len(parts) < 3:
+        parts.insert(0, 0.0)
+    return parts[0] * 3600 + parts[1] * 60 + parts[2]
 
 
 def run_watch(cfg: Config, state: State | None = None, now: datetime | None = None, ydl_factory=None) -> list[str]:
@@ -114,23 +126,39 @@ def run_watch(cfg: Config, state: State | None = None, now: datetime | None = No
             log.warning("watch: %s failed (%s)", ch["url"], str(ex)[:200])
             continue
         max_age = timedelta(hours=float(ch.get("max_age_hours", 48)))
+        window = float(ch.get("window_minutes", 120)) * 60
         for v in vods:
-            if v["url"] in known:
+            prev = [s for s in cfg.sources if s.get("url") == v["url"]]
+            chunked = v.get("live") or ch.get("marathon") or any(s.get("chunked") for s in prev)
+            if prev and not chunked:
                 continue
-            if v["timestamp"] and now - datetime.fromtimestamp(v["timestamp"], tz=timezone.utc) > max_age:
+            if v["timestamp"] and now - datetime.fromtimestamp(v["timestamp"], tz=timezone.utc) > max_age \
+                    and not v.get("live"):
                 continue
             dur = v["duration"]
-            if dur and dur < 20 * 60:
-                continue  # too short to be a real stream
-            start = float(ch.get("start_minute", 30)) * 60
-            if dur and start > dur * 0.5:
-                start = dur * 0.1
-            end = start + float(ch.get("window_minutes", 120)) * 60
-            if dur:
-                end = min(end, dur - 60)
+            if chunked:
+                # live / marathon stream: clip it piece by piece as it grows (each piece = window_minutes)
+                if len(prev) >= int(ch.get("max_chunks", 12)):
+                    continue
+                start = max([_secs(s.get("end")) for s in prev] + [float(ch.get("start_minute", 30)) * 60])
+                need = window if v.get("live") else 30 * 60
+                if not dur or dur - start < need + (10 * 60 if v.get("live") else 0):
+                    continue  # not enough new stream yet; next run
+                end = min(start + window, dur - (10 * 60 if v.get("live") else 60))
+            else:
+                if dur and dur < 20 * 60:
+                    continue  # too short to be a real stream
+                start = float(ch.get("start_minute", 30)) * 60
+                if dur and start > dur * 0.5:
+                    start = dur * 0.1
+                end = start + window
+                if dur:
+                    end = min(end, dur - 60)
             title = re.sub(r"[^\w ]", "", v["title"])[:60]
             lines = [f'  - url: "{v["url"]}"', f'    start: "{_hms(start)}"', f'    end: "{_hms(end)}"',
                      f"    added_by: watch  # {title}"]
+            if chunked:
+                lines.append("    chunked: true")
             for k in COPY_KEYS:
                 if k in ch:
                     val = json.dumps(ch[k], ensure_ascii=False)   # JSON is valid YAML, nested values included
