@@ -1,7 +1,6 @@
 {
-  "at": "2026-11-19T09:10:58Z",
-  "attempts": 1,
-  "error": "all clips failed: logo_overlay file not found: /home/runner/work/Clipbot/Clipbot/assets/kreek_logo.png (upload it to the repo first)",
-  "status": "error",
+  "at": "2026-11-19T14:26:30Z",
+  "clips": [],
+  "status": "done",
   "url": "https://www.twitch.tv/videos/2932147800"
 }
