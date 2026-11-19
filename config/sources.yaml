@@ -593,6 +593,19 @@ sources:
     credit: "@bobby_vanriper on Twitch"
     layout: "auto"
     max_clips: 6
+  - url: "https://www.twitch.tv/videos/2932147800"
+    start: "00:20:00"
+    end: "05:20:00"
+    added_by: watch  # GTA 6 LIVE  FULL GAME  GIVEAWAYS  DAY 1  GRAND THEFT AUTO 6
+    campaign: {"name": "KreekCraft GTA 6", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#GTA6", "#KreekCraft", "#GrandTheftAutoVI"], "max_hashtags": 3, "cta": "Watch KreekCraft on YouTube and Twitch", "logo": {"path": "assets/kreek_logo.png", "width": 300, "position": "top-right", "y": 170}, "content_type": "a moment from KreekCraft's GTA 6 livestream", "brief": "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles."}
+    only_gaming: true
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    brands: ["peakgaminggt"]
+    distribute: "split"
+    credit: "@KreekCraft on Twitch"
+    game: "GTA 6"
+    layout: "auto"
+    max_clips: 8
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
