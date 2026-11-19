@@ -70,21 +70,21 @@ brands:
     caption_style: story
     hashtags: ["#survival", "#story", "#animation"]
     accounts:
-      - {id: survival_ig, platform: instagram, handle: "@CHANGE_ME", page: "CHANGE_ME", enabled: false, posts_per_day: 1, windows: ["18:00-21:00"], timezone: America/New_York}
-      - {id: survival_yt, platform: youtube, mode: manual, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
+      - {id: survival_ig, platform: instagram, handle: "@survivethis.ig", page: "Survive This", enabled: true, posts_per_day: 1, windows: ["18:00-21:00"], timezone: America/New_York}
+      - {id: survival_yt, platform: youtube, mode: manual, enabled: true, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
 
   mysteries:
     niches: [ocean and space mysteries]
     caption_style: story
     hashtags: ["#mystery", "#ocean", "#space"]
     accounts:
-      - {id: mysteries_ig, platform: instagram, handle: "@CHANGE_ME", page: "CHANGE_ME", enabled: false, posts_per_day: 1, windows: ["18:00-21:00"], timezone: America/New_York}
-      - {id: mysteries_yt, platform: youtube, mode: manual, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
+      - {id: mysteries_ig, platform: instagram, handle: "@deepunknown.ig", page: "Deep Unknown", enabled: true, posts_per_day: 1, windows: ["18:00-21:00"], timezone: America/New_York}
+      - {id: mysteries_yt, platform: youtube, mode: manual, enabled: true, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
 
   creepy:
     niches: [creepy stories]
     caption_style: story
     hashtags: ["#scarystories", "#creepy", "#horrorstory"]
     accounts:
-      - {id: creepy_ig, platform: instagram, handle: "@CHANGE_ME", page: "CHANGE_ME", enabled: false, posts_per_day: 1, windows: ["19:00-22:00"], timezone: America/New_York}
-      - {id: creepy_yt, platform: youtube, mode: manual, enabled: false, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
+      - {id: creepy_ig, platform: instagram, handle: "@aftermidnight.igg", page: "After Midnight", enabled: true, posts_per_day: 1, windows: ["19:00-22:00"], timezone: America/New_York}
+      - {id: creepy_yt, platform: youtube, mode: manual, enabled: true, posts_per_day: 1, windows: ["11:00-14:00"], timezone: America/New_York}
