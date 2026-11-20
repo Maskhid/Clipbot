@@ -1,0 +1,44 @@
+{
+  "asset": "ad7b8c2c796d-00-034e.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games.",
+    "content_type": "a moment from Kai Cenat GTA 6 marathon stream",
+    "hashtags": [
+      "#KaiCenat",
+      "#GTA6"
+    ],
+    "max_hashtags": 3,
+    "name": "Kai Cenat GTA 6 Pool",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Kai could not handle the bench press minigame in GTA 6 😂"
+  },
+  "created_at": "2026-11-20T03:52:36Z",
+  "credit": "@KaiCenat on Twitch",
+  "duration": 23.2,
+  "end": 460.3,
+  "hashtags": [
+    "#gta6",
+    "#kaicenat",
+    "#gaming",
+    "#gtavicecity"
+  ],
+  "hook": "Jason almost CRUSHED by the bench press 💀",
+  "id": "ad7b8c2c796d-00-034e",
+  "score": 5.404,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2932305259",
+  "source_key": "ad7b8c2c796d",
+  "start": 437.1,
+  "tag": "clips-2026-11-20",
+  "title": "Kai Cenat Struggles With The GTA 6 Gym",
+  "watermarked": true
+}

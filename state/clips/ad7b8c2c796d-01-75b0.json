@@ -1,0 +1,44 @@
+{
+  "asset": "ad7b8c2c796d-01-75b0.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games.",
+    "content_type": "a moment from Kai Cenat GTA 6 marathon stream",
+    "hashtags": [
+      "#KaiCenat",
+      "#GTA6"
+    ],
+    "max_hashtags": 3,
+    "name": "Kai Cenat GTA 6 Pool",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Kai had the funniest reaction when this NPC hugged Lucia in GTA 6 😭"
+  },
+  "created_at": "2026-11-20T03:53:08Z",
+  "credit": "@KaiCenat on Twitch",
+  "duration": 19.0,
+  "end": 4302.0,
+  "hashtags": [
+    "#gta6",
+    "#kaicenat",
+    "#gaming",
+    "#gtaclips"
+  ],
+  "hook": "Kai did NOT want him hugging Lucia 😭",
+  "id": "ad7b8c2c796d-01-75b0",
+  "score": 4.915,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2932305259",
+  "source_key": "ad7b8c2c796d",
+  "start": 4283.0,
+  "tag": "clips-2026-11-20",
+  "title": "Kai Cenat Reacts To An NPC Hugging Lucia",
+  "watermarked": true
+}

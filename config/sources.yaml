@@ -685,6 +685,35 @@ sources:
     credit: "@bobby_vanriper on Twitch"
     layout: "auto"
     max_clips: 6
+  - url: "https://www.twitch.tv/videos/2932305259"
+    start: "04:30:00"
+    end: "06:30:00"
+    added_by: watch  # PLAYING GTA 6 FOR THE FIRST TIME 20261120 0342
+    chunked: true
+    campaign: {"name": "Kai Cenat GTA 6 Pool", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#KaiCenat", "#GTA6"], "max_hashtags": 3, "content_type": "a moment from Kai Cenat GTA 6 marathon stream", "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games."}
+    only_gaming: true
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    brands: ["peakgaminggt"]
+    distribute: "split"
+    credit: "@KaiCenat on Twitch"
+    game: "GTA 6"
+    layout: "split"
+    split: {"facecam": [0.0, 0.0, 0.235, 0.23], "top_height": 760}
+    max_clips: 8
+  - url: "https://www.twitch.tv/videos/2933758895"
+    start: "02:20:00"
+    end: "04:20:00"
+    added_by: watch  # GTA 6 LIVE FULL GAME ALL ENDINGS  DAY 2
+    chunked: true
+    campaign: {"name": "KreekCraft GTA 6", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#GTA6", "#KreekCraft", "#GrandTheftAutoVI"], "max_hashtags": 3, "cta": "Watch KreekCraft on YouTube and Twitch", "captions": true, "logo": {"path": "assets/kreek_logo.png", "width": 560, "position": "top-center", "y": 850}, "content_type": "a moment from KreekCraft's GTA 6 livestream", "brief": "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles."}
+    only_gaming: true
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    brands: ["peakgaminggt"]
+    distribute: "split"
+    credit: "@KreekCraft on Twitch"
+    game: "GTA 6"
+    layout: "auto"
+    max_clips: 8
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
