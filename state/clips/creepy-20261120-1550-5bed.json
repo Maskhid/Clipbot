@@ -1,0 +1,34 @@
+{
+  "asset": "creepy-20261120-1550-5bed.mp4",
+  "brands": [
+    "creepy"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Never look through the second peephole..."
+  },
+  "created_at": "2026-11-20T15:52:13Z",
+  "credit": null,
+  "duration": 71.97,
+  "end": 71.966667,
+  "hashtags": [
+    "#creepypasta",
+    "#scarystories",
+    "#horrorstories",
+    "#aftermidnight"
+  ],
+  "hook": null,
+  "id": "creepy-20261120-1550-5bed",
+  "shared": false,
+  "source": "story:creepy",
+  "start": 0,
+  "story": {
+    "niche": "creepy",
+    "part": 0,
+    "series": "The Second Peephole",
+    "summary": "The narrator notices the bottom peephole on his door shows his own living room from the inside. One night he sees another version of himself walk up to the door and stare back. He realizes too late that he is trapped inside the door itself."
+  },
+  "tag": "clips-2026-11-20",
+  "title": "The Second Peephole",
+  "watermarked": true
+}
