@@ -5,10 +5,28 @@
   {
    "date": "2026-11-19",
    "followers": 0
+  },
+  {
+   "date": "2026-11-20",
+   "followers": 1
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-19T16:04:14Z",
- "videos": {}
+ "updated_at": "2026-11-20T15:46:08Z",
+ "videos": {
+  "17955809061289584": {
+   "clip_id": "mysteries-20261119-1512-0a32",
+   "comments": 0,
+   "created": "2026-11-20T00:01:21Z",
+   "id": "17955809061289584",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Journey seven miles down into the darkest place on Earth where life refuses to g",
+   "updated_at": "2026-11-20T15:46:08Z",
+   "url": "https://www.instagram.com/reel/Df8UaeliPBQ/",
+   "views": 162
+  }
+ }
 }

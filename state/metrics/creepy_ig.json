@@ -5,10 +5,41 @@
   {
    "date": "2026-11-19",
    "followers": 0
+  },
+  {
+   "date": "2026-11-20",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-19T16:04:14Z",
- "videos": {}
+ "updated_at": "2026-11-20T15:46:08Z",
+ "videos": {
+  "17970390981246676": {
+   "clip_id": "creepy-20261119-1547-b895",
+   "comments": 0,
+   "created": "2026-11-20T02:01:11Z",
+   "id": "17970390981246676",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Never answer the things that knock from the inside.\n\n#horror #creepy #storytime ",
+   "updated_at": "2026-11-20T15:46:08Z",
+   "url": "https://www.instagram.com/reel/Df8iIlIIVtI/",
+   "views": 29
+  },
+  "18104071682066068": {
+   "clip_id": "creepy-20261119-1532-a72a",
+   "comments": 0,
+   "created": "2026-11-20T01:31:18Z",
+   "id": "18104071682066068",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "Some rules are meant to be broken. You'll regret it if you do.\n\n#horrorstories #",
+   "updated_at": "2026-11-20T15:46:08Z",
+   "url": "https://www.instagram.com/reel/Df8et-DjJ1J/",
+   "views": 35
+  }
+ }
 }

@@ -5,10 +5,28 @@
   {
    "date": "2026-11-19",
    "followers": 0
+  },
+  {
+   "date": "2026-11-20",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-19T16:04:14Z",
- "videos": {}
+ "updated_at": "2026-11-20T15:46:08Z",
+ "videos": {
+  "17893356219686573": {
+   "clip_id": "survival-20261119-1455-9911",
+   "comments": 0,
+   "created": "2026-11-20T00:02:41Z",
+   "id": "17893356219686573",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "Water is rising fast and the exit is locked tight. Can you survive Part 1?\n\n#sur",
+   "updated_at": "2026-11-20T15:46:08Z",
+   "url": "https://www.instagram.com/reel/Df8UlMBgZ_r/",
+   "views": 20
+  }
+ }
 }
