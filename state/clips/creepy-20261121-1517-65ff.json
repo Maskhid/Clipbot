@@ -1,0 +1,34 @@
+{
+  "asset": "creepy-20261121-1517-65ff.mp4",
+  "brands": [
+    "creepy"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "When the GPS gives strange directions at 2 AM... never look in the back seat."
+  },
+  "created_at": "2026-11-21T15:19:13Z",
+  "credit": null,
+  "duration": 79.63,
+  "end": 79.633008,
+  "hashtags": [
+    "#creepypasta",
+    "#horrorstories",
+    "#scarystories",
+    "#aftermidnight"
+  ],
+  "hook": null,
+  "id": "creepy-20261121-1517-65ff",
+  "shared": false,
+  "source": "story:creepy",
+  "start": 0,
+  "story": {
+    "niche": "creepy",
+    "part": 0,
+    "series": "Recalculating Destination",
+    "summary": "A driver ignores strange directions from his car GPS while driving late at night. The GPS voice turns raspy, and the car's interior sensor reveals a presence sitting right behind him in the back seat."
+  },
+  "tag": "clips-2026-11-21",
+  "title": "Recalculating Destination",
+  "watermarked": true
+}

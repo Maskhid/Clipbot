@@ -1,11 +1,21 @@
 {
-  "arc": {},
+  "arc": {
+    "part": 2,
+    "parts": 3,
+    "summaries": [
+      "A deadly knock-out green fog hits the town. The boy runs bare-foot up to an old water tower to escape the low-lying gas, but finds the top hatch padlocked as the fog climbs up toward him.",
+      "The boy breaks the padlock with his backpack and climbs into the water tower tank, closing the hatch. However, a rusty pipe inside ruptures, spraying toxic green gas inside the closed space, and the hatch jams shut, trapping him inside with the poison gas."
+    ],
+    "title": "Toxic Green Fog"
+  },
   "history": [
     "Subway Flood",
     "Subway Flood",
-    "Subway Flood"
+    "Subway Flood",
+    "Toxic Green Fog",
+    "Toxic Green Fog"
   ],
   "made": {
-    "2026-11-20": 2
+    "2026-11-21": 2
   }
 }
