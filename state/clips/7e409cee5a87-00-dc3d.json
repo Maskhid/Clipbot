@@ -1,0 +1,58 @@
+{
+  "asset": "7e409cee5a87-00-dc3d.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens.",
+    "captions": true,
+    "content_type": "a moment from streamer Bobby Vanriper's Twitch stream",
+    "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper",
+    "end_card": {
+      "seconds": 3,
+      "text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper"
+    },
+    "hashtag_pool": [
+      "#twitch",
+      "#streamer",
+      "#twitchclips",
+      "#gaming",
+      "#funnymoments"
+    ],
+    "hashtags": [
+      "#bobbyvanriper"
+    ],
+    "max_hashtags": 4,
+    "name": "Bobby Van Riper",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ],
+    "pool_pick": 3
+  },
+  "captions": {
+    "hype": "Bobby hit a tree in GTA and sent the plane sky high 😭"
+  },
+  "created_at": "2026-11-21T03:49:07Z",
+  "credit": "@bobby_vanriper on Twitch",
+  "duration": 19.4,
+  "end": 1917.1,
+  "hashtags": [
+    "#gta6",
+    "#gtaglitch",
+    "#gaming",
+    "#twitchmoments",
+    "#bobbyvanriper"
+  ],
+  "hook": "This GTA plane glitch was INSANE ✈️",
+  "id": "7e409cee5a87-00-dc3d",
+  "score": 4.649,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2935492921",
+  "source_key": "7e409cee5a87",
+  "start": 1897.7,
+  "tag": "clips-2026-11-21",
+  "title": "Bobby encountered the CRAZIEST plane bug in GTA",
+  "watermarked": true
+}

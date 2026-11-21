@@ -1,0 +1,53 @@
+{
+  "asset": "579e5c3496a3-00-cb6c.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles.",
+    "captions": true,
+    "content_type": "a moment from KreekCraft's GTA 6 livestream",
+    "cta": "Watch KreekCraft on YouTube and Twitch",
+    "hashtags": [
+      "#GTA6",
+      "#KreekCraft",
+      "#GrandTheftAutoVI"
+    ],
+    "logo": {
+      "path": "assets/kreek_logo.png",
+      "position": "top-center",
+      "width": 560,
+      "y": 850
+    },
+    "max_hashtags": 3,
+    "name": "KreekCraft GTA 6",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "KreekCraft immediately changed his driving habits the second she joined the stream 😂🚗"
+  },
+  "created_at": "2026-11-21T03:59:50Z",
+  "credit": "@KreekCraft on Twitch",
+  "duration": 16.4,
+  "end": 5575.0,
+  "hashtags": [
+    "#gta6",
+    "#gaming",
+    "#kreekcraft",
+    "#gtavicecity"
+  ],
+  "hook": "He instantly OBEYED the law 😂",
+  "id": "579e5c3496a3-00-cb6c",
+  "score": 6.105,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2934981732",
+  "source_key": "579e5c3496a3",
+  "start": 5558.6,
+  "tag": "clips-2026-11-21",
+  "title": "When Your Girlfriend Catches You In GTA 6",
+  "watermarked": true
+}

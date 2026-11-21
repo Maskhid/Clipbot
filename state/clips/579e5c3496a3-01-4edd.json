@@ -1,0 +1,53 @@
+{
+  "asset": "579e5c3496a3-01-4edd.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles.",
+    "captions": true,
+    "content_type": "a moment from KreekCraft's GTA 6 livestream",
+    "cta": "Watch KreekCraft on YouTube and Twitch",
+    "hashtags": [
+      "#GTA6",
+      "#KreekCraft",
+      "#GrandTheftAutoVI"
+    ],
+    "logo": {
+      "path": "assets/kreek_logo.png",
+      "position": "top-center",
+      "width": 560,
+      "y": 850
+    },
+    "max_hashtags": 3,
+    "name": "KreekCraft GTA 6",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "You actually have to stop and refuel your vehicle in GTA 6 ⛽🔥"
+  },
+  "created_at": "2026-11-21T04:00:43Z",
+  "credit": "@KreekCraft on Twitch",
+  "duration": 21.2,
+  "end": 6054.5,
+  "hashtags": [
+    "#gta6",
+    "#gaming",
+    "#kreekcraft",
+    "#rockstargames"
+  ],
+  "hook": "GTA 6 gas stations are REAL ⛽",
+  "id": "579e5c3496a3-01-4edd",
+  "score": 5.02,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2934981732",
+  "source_key": "579e5c3496a3",
+  "start": 6033.3,
+  "tag": "clips-2026-11-21",
+  "title": "GTA 6 Actually Added Gas Station Refueling",
+  "watermarked": true
+}

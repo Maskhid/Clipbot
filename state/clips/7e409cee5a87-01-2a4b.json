@@ -1,0 +1,58 @@
+{
+  "asset": "7e409cee5a87-01-2a4b.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens.",
+    "captions": true,
+    "content_type": "a moment from streamer Bobby Vanriper's Twitch stream",
+    "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper",
+    "end_card": {
+      "seconds": 3,
+      "text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper"
+    },
+    "hashtag_pool": [
+      "#twitch",
+      "#streamer",
+      "#twitchclips",
+      "#gaming",
+      "#funnymoments"
+    ],
+    "hashtags": [
+      "#bobbyvanriper"
+    ],
+    "max_hashtags": 4,
+    "name": "Bobby Van Riper",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ],
+    "pool_pick": 3
+  },
+  "captions": {
+    "hype": "Caught slipping in the inventory menu was a huge mistake 💀"
+  },
+  "created_at": "2026-11-21T03:50:05Z",
+  "credit": "@bobby_vanriper on Twitch",
+  "duration": 28.1,
+  "end": 2440.6,
+  "hashtags": [
+    "#gta6",
+    "#gtafails",
+    "#gamingfails",
+    "#twitchclips",
+    "#bobbyvanriper"
+  ],
+  "hook": "Bobby got completely DESTROYED in GTA 😭",
+  "id": "7e409cee5a87-01-2a4b",
+  "score": 3.63,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2935492921",
+  "source_key": "7e409cee5a87",
+  "start": 2412.5,
+  "tag": "clips-2026-11-21",
+  "title": "He got destroyed while checking his inventory in GTA",
+  "watermarked": true
+}
