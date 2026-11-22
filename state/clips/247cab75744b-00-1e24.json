@@ -1,0 +1,44 @@
+{
+  "asset": "247cab75744b-00-1e24.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games.",
+    "content_type": "a moment from Kai Cenat GTA 6 marathon stream",
+    "hashtags": [
+      "#KaiCenat",
+      "#GTA6"
+    ],
+    "max_hashtags": 3,
+    "name": "Kai Cenat GTA 6 Pool",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Kai really thought he could just barge into this NPC's house 😭"
+  },
+  "created_at": "2026-11-22T10:33:02Z",
+  "credit": "@KaiCenat on Twitch",
+  "duration": 18.0,
+  "end": 941.4,
+  "hashtags": [
+    "#gta6",
+    "#kaicenat",
+    "#gaming",
+    "#gta"
+  ],
+  "hook": "Kai gets LOCKED out of NPC house 😭",
+  "id": "247cab75744b-00-1e24",
+  "score": 6.897,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2936683310",
+  "source_key": "247cab75744b",
+  "start": 923.4,
+  "tag": "clips-2026-11-22",
+  "title": "Kai Cenat tries breaking into an NPC house in GTA 6",
+  "watermarked": true
+}
