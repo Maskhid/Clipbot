@@ -13,11 +13,15 @@
   {
    "date": "2026-11-21",
    "followers": 0
+  },
+  {
+   "date": "2026-11-22",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-21T14:56:46Z",
+ "updated_at": "2026-11-22T14:54:20Z",
  "videos": {
   "17893356219686573": {
    "clip_id": "survival-20261119-1455-9911",
@@ -28,9 +32,35 @@
    "match": "id",
    "shares": 0,
    "title": "Water is rising fast and the exit is locked tight. Can you survive Part 1?\n\n#sur",
-   "updated_at": "2026-11-21T14:56:46Z",
+   "updated_at": "2026-11-22T14:54:20Z",
    "url": "https://www.instagram.com/reel/Df8UlMBgZ_r/",
    "views": 20
+  },
+  "17960922801325089": {
+   "clip_id": "survival-20261121-1351-7bbe",
+   "comments": 0,
+   "created": "2026-11-21T23:31:51Z",
+   "id": "17960922801325089",
+   "likes": 1,
+   "match": "id",
+   "shares": 0,
+   "title": "A deadly green mist strikes your city and you are trapped on a high ladder. Woul",
+   "updated_at": "2026-11-22T14:54:20Z",
+   "url": "https://www.instagram.com/reel/DgBan3gP3sI/",
+   "views": 114
+  },
+  "18084137141539541": {
+   "clip_id": "survival-20261121-1410-3bbc",
+   "comments": 0,
+   "created": "2026-11-22T02:02:05Z",
+   "id": "18084137141539541",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "The fog found you inside the water tower... can you escape before it's too late?",
+   "updated_at": "2026-11-22T14:54:20Z",
+   "url": "https://www.instagram.com/reel/DgBrzGhTeJF/",
+   "views": 36
   },
   "18115216175134859": {
    "clip_id": "survival-20261120-1445-df2b",
@@ -41,9 +71,9 @@
    "match": "id",
    "shares": 0,
    "title": "The deadly conclusion to the subway flood! Will you make it out alive?\n\n#survive",
-   "updated_at": "2026-11-21T14:56:46Z",
+   "updated_at": "2026-11-22T14:54:20Z",
    "url": "https://www.instagram.com/reel/Df_AUXNOaFT/",
-   "views": 5
+   "views": 9
   },
   "18130608470476440": {
    "clip_id": "survival-20261120-1421-d9f7",
@@ -54,9 +84,9 @@
    "match": "id",
    "shares": 0,
    "title": "The subway water is rising fast and your exit is blocked by spinning blades! Can",
-   "updated_at": "2026-11-21T14:56:46Z",
+   "updated_at": "2026-11-22T14:54:20Z",
    "url": "https://www.instagram.com/reel/Df-5TdlBTWr/",
-   "views": 22
+   "views": 25
   }
  }
 }
