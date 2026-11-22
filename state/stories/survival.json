@@ -1,21 +1,22 @@
 {
   "arc": {
-    "part": 2,
+    "part": 1,
     "parts": 3,
     "summaries": [
-      "A deadly knock-out green fog hits the town. The boy runs bare-foot up to an old water tower to escape the low-lying gas, but finds the top hatch padlocked as the fog climbs up toward him.",
-      "The boy breaks the padlock with his backpack and climbs into the water tower tank, closing the hatch. However, a rusty pipe inside ruptures, spraying toxic green gas inside the closed space, and the hatch jams shut, trapping him inside with the poison gas."
+      "Black snow falls in summer, dropping temperatures instantly to extreme sub-zero levels. The main character is trapped inside his house with frozen doors, a basement fire starting, and mysterious footsteps on the roof."
     ],
-    "title": "Toxic Green Fog"
+    "title": "Infinite Blizzard"
   },
   "history": [
     "Subway Flood",
     "Subway Flood",
     "Subway Flood",
     "Toxic Green Fog",
-    "Toxic Green Fog"
+    "Toxic Green Fog",
+    "Toxic Green Fog",
+    "Infinite Blizzard"
   ],
   "made": {
-    "2026-11-21": 2
+    "2026-11-22": 2
   }
 }

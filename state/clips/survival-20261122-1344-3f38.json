@@ -1,0 +1,34 @@
+{
+  "asset": "survival-20261122-1344-3f38.mp4",
+  "brands": [
+    "survival"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Trapped inside a sealed tank with toxic gas closing in. Did you survive?"
+  },
+  "created_at": "2026-11-22T13:45:33Z",
+  "credit": null,
+  "duration": 57.8,
+  "end": 57.8,
+  "hashtags": [
+    "#survivethis",
+    "#survivalstory",
+    "#interactive",
+    "#animation"
+  ],
+  "hook": null,
+  "id": "survival-20261122-1344-3f38",
+  "shared": false,
+  "source": "story:survival",
+  "start": 0,
+  "story": {
+    "niche": "survival",
+    "part": 3,
+    "series": "Toxic Green Fog",
+    "summary": "The viewer uses a heavy metal wrench to smash the jammed hatch of the water tank just in time, escaping the toxic green gas and collapsing safely onto the roof as the fog finally clears."
+  },
+  "tag": "clips-2026-11-22",
+  "title": "Toxic Green Fog - Part 3",
+  "watermarked": true
+}
