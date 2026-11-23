@@ -17,11 +17,15 @@
   {
    "date": "2026-11-22",
    "followers": 0
+  },
+  {
+   "date": "2026-11-23",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-22T14:54:20Z",
+ "updated_at": "2026-11-23T18:45:05Z",
  "videos": {
   "17893356219686573": {
    "clip_id": "survival-20261119-1455-9911",
@@ -32,7 +36,7 @@
    "match": "id",
    "shares": 0,
    "title": "Water is rising fast and the exit is locked tight. Can you survive Part 1?\n\n#sur",
-   "updated_at": "2026-11-22T14:54:20Z",
+   "updated_at": "2026-11-23T18:45:05Z",
    "url": "https://www.instagram.com/reel/Df8UlMBgZ_r/",
    "views": 20
   },
@@ -45,9 +49,22 @@
    "match": "id",
    "shares": 0,
    "title": "A deadly green mist strikes your city and you are trapped on a high ladder. Woul",
-   "updated_at": "2026-11-22T14:54:20Z",
+   "updated_at": "2026-11-23T18:45:05Z",
    "url": "https://www.instagram.com/reel/DgBan3gP3sI/",
    "views": 114
+  },
+  "18018935972969008": {
+   "clip_id": "survival-20261122-1344-3f38",
+   "comments": 0,
+   "created": "2026-11-23T00:03:45Z",
+   "id": "18018935972969008",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "Trapped inside a sealed tank with toxic gas closing in. Did you survive?\n\n#survi",
+   "updated_at": "2026-11-23T18:45:05Z",
+   "url": "https://www.instagram.com/reel/DgEDEUTBt7k/",
+   "views": 15
   },
   "18084137141539541": {
    "clip_id": "survival-20261121-1410-3bbc",
@@ -58,9 +75,9 @@
    "match": "id",
    "shares": 0,
    "title": "The fog found you inside the water tower... can you escape before it's too late?",
-   "updated_at": "2026-11-22T14:54:20Z",
+   "updated_at": "2026-11-23T18:45:05Z",
    "url": "https://www.instagram.com/reel/DgBrzGhTeJF/",
-   "views": 36
+   "views": 41
   },
   "18115216175134859": {
    "clip_id": "survival-20261120-1445-df2b",
@@ -71,7 +88,7 @@
    "match": "id",
    "shares": 0,
    "title": "The deadly conclusion to the subway flood! Will you make it out alive?\n\n#survive",
-   "updated_at": "2026-11-22T14:54:20Z",
+   "updated_at": "2026-11-23T18:45:05Z",
    "url": "https://www.instagram.com/reel/Df_AUXNOaFT/",
    "views": 9
   },
@@ -84,9 +101,22 @@
    "match": "id",
    "shares": 0,
    "title": "The subway water is rising fast and your exit is blocked by spinning blades! Can",
-   "updated_at": "2026-11-22T14:54:20Z",
+   "updated_at": "2026-11-23T18:45:05Z",
    "url": "https://www.instagram.com/reel/Df-5TdlBTWr/",
    "views": 25
+  },
+  "18130908779478246": {
+   "clip_id": "survival-20261122-1408-8747",
+   "comments": 0,
+   "created": "2026-11-23T01:01:59Z",
+   "id": "18130908779478246",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "Black snow is freezing everything instantly, and you're trapped inside a burning",
+   "updated_at": "2026-11-23T18:45:05Z",
+   "url": "https://www.instagram.com/reel/DgEJu39xc_B/",
+   "views": 21
   }
  }
 }
