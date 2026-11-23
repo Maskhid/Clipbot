@@ -1,0 +1,34 @@
+{
+  "asset": "mysteries-20261123-1708-fe0f.mp4",
+  "brands": [
+    "mysteries"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Hundreds of ancient wooden ships sit untouched at the bottom of the Baltic Sea. Here is why they never decay."
+  },
+  "created_at": "2026-11-23T17:10:06Z",
+  "credit": null,
+  "duration": 74.4,
+  "end": 74.4,
+  "hashtags": [
+    "#oceanmysteries",
+    "#shipwreck",
+    "#deepocean",
+    "#historymysteries"
+  ],
+  "hook": null,
+  "id": "mysteries-20261123-1708-fe0f",
+  "shared": false,
+  "source": "story:mysteries",
+  "start": 0,
+  "story": {
+    "niche": "mysteries",
+    "part": 0,
+    "series": "What Lies at the Bottom of the Baltic Sea?",
+    "summary": "This episode explores why wooden shipwrecks at the bottom of the Baltic Sea remain perfectly preserved for hundreds of years due to low salinity and oxygen-deprived dead zones."
+  },
+  "tag": "clips-2026-11-23",
+  "title": "What Lies at the Bottom of the Baltic Sea?",
+  "watermarked": true
+}

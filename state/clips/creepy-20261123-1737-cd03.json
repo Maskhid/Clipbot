@@ -1,0 +1,34 @@
+{
+  "asset": "creepy-20261123-1737-cd03.mp4",
+  "brands": [
+    "creepy"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Never check your smart home alerts late at night... 📱👁️"
+  },
+  "created_at": "2026-11-23T17:39:34Z",
+  "credit": null,
+  "duration": 66.23,
+  "end": 66.233008,
+  "hashtags": [
+    "#creepypasta",
+    "#scarystories",
+    "#scarytok",
+    "#aftermidnight"
+  ],
+  "hook": null,
+  "id": "creepy-20261123-1737-cd03",
+  "shared": false,
+  "source": "story:creepy",
+  "start": 0,
+  "story": {
+    "niche": "creepy",
+    "part": 0,
+    "series": "The Heat Map Alert",
+    "summary": "A man living alone checks a motion camera thermal app at 3:00 AM. It shows an invisible entity standing beside his bed, which whispers to him through the phone before attacking."
+  },
+  "tag": "clips-2026-11-23",
+  "title": "The Heat Map Alert",
+  "watermarked": true
+}

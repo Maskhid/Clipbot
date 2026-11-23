@@ -1,12 +1,5 @@
 {
-  "arc": {
-    "part": 1,
-    "parts": 3,
-    "summaries": [
-      "Black snow falls in summer, dropping temperatures instantly to extreme sub-zero levels. The main character is trapped inside his house with frozen doors, a basement fire starting, and mysterious footsteps on the roof."
-    ],
-    "title": "Infinite Blizzard"
-  },
+  "arc": {},
   "history": [
     "Subway Flood",
     "Subway Flood",
@@ -14,9 +7,11 @@
     "Toxic Green Fog",
     "Toxic Green Fog",
     "Toxic Green Fog",
+    "Infinite Blizzard",
+    "Infinite Blizzard",
     "Infinite Blizzard"
   ],
   "made": {
-    "2026-11-22": 2
+    "2026-11-23": 2
   }
 }
