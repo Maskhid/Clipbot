@@ -21,12 +21,29 @@
   {
    "date": "2026-11-23",
    "followers": 0
+  },
+  {
+   "date": "2026-11-24",
+   "followers": 0
   }
  ],
  "notes": [],
  "platform": "instagram",
- "updated_at": "2026-11-23T18:45:05Z",
+ "updated_at": "2026-11-24T18:19:54Z",
  "videos": {
+  "17874908652645700": {
+   "clip_id": "survival-20261123-1627-5986",
+   "comments": 0,
+   "created": "2026-11-24T00:05:18Z",
+   "id": "17874908652645700",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "The black snow isn't weather... it's alive. Can you survive the night?\n\n#Survive",
+   "updated_at": "2026-11-24T18:19:54Z",
+   "url": "https://www.instagram.com/reel/DgGoBzOp3QC/",
+   "views": 21
+  },
   "17893356219686573": {
    "clip_id": "survival-20261119-1455-9911",
    "comments": 0,
@@ -36,9 +53,22 @@
    "match": "id",
    "shares": 0,
    "title": "Water is rising fast and the exit is locked tight. Can you survive Part 1?\n\n#sur",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/Df8UlMBgZ_r/",
    "views": 20
+  },
+  "17926117029219922": {
+   "clip_id": "survival-20261123-1655-620f",
+   "comments": 0,
+   "created": "2026-11-24T01:32:06Z",
+   "id": "17926117029219922",
+   "likes": 0,
+   "match": "id",
+   "shares": 0,
+   "title": "The final battle against the black snow monster! Can you trick a monster that fe",
+   "updated_at": "2026-11-24T18:19:54Z",
+   "url": "https://www.instagram.com/reel/DgGx9CMzzaw/",
+   "views": 109
   },
   "17960922801325089": {
    "clip_id": "survival-20261121-1351-7bbe",
@@ -49,7 +79,7 @@
    "match": "id",
    "shares": 0,
    "title": "A deadly green mist strikes your city and you are trapped on a high ladder. Woul",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/DgBan3gP3sI/",
    "views": 114
   },
@@ -62,9 +92,9 @@
    "match": "id",
    "shares": 0,
    "title": "Trapped inside a sealed tank with toxic gas closing in. Did you survive?\n\n#survi",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/DgEDEUTBt7k/",
-   "views": 15
+   "views": 17
   },
   "18084137141539541": {
    "clip_id": "survival-20261121-1410-3bbc",
@@ -75,7 +105,7 @@
    "match": "id",
    "shares": 0,
    "title": "The fog found you inside the water tower... can you escape before it's too late?",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/DgBrzGhTeJF/",
    "views": 41
   },
@@ -88,7 +118,7 @@
    "match": "id",
    "shares": 0,
    "title": "The deadly conclusion to the subway flood! Will you make it out alive?\n\n#survive",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/Df_AUXNOaFT/",
    "views": 9
   },
@@ -101,7 +131,7 @@
    "match": "id",
    "shares": 0,
    "title": "The subway water is rising fast and your exit is blocked by spinning blades! Can",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/Df-5TdlBTWr/",
    "views": 25
   },
@@ -114,7 +144,7 @@
    "match": "id",
    "shares": 0,
    "title": "Black snow is freezing everything instantly, and you're trapped inside a burning",
-   "updated_at": "2026-11-23T18:45:05Z",
+   "updated_at": "2026-11-24T18:19:54Z",
    "url": "https://www.instagram.com/reel/DgEJu39xc_B/",
    "views": 21
   }
