@@ -1,5 +1,13 @@
 {
-  "arc": {},
+  "arc": {
+    "part": 2,
+    "parts": 3,
+    "summaries": [
+      "The ocean suddenly recedes, signaling a massive tsunami approaching the coast. While other residents trap themselves in a traffic jam, the boy runs toward a sturdy seven-story concrete hotel for vertical evacuation, but finds the stairwell locked just as the wave strikes.",
+      "The wave crashes through the hotel lobby, trapping the boy in rising water. After failing to open the locked stairwell, he uses a floating vending machine to reach the ceiling air ducts and crawls inside just as the room collapses."
+    ],
+    "title": "Mega Tsunami"
+  },
   "history": [
     "Subway Flood",
     "Subway Flood",
@@ -9,9 +17,11 @@
     "Toxic Green Fog",
     "Infinite Blizzard",
     "Infinite Blizzard",
-    "Infinite Blizzard"
+    "Infinite Blizzard",
+    "Mega Tsunami",
+    "Mega Tsunami"
   ],
   "made": {
-    "2026-11-23": 2
+    "2026-11-24": 2
   }
 }

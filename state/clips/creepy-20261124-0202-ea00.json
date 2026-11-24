@@ -1,0 +1,34 @@
+{
+  "asset": "creepy-20261124-0202-ea00.mp4",
+  "brands": [
+    "creepy"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Never check the security camera feed when you are home alone..."
+  },
+  "created_at": "2026-11-24T02:04:44Z",
+  "credit": null,
+  "duration": 76.53,
+  "end": 76.533333,
+  "hashtags": [
+    "#creepypasta",
+    "#scarystories",
+    "#horrorstories",
+    "#aftermidnight"
+  ],
+  "hook": null,
+  "id": "creepy-20261124-0202-ea00",
+  "shared": false,
+  "source": "story:creepy",
+  "start": 0,
+  "story": {
+    "niche": "creepy",
+    "part": 0,
+    "series": "The Live Feed Alert",
+    "summary": "A man receives a security camera motion alert while sitting alone in his bedroom. Watching the live feed, he sees his room in real-time, but on the screen, the closet behind him opens and long hands drag his live image inside—trapping his perspective inside the closed closet."
+  },
+  "tag": "clips-2026-11-24",
+  "title": "The Live Feed Alert",
+  "watermarked": true
+}

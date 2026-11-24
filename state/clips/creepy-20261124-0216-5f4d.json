@@ -1,0 +1,34 @@
+{
+  "asset": "creepy-20261124-0216-5f4d.mp4",
+  "brands": [
+    "creepy"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "I thought I was walking home alone... until I looked down at the sidewalk."
+  },
+  "created_at": "2026-11-24T02:18:08Z",
+  "credit": null,
+  "duration": 76.07,
+  "end": 76.066667,
+  "hashtags": [
+    "#creepypasta",
+    "#scarystories",
+    "#horrorstories",
+    "#aftermidnight"
+  ],
+  "hook": null,
+  "id": "creepy-20261124-0216-5f4d",
+  "shared": false,
+  "source": "story:creepy",
+  "start": 0,
+  "story": {
+    "niche": "creepy",
+    "part": 0,
+    "series": "The Puddle Ahead",
+    "summary": "A man walking home late at night notices his reflection in rainwater puddles is walking several steps ahead of him. When he reaches his apartment, the puddle under his door reveals his reflection is already waiting inside his locked flat."
+  },
+  "tag": "clips-2026-11-24",
+  "title": "The Puddle Ahead",
+  "watermarked": true
+}
