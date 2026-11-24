@@ -1,0 +1,54 @@
+{
+  "asset": "d581ee26a419-02-5160.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles.",
+    "captions": true,
+    "content_type": "a moment from KreekCraft's GTA 6 livestream",
+    "cta": "Watch KreekCraft on YouTube and Twitch",
+    "hashtags": [
+      "#GTA6",
+      "#KreekCraft",
+      "#GrandTheftAutoVI"
+    ],
+    "logo": {
+      "path": "assets/kreek_logo.png",
+      "position": "top-center",
+      "width": 560,
+      "y": 850
+    },
+    "max_hashtags": 3,
+    "name": "KreekCraft GTA 6",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Trying to get airborne before getting shot down! 😱"
+  },
+  "created_at": "2026-11-24T05:16:33Z",
+  "credit": "@KreekCraft on Twitch",
+  "duration": 24.4,
+  "end": 2130.0,
+  "hashtags": [
+    "#gta6",
+    "#kreekcraft",
+    "#gtaclips",
+    "#gaming",
+    "#gta"
+  ],
+  "hook": "Taking off in a giant PLANE ✈️",
+  "id": "d581ee26a419-02-5160",
+  "score": 4.95,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2938831767",
+  "source_key": "d581ee26a419",
+  "start": 2105.6,
+  "tag": "clips-2026-11-24",
+  "title": "Stealing a commercial jet on the runway",
+  "watermarked": true
+}
