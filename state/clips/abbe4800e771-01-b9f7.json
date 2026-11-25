@@ -1,0 +1,44 @@
+{
+  "asset": "abbe4800e771-01-b9f7.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games.",
+    "content_type": "a moment from Kai Cenat GTA 6 marathon stream",
+    "hashtags": [
+      "#KaiCenat",
+      "#GTA6"
+    ],
+    "max_hashtags": 3,
+    "name": "Kai Cenat GTA 6 Pool",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "Kai somehow managed to get a 4 star wanted level while driving a delivery van at night 😭"
+  },
+  "created_at": "2026-11-25T03:01:10Z",
+  "credit": "@KaiCenat on Twitch",
+  "duration": 16.1,
+  "end": 3265.6,
+  "hashtags": [
+    "#gta6",
+    "#kaicenat",
+    "#gta6clips",
+    "#ishowspeed"
+  ],
+  "hook": "Getting 4 stars in a van is WILD 🚨",
+  "id": "abbe4800e771-01-b9f7",
+  "score": 4.454,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2939504732",
+  "source_key": "abbe4800e771",
+  "start": 3249.5,
+  "tag": "clips-2026-11-25",
+  "title": "Kai Cenat driving with 4 star wanted level in GTA 6",
+  "watermarked": true
+}

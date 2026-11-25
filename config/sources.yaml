@@ -1010,6 +1010,21 @@ sources:
     game: "GTA 6"
     layout: "auto"
     max_clips: 8
+  - url: "https://www.twitch.tv/videos/2939504732"
+    start: "00:30:00"
+    end: "02:30:00"
+    added_by: watch  # KAI VS SPEED FIRST TO MAKE A MILLION DOLLARS IN GTA 6
+    chunked: true
+    campaign: {"name": "Kai Cenat GTA 6 Pool", "platforms": ["instagram", "tiktok", "youtube"], "hashtags": ["#KaiCenat", "#GTA6"], "max_hashtags": 3, "content_type": "a moment from Kai Cenat GTA 6 marathon stream", "brief": "Kai Cenat playing GTA 6 must be the main focus: his biggest reactions, funniest moments and craziest gameplay. No IRL or other games."}
+    only_gaming: true
+    games: ["Grand Theft Auto VI", "GTA 6"]
+    brands: ["peakgaminggt"]
+    distribute: "split"
+    credit: "@KaiCenat on Twitch"
+    game: "GTA 6"
+    layout: "split"
+    split: {"facecam": [0.0, 0.0, 0.235, 0.23], "top_height": 760}
+    max_clips: 8
 
 channels:
   - url: "https://www.twitch.tv/kaicenat"
