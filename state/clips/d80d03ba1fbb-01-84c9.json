@@ -1,0 +1,53 @@
+{
+  "asset": "d80d03ba1fbb-01-84c9.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Only GTA 6 moments. Pick his funniest, craziest, most viral reactions and gameplay with a strong hook in the first 1-2 seconds. No random gameplay, no fabricated context, no fake reactions, no misleading titles.",
+    "captions": true,
+    "content_type": "a moment from KreekCraft's GTA 6 livestream",
+    "cta": "Watch KreekCraft on YouTube and Twitch",
+    "hashtags": [
+      "#GTA6",
+      "#KreekCraft",
+      "#GrandTheftAutoVI"
+    ],
+    "logo": {
+      "path": "assets/kreek_logo.png",
+      "position": "top-center",
+      "width": 560,
+      "y": 850
+    },
+    "max_hashtags": 3,
+    "name": "KreekCraft GTA 6",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ]
+  },
+  "captions": {
+    "hype": "You wanna get hit stupid? I will fucking do it! 💀"
+  },
+  "created_at": "2026-11-26T09:29:46Z",
+  "credit": "@KreekCraft on Twitch",
+  "duration": 17.5,
+  "end": 2139.3,
+  "hashtags": [
+    "#gta6",
+    "#kreekcraft",
+    "#gta6gameplay",
+    "#funny"
+  ],
+  "hook": "NPC road rage in GTA 6 💀",
+  "id": "d80d03ba1fbb-01-84c9",
+  "score": 3.002,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2940796044",
+  "source_key": "d80d03ba1fbb",
+  "start": 2121.8,
+  "tag": "clips-2026-11-26",
+  "title": "GTA 6 NPC road rage reaction",
+  "watermarked": true
+}
