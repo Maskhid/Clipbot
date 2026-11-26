@@ -1,0 +1,34 @@
+{
+  "asset": "mysteries-20261126-1636-be9f.mp4",
+  "brands": [
+    "mysteries"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Twenty-four thousand feet down in the Indian Ocean lies an alien world nobody expected."
+  },
+  "created_at": "2026-11-26T16:38:27Z",
+  "credit": null,
+  "duration": 80.5,
+  "end": 80.5,
+  "hashtags": [
+    "#javatrench",
+    "#oceanmystery",
+    "#deepsea",
+    "#hadalzone"
+  ],
+  "hook": null,
+  "id": "mysteries-20261126-1636-be9f",
+  "shared": false,
+  "source": "story:mysteries",
+  "start": 0,
+  "story": {
+    "niche": "mysteries",
+    "part": 0,
+    "series": "What Lies at the Bottom of the Java Trench?",
+    "summary": "The episode explores the Java Trench in the Indian Ocean, reaching depths of over 24,000 feet. It reveals how extreme pressure shapes life, highlighting hadal snailfish and the mysterious stalked sea squirt. The narrative concludes by comparing this harsh ecosystem to potential oceans on icy moons."
+  },
+  "tag": "clips-2026-11-26",
+  "title": "What Lies at the Bottom of the Java Trench?",
+  "watermarked": true
+}

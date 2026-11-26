@@ -1,12 +1,5 @@
 {
-  "arc": {
-    "part": 1,
-    "parts": 3,
-    "summaries": [
-      "A volcano erupts, covering the town in deadly ash and sulfur fumes. You escape into a shop to create a makeshift filter mask before sprinting up cliffside stairs toward a lighthouse, only to look back and see a massive pyroclastic ash wave charging straight at you."
-    ],
-    "title": "Volcano Ashfall"
-  },
+  "arc": {},
   "history": [
     "Subway Flood",
     "Subway Flood",
@@ -20,9 +13,11 @@
     "Mega Tsunami",
     "Mega Tsunami",
     "Mega Tsunami",
+    "Volcano Ashfall",
+    "Volcano Ashfall",
     "Volcano Ashfall"
   ],
   "made": {
-    "2026-11-25": 2
+    "2026-11-26": 2
   }
 }

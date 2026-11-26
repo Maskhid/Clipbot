@@ -1,0 +1,34 @@
+{
+  "asset": "survival-20261126-1607-9bd4.mp4",
+  "brands": [
+    "survival"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "You barely escape the ash wave, but can you make it to the rescue chopper?"
+  },
+  "created_at": "2026-11-26T16:08:58Z",
+  "credit": null,
+  "duration": 36.47,
+  "end": 36.466667,
+  "hashtags": [
+    "#survival",
+    "#volcano",
+    "#storytime",
+    "#interactive"
+  ],
+  "hook": null,
+  "id": "survival-20261126-1607-9bd4",
+  "shared": false,
+  "source": "story:survival",
+  "start": 0,
+  "story": {
+    "niche": "survival",
+    "part": 3,
+    "series": "Volcano Ashfall",
+    "summary": "You climb the lighthouse stairs to escape the rising smoke, reach the top observation deck, and signal a rescue helicopter just in time."
+  },
+  "tag": "clips-2026-11-26",
+  "title": "Volcano Ashfall - Part 3",
+  "watermarked": true
+}
