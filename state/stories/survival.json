@@ -1,5 +1,13 @@
 {
-  "arc": {},
+  "arc": {
+    "part": 2,
+    "parts": 3,
+    "summaries": [
+      "A global solar storm hits Earth, destroying electronics and superheating the atmosphere. The main character dodges falling power lines and slips inside a concrete parking garage, but the entrance doors begin to melt shut.",
+      "Trapped in a parking garage during a solar storm, the main character uses a rubber mat to blast through a scalding steam barrier to reach basement level three. Once down there, broken water pipes flood the room while live high-voltage cables snap overhead, electrifying the water surrounding them."
+    ],
+    "title": "Solar Storm Crisis"
+  },
   "history": [
     "Subway Flood",
     "Subway Flood",
@@ -15,9 +23,11 @@
     "Mega Tsunami",
     "Volcano Ashfall",
     "Volcano Ashfall",
-    "Volcano Ashfall"
+    "Volcano Ashfall",
+    "Solar Storm Crisis",
+    "Solar Storm Crisis"
   ],
   "made": {
-    "2026-11-26": 2
+    "2026-11-27": 2
   }
 }

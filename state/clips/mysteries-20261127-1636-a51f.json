@@ -1,0 +1,35 @@
+{
+  "asset": "mysteries-20261127-1636-a51f.mp4",
+  "brands": [
+    "mysteries"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Saturn's largest moon hides seas of liquid gas and a secret warm ocean underneath. What could be living down there?"
+  },
+  "created_at": "2026-11-27T16:38:36Z",
+  "credit": null,
+  "duration": 69.7,
+  "end": 69.7,
+  "hashtags": [
+    "#Titan",
+    "#SpaceMysteries",
+    "#Saturn",
+    "#DeepUnknown",
+    "#Astronomy"
+  ],
+  "hook": null,
+  "id": "mysteries-20261127-1636-a51f",
+  "shared": false,
+  "source": "story:mysteries",
+  "start": 0,
+  "story": {
+    "niche": "mysteries",
+    "part": 0,
+    "series": "What Lies Beneath Titan's Methane Seas?",
+    "summary": "This episode explores Titan's liquid methane seas, specifically Kraken Mare, detailing its organic sludge seabed and hidden subsurface liquid water ocean. Future submarine exploration is mentioned, ending with a question about alien ocean exploration."
+  },
+  "tag": "clips-2026-11-27",
+  "title": "What Lies Beneath Titan's Methane Seas?",
+  "watermarked": true
+}
