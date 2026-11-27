@@ -1,0 +1,58 @@
+{
+  "asset": "a0a7c0165fc9-02-158c.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens.",
+    "captions": true,
+    "content_type": "a moment from streamer Bobby Vanriper's Twitch stream",
+    "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper",
+    "end_card": {
+      "seconds": 3,
+      "text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper"
+    },
+    "hashtag_pool": [
+      "#twitch",
+      "#streamer",
+      "#twitchclips",
+      "#gaming",
+      "#funnymoments"
+    ],
+    "hashtags": [
+      "#bobbyvanriper"
+    ],
+    "max_hashtags": 4,
+    "name": "Bobby Van Riper",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ],
+    "pool_pick": 3
+  },
+  "captions": {
+    "hype": "Bobby could not stop laughing after this balcony character glitch 😭"
+  },
+  "created_at": "2026-11-27T03:27:15Z",
+  "credit": "@bobby_vanriper on Twitch",
+  "duration": 24.5,
+  "end": 5575.5,
+  "hashtags": [
+    "#gta6",
+    "#gtaglitch",
+    "#funny",
+    "#gaming",
+    "#streamer"
+  ],
+  "hook": "Her hair glitched INSIDE him 😭",
+  "id": "a0a7c0165fc9-02-158c",
+  "score": 4.347,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2941427899",
+  "source_key": "a0a7c0165fc9",
+  "start": 5551.0,
+  "tag": "clips-2026-11-27",
+  "title": "GTA 6 Physics Glitch on the Balcony",
+  "watermarked": true
+}
