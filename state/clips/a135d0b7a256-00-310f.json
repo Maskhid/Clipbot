@@ -1,0 +1,56 @@
+{
+  "asset": "a135d0b7a256-00-310f.mp4",
+  "brands": [
+    "peakgaminggt"
+  ],
+  "campaign": {
+    "brief": "Priority: funny moments, crazy gaming moments and big reactions; also strong opinions, memorable quotes and the best IRL interactions. One clear moment per clip; cut anything that needs more than a few seconds of context. Never portray Bobby in a negative light. Captions and titles must match what actually happens.",
+    "captions": true,
+    "content_type": "a moment from streamer Bobby Vanriper's Twitch stream",
+    "cta": "Follow Bobby Vanriper on Twitch: twitch.tv/bobby_vanriper",
+    "end_card": {
+      "seconds": 3,
+      "text": "Follow Bobby Vanriper on Twitch\ntwitch.tv/bobby_vanriper"
+    },
+    "hashtag_pool": [
+      "#twitch",
+      "#streamer",
+      "#twitchclips",
+      "#gaming",
+      "#funnymoments"
+    ],
+    "hashtags": [
+      "#bobbyvanriper"
+    ],
+    "max_hashtags": 4,
+    "name": "Bobby Van Riper",
+    "platforms": [
+      "instagram",
+      "tiktok",
+      "youtube"
+    ],
+    "pool_pick": 3
+  },
+  "captions": {
+    "hype": "Bobby actually predicted the exact high heel execute move right before it happened! 😱🔥"
+  },
+  "created_at": "2026-11-28T08:53:05Z",
+  "credit": "@bobby_vanriper on Twitch",
+  "duration": 23.8,
+  "end": 8481.7,
+  "hashtags": [
+    "#gta6",
+    "#gaming",
+    "#twitch"
+  ],
+  "hook": "Bobby CALLED this move 😱",
+  "id": "a135d0b7a256-00-310f",
+  "score": 4.876,
+  "shared": false,
+  "source": "https://www.twitch.tv/videos/2942785451",
+  "source_key": "a135d0b7a256",
+  "start": 8457.9,
+  "tag": "clips-2026-11-28",
+  "title": "Bobby Predicted This Insane Move",
+  "watermarked": true
+}
