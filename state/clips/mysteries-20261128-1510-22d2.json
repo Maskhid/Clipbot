@@ -1,0 +1,34 @@
+{
+  "asset": "mysteries-20261128-1510-22d2.mp4",
+  "brands": [
+    "mysteries"
+  ],
+  "campaign": null,
+  "captions": {
+    "story": "Journey ten thousand meters down into the Kermadec Trench to see what defies the pressure."
+  },
+  "created_at": "2026-11-28T15:11:45Z",
+  "credit": null,
+  "duration": 39.3,
+  "end": 39.3,
+  "hashtags": [
+    "#ocean",
+    "#deepsea",
+    "#science",
+    "#mysteries"
+  ],
+  "hook": null,
+  "id": "mysteries-20261128-1510-22d2",
+  "shared": false,
+  "source": "story:mysteries",
+  "start": 0,
+  "story": {
+    "niche": "mysteries",
+    "part": 0,
+    "series": "What Lies at the Bottom of the Kermadec Trench?",
+    "summary": "This episode explores the Kermadec Trench, revealing how giant supergiant amphipods survive under immense pressure in total darkness. It highlights how life adapts to the most extreme environments on Earth."
+  },
+  "tag": "clips-2026-11-28",
+  "title": "What Lies at the Bottom of the Kermadec Trench?",
+  "watermarked": true
+}

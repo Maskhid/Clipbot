@@ -1,12 +1,11 @@
 {
   "arc": {
-    "part": 2,
+    "part": 1,
     "parts": 3,
     "summaries": [
-      "A global solar storm hits Earth, destroying electronics and superheating the atmosphere. The main character dodges falling power lines and slips inside a concrete parking garage, but the entrance doors begin to melt shut.",
-      "Trapped in a parking garage during a solar storm, the main character uses a rubber mat to blast through a scalding steam barrier to reach basement level three. Once down there, broken water pipes flood the room while live high-voltage cables snap overhead, electrifying the water surrounding them."
+      "A wildfire traps you inside a canyon, forcing you to run downhill through blinding smoke. After bypassing a blocked trail through a drainage pipe, you reach a wooden gorge bridge that is already catching fire."
     ],
-    "title": "Solar Storm Crisis"
+    "title": "Wildfire Inferno"
   },
   "history": [
     "Subway Flood",
@@ -25,9 +24,11 @@
     "Volcano Ashfall",
     "Volcano Ashfall",
     "Solar Storm Crisis",
-    "Solar Storm Crisis"
+    "Solar Storm Crisis",
+    "Solar Storm Crisis",
+    "Wildfire Inferno"
   ],
   "made": {
-    "2026-11-27": 2
+    "2026-11-28": 2
   }
 }
